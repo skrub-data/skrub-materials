@@ -20,7 +20,7 @@ _build/%.ipynb: %.py
 
 %-quarto.html: %.ipynb
 	mkdir -p _build
-	cd _build && quarto render $(notdir $<) --to html -o $(notdir $@)
+	cd _build && quarto render  $(notdir $<) --to html -o $(notdir $@) --execute
 
 %-nbconvert.html: %.ipynb
 	mkdir -p _build
