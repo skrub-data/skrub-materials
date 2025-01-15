@@ -43,13 +43,13 @@ employees.iloc[0]
 # ## `TableReport`: interactive display of a dataframe
 
 # %%
-skrub.TableReport(employees)
+skrub.TableReport(employees, verbose=0)
 
 # %% [markdown]
 # We can tell skrub to patch the default display of polars and pandas dataframes.
 
 # %%
-skrub.patch_display()
+skrub.patch_display(verbose=0)
 
 # %% [markdown]
 # # 2. Can we learn anything?
