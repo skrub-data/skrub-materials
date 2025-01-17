@@ -33,9 +33,11 @@
 
 # %%
 import skrub
-from skrub import datasets
+import pandas as pd
 
-employees = datasets.fetch_employee_salaries().X
+employee_salaries = pd.read_csv("https://figshare.com/ndownloader/files/51755822")
+employees = employee_salaries.drop("current_annual_salary", axis=1)
+salaries = employee_salaries["current_annual_salary"]
 employees.iloc[0]
 
 # %% [markdown]
@@ -55,8 +57,7 @@ skrub.patch_display(verbose=0)
 # # 2. Can we learn anything?
 
 # %%
-employee_salaries = datasets.fetch_employee_salaries()
-X, y = employee_salaries.X, employee_salaries.y
+X, y = employees, salaries
 
 # %% [markdown]
 # ## `tabular_learner`: a pre-made robust baseline
