@@ -1,0 +1,43 @@
+---
+format: 
+    revealjs:
+        slide-number: c/t
+        show-slide-number: all
+        preview-links: auto
+        embed-resources: false
+        transition: slide
+        # theme: dark
+incremental: false
+---
+# Skrub workshop
+29th January, 2025
+
+## First, a few questions... {.smaller}
+- Do you program directly? In which language?
+- Do you use specific platforms (e.g., Dataiku)?
+- Do you use mostly pandas, polars, or other libraries?
+- What dev environment do you use? Notebooks, IDEs...
+- How do you organize your code? A complete package, a few scripts, ...
+
+## Slido workshop
+https://app.sli.do/event/wEt4CxjD8ZDeJAniLVHdDz
+
+![](images/qr-code-slido.png)
+
+## Plan for the morning {.smaller} 
+- 10:00 - 10:30 - An overview on Skrub
+- 10:30 - 10:45 - Introductory Q&A
+- 10:45 - 11:00 - Break
+- 11:00 - 12:00 - Future developments
+- 12:00 - 13:30 - Lunch
+
+## Plan for the afternoon {.smaller}
+- 13:30 - 14:00 - A practical use case in research
+- 14:30 - 16:00 - Breakout sessions
+- 16:00 - 16:15 - Break
+- 16:15 - 17:00 - Ranking suggestions and awards
+
+## Breakout sessions
+- Presenting use cases and discussion
+- Skrub tutorial
+- Contributing to skrub
