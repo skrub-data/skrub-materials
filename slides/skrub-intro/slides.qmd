@@ -1,4 +1,8 @@
 ---
+title: "Skrub"
+subtitle: "Less wrangling, more machine learning"
+author: "Riccardo Cappuzzo, Jérôme Dockès"
+institute: "Inria"
 format: 
     revealjs:
         slide-number: c/t
@@ -11,14 +15,7 @@ format:
         footer: https://github.com/skrub-data/skrub
 incremental: true
 
-# bibliography: biblio.bib
-# csl: ieee.csl
 ---
-# Skrub: less wrangling, more machine learning
-Riccardo Cappuzzo
-
-Jérôme Dockès
-
 ## Plan for the presentation
 - Introducing skrub (speaker: Riccardo)
     - Example use case

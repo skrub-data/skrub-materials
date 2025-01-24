@@ -28,12 +28,12 @@ https://app.sli.do/event/wEt4CxjD8ZDeJAniLVHdDz
 - 10:00 - 10:30 - An overview on Skrub
 - 10:30 - 10:45 - Introductory Q&A
 - 10:45 - 11:00 - Break
-- 11:00 - 12:00 - Future developments
+- 11:00 - 12:00 - Future developments and discussion
 - 12:00 - 13:30 - Lunch
 
 ## Plan for the afternoon {.smaller}
 - 13:30 - 14:00 - A practical use case in research
-- 14:30 - 16:00 - Breakout sessions
+- 14:00 - 16:00 - Breakout sessions
 - 16:00 - 16:15 - Break
 - 16:15 - 17:00 - Ranking suggestions and awards
 
