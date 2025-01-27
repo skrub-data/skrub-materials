@@ -1,0 +1,539 @@
+---
+title: "Skrub"
+subtitle: "Less wrangling, more machine learning"
+author: "Riccardo Cappuzzo, Jérôme Dockès, Vincent Maladiere"
+institute: "Inria, P16, Probabl."
+format: 
+    revealjs:
+        slide-number: c/t
+        show-slide-number: all
+        preview-links: auto
+        embed-resources: false
+        transition: slide
+        theme: simple
+        logo: images/skrub.svg
+        footer: https://github.com/skrub-data/skrub
+incremental: true
+
+---
+## Plan for the presentation
+- Introducing skrub
+    - Example use case
+    - Detailed explanation of the features
+    - Getting involved
+- Development roadmap
+    - Recipe
+    - Timeseries
+    - Discover
+    - Database interfaces
+
+## Before we start
+- If you have questions, raise your hand and someone will come to you
+- Write your suggestions on Slido
+- Follow along at:
+
+![](images/qr-code-skrub-intro.png)
+
+## In the beginning...
+Skrub stems from the development of `dirty_cat`, a package that provided support
+for handling dirty columns and perform fuzzy joins across tables. 
+
+
+## Skrub's vision
+The goal of skrub is to facilitate building and deploying machine-learning models on tables: pandas dataframes, SQL databases...
+
+::: {.callout}
+Skrub is high-level, with a philosophy and an API matching that of scikit-learn. It strives to bridge the worlds of databases and machine-learning, enabling imperfect assembly and representations of the data when it is noisy.
+:::
+
+
+# Let's set the stage {auto-animate="true"}
+
+## An example use case {auto-animate="true"}
+1. Gather some data
+    - Employee salaries, census, customer churn...
+2. Explore the data
+    - Null values, dtypes, correlated features...
+3. Pre-process the data
+4. Build a scikit-learn estimator
+5. ???
+6. Profit 📈 
+
+
+## Exploring the data {.smaller}
+```{python}
+#| echo: true
+import skrub
+import pandas as pd
+
+employee_salaries = pd.read_csv(
+    "https://figshare.com/ndownloader/files/51755822"
+)
+
+employees = employee_salaries.drop("current_annual_salary", axis=1)
+salaries = employee_salaries["current_annual_salary"]
+
+employees.describe(include="all")
+```
+```
+```
+
+## Exploring the data... interactively! 
+
+```{.python}
+from skrub import TableReport
+TableReport(employee_salaries)
+```
+[Preview](https://skrub-data.org/skrub-reports/examples/employee_salaries.html){preview-link="true"}
+
+
+:::fragment
+[Try it out yourself!](https://skrub-data.org/skrub-reports/examples/)
+:::
+
+## Build a predictive pipeline {auto-animate="true" .smaller}
+```{.python}
+```
+
+## Build a predictive pipeline {auto-animate="true"}
+```{.python}
+from sklearn.linear_model import Ridge
+model = Ridge()
+```
+
+## Build a predictive pipeline {auto-animate="true"}
+```{.python code-line-numbers="2-5"}
+from sklearn.linear_model import Ridge
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import StandardScaler
+
+model = make_pipeline(StandardScaler(), Ridge())
+```
+
+## Build a predictive pipeline {auto-animate="true"}
+```{.python code-line-numbers="4,6"}
+from sklearn.linear_model import Ridge
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.impute import SimpleImputer
+
+model = make_pipeline(SimpleImputer(), StandardScaler(), Ridge())
+```
+
+
+## Build a predictive pipeline {auto-animate="true"}
+```{.python code-line-numbers="3,5,6-17"}
+from sklearn.linear_model import Ridge
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import StandardScaler, OneHotEncoder
+from sklearn.impute import SimpleImputer
+from sklearn.compose import make_column_selector as selector
+from sklearn.compose import make_column_transformer
+
+categorical_columns = selector(dtype_include=object)(employees)
+numerical_columns = selector(dtype_exclude=object)(employees)
+
+ct = make_column_transformer(
+      (StandardScaler(),
+       numerical_columns),
+      (OneHotEncoder(handle_unknown="ignore"),
+       categorical_columns))
+
+model = make_pipeline(ct, SimpleImputer(), Ridge())
+```
+
+
+## Build a predictive pipeline {auto-animate="true"}
+```{.python}
+from sklearn.linear_model import Ridge
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import StandardScaler, OneHotEncoder
+from sklearn.impute import SimpleImputer
+from sklearn.compose import make_column_selector as selector
+from sklearn.compose import make_column_transformer
+
+categorical_columns = selector(dtype_include=object)(employees)
+numerical_columns = selector(dtype_exclude=object)(employees)
+
+ct = make_column_transformer(
+      (StandardScaler(),
+       numerical_columns),
+      (OneHotEncoder(handle_unknown="ignore"),
+       categorical_columns))
+
+model = make_pipeline(ct, SimpleImputer(), Ridge())
+```
+
+
+## Build a predictive pipeline {auto-animate="true"}
+```{python}
+from sklearn.preprocessing import StandardScaler, OneHotEncoder
+from sklearn.impute import SimpleImputer
+from sklearn.pipeline import make_pipeline
+from sklearn.linear_model import Ridge
+from sklearn.compose import make_column_selector as selector
+from sklearn.compose import make_column_transformer
+
+categorical_columns = selector(dtype_include=object)(employees)
+numerical_columns = selector(dtype_exclude=object)(employees)
+
+ct = make_column_transformer(
+      (StandardScaler(),
+       numerical_columns),
+      (OneHotEncoder(handle_unknown="ignore"),
+       categorical_columns))
+       
+model = make_pipeline(ct, SimpleImputer(), Ridge())
+model
+```
+
+
+## Enter: `tabular_learner` {auto-animate="true"}
+```{.python}
+import skrub
+from sklearn.linear_model import Ridge
+tl = skrub.tabular_learner(Ridge())
+```
+
+
+## Enter: `tabular_learner` {auto-animate="true" .smaller}
+```{python}
+from sklearn.linear_model import Ridge
+tl = skrub.tabular_learner(Ridge())
+tl
+```
+
+
+## 
+![](images/drakeno.png){fig-align="center"}
+
+
+## A robust baseline: `tabular_learner` {.smaller}
+Given a scikit-learn estimator, `tabular_learner`:
+
+- extracts numerical features
+- imputes missing values with `SimpleImputer`
+- if necessary, scales the data with `StandardScaler`
+
+::: {.fragment}
+Or, just write "`tabular_learner("regressor")`":
+```{python}
+skrub.tabular_learner("regressor")
+```
+
+:::
+
+# Skrub's main features
+
+## Unmasking the `tabular_learner`
+![](images/unmasking-meme-template.png){fig-align="center"}
+
+
+## Under the hood: `TableVectorizer` { auto-animate="true"}
+1. Pre-process the data
+2. Transform categorical columns to vectors
+
+## Under the hood: `TableVectorizer` {.smaller auto-animate="true"}
+::: {.fragment}
+Pre-process the data
+:::
+
+::: {.fragment}
+- Ensure consistent column names
+- Detect missing values such as "N/A"
+- Drop empty columns
+- Check and convert dtypes to `np.float32`
+- Parse dates, ensuring consistent dtype and timezone
+- Find low- and high-cardinality categorical features
+:::
+
+## Under the hood: `TableVectorizer` {.smaller auto-animate="true"}
+![](images/skrub-table-vectorizer.png)
+
+## Under the hood: `TableVectorizer` {.smaller auto-animate="true"}
+Transform categorical columns to vectors
+
+- Encode dates with `DateTimeEncoder`
+- Encode low-cardinality features (<=30 cat.) with `OneHotEncoder`
+- Encode high-cardinality features (>30 cat.) with:
+    - `GapEncoder`: Relatively slow, easily interpretable, good quality embeddings.
+    - `MinHashEncoder`: Very fast, somewhat low quality embeddings.
+    - `TextEncoder`: Very slow, best solution for text and when context is available.
+    - `StringEncoder`: Best trade-off between compute cost and embeddings quality. 
+
+::: {.fragment}
+High-cardinality encoders are robust in presence of typos and dirty data. 
+:::
+
+## Under the hood: `TableVectorizer` {.smaller auto-animate="true"}
+
+```{python}
+#| echo: true
+
+vectorizer = skrub.TableVectorizer()
+transformed = vectorizer.fit_transform(employees)
+from pprint import pprint
+
+pprint(vectorizer.column_to_kind_)
+pprint(vectorizer.all_processing_steps_["date_first_hired"])
+```
+
+## Encoding datetime features {.smaller auto-animate="true"}
+```{python}
+#| echo: true
+
+import pandas as pd
+
+data = pd.read_csv(
+    "https://raw.githubusercontent.com/skrub-data/datasets/master"
+    "/data/bike-sharing-dataset.csv"
+)
+# Extract our input data (X) and the target column (y)
+y = data["cnt"]
+X = data[["date", "holiday", "temp", "hum", "windspeed", "weathersit"]]
+
+X
+
+```
+
+## Encoding datetime features {auto-animate="true"}
+```{python}
+#| echo: true
+from pprint import pprint
+from skrub import TableVectorizer, DatetimeEncoder
+
+table_vec_weekday = TableVectorizer(datetime=DatetimeEncoder(add_weekday=True)).fit(X)
+pprint(table_vec_weekday.get_feature_names_out())
+
+```
+
+## Encoding datetime features {auto-animate="true"}
+
+```{python}
+#| echo: true
+from sklearn.ensemble import HistGradientBoostingRegressor
+from sklearn.pipeline import make_pipeline
+from sklearn.model_selection import TimeSeriesSplit, cross_val_score
+
+pipeline_weekday = make_pipeline(table_vec_weekday, HistGradientBoostingRegressor())
+
+cross_val_score(
+    pipeline_weekday, X, y, scoring="neg_mean_squared_error",
+    cv=TimeSeriesSplit(n_splits=5),
+)
+
+```
+
+## Encoding datetime features {auto-animate="true"}
+```{python}
+import matplotlib.dates as mdates
+import matplotlib.pyplot as plt
+
+plt.style.use('seaborn-v0_8-talk') 
+
+mask_train = X["date"] < "2012-01-01"
+X_train, X_test = X.loc[mask_train], X.loc[~mask_train]
+y_train, y_test = y.loc[mask_train], y.loc[~mask_train]
+
+pipeline_weekday.fit(X_train, y_train)
+y_pred_weekday = pipeline_weekday.predict(X_test)
+
+fig, ax = plt.subplots(figsize=(12, 3))
+fig.suptitle("Predictions with tree models")
+ax.plot(
+    X.tail(96)["date"],
+    y.tail(96).values,
+    "x-",
+    alpha=0.2,
+    label="Actual demand",
+    color="black",
+)
+ax.plot(
+    X_test.tail(96)["date"],
+    y_pred_weekday[-96:],
+    "x-",
+    label="DatetimeEncoder(add_weekday=True) + HGBR prediction",
+)
+
+ax.tick_params(axis="x", labelsize=7, labelrotation=75)
+ax.xaxis.set_major_formatter(mdates.DateFormatter("%Y-%m-%d"))
+_ = ax.legend()
+plt.tight_layout()
+
+```
+
+
+## Encoding datetime features {auto-animate="true"}
+::: {.callout}
+Timeseries support in skrub is still in its early stages! Please stay tuned for  new developments. 
+:::
+
+::: {.callout}
+Do you use circular encoding, or spline encoding for datetime features?
+:::
+
+
+## Augmenting features through joining {auto-animate="true"}
+![](images/aggjoiner-1.png){data-id="img1"}
+
+
+## Augmenting features through joining {auto-animate="true" visibility="uncounted"}
+![](images/aggjoiner-2.png){data-id="img1"}
+
+
+## Augmenting features through joining {auto-animate="true" visibility="uncounted"}
+![](images/aggjoiner-3.png){data-id="img1"}
+
+
+## Augmenting features through joining {auto-animate="true" visibility="uncounted"}
+![](images/aggjoiner-4.png){data-id="img1"}
+
+
+
+## Augmenting features through joining {.smaller}
+- [`Joiner`](https://skrub-data.org/stable/reference/generated/skrub.Joiner.html):  Perform fuzzy-joining: join columns that contain similar-looking values. 
+- [`AggJoiner`](https://skrub-data.org/stable/reference/generated/skrub.AggJoiner.html#) Aggregate an auxiliary dataframe before joining it on a base dataframe, and create new features that aggregate (sum, mean, mode...) the values in the columns. 
+- [`MultiAggJoiner`](https://skrub-data.org/stable/reference/generated/skrub.MultiAggJoiner.html) extends `AggJoiner` to a multi-table scenario.
+- [`InterpolationJoiner`](https://skrub-data.org/stable/reference/generated/skrub.InterpolationJoiner.html) Perform an equi-join and estimate what missing rows would contain if they existed in the table.
+
+
+## `InterpolationJoiner`: infer missing values {auto-animate="true"}
+```{python}
+#| echo: true
+import pandas as pd
+
+from skrub.datasets import fetch_flight_delays
+
+dataset = fetch_flight_delays()
+weather = dataset.weather
+weather = weather.sample(100_000, random_state=0, ignore_index=True)
+stations = dataset.stations
+weather = stations.merge(weather, on="ID")[
+    ["LATITUDE", "LONGITUDE", "YEAR/MONTH/DAY", "TMAX", "PRCP", "SNOW"]
+]
+weather["YEAR/MONTH/DAY"] = pd.to_datetime(weather["YEAR/MONTH/DAY"])
+```
+
+```{python}
+n_main = weather.shape[0] // 2
+main_table = weather.iloc[:n_main]
+aux_table = weather.iloc[n_main:]
+main_table.head()
+```
+
+## `InterpolationJoiner`  {auto-animate="true"}
+```{python}
+#| echo: true
+
+from skrub import InterpolationJoiner
+joiner = InterpolationJoiner(
+    aux_table,
+    key=["LATITUDE", "LONGITUDE", "YEAR/MONTH/DAY"],
+    suffix="_predicted",
+).fit(main_table)
+join = joiner.transform(main_table)
+join.head()
+```
+
+## `InterpolationJoiner` {auto-animate="true"}
+```{python}
+from matplotlib import pyplot as plt
+
+from matplotlib import pyplot as plt
+
+join = join.sample(2000, random_state=0, ignore_index=True)
+fig, axes = plt.subplots(
+    1,
+    3,
+    figsize=(10, 5),
+    layout="constrained",
+)
+for ax, col in zip(axes.ravel(), ["TMAX", "PRCP", "SNOW"]):
+    ax.scatter(
+        join[col].values,
+        join[f"{col}_predicted"].values,
+        alpha=0.1,
+    )
+    ax.set_aspect(1)
+    ax.set_xlabel(f"true {col}")
+    ax.set_ylabel(f"predicted {col}")
+plt.show()
+```
+
+
+## Additional goodies: deduplication {.smaller}
+`deduplicate` misspelled categories
+```{python}
+#| echo: false
+from pprint import pprint
+from skrub.datasets import make_deduplication_data
+duplicated = make_deduplication_data(examples=['black', 'white'],
+                                     entries_per_example=[3, 3],
+                                     prob_mistake_per_letter=0.7,
+                                     random_state=42)
+```
+
+```{python}
+#| echo: true
+from skrub import deduplicate
+pprint(duplicated)
+deduplicate_correspondence = deduplicate(duplicated)
+pprint(deduplicate_correspondence.to_dict())
+```
+
+[Doc](https://skrub-data.org/stable/reference/generated/skrub.deduplicate.html#skrub.deduplicate)
+
+## Additional goodies: Wikipedia embeddings as features
+KEN embeddings capture relational information about all entities in Wikipedia.
+
+```{.python}
+from skrub.datasets import fetch_ken_embeddings
+embedding_games = fetch_ken_embeddings(
+    search_types="game",
+    exclude="companies|developer",
+    embedding_table_id="games",
+)
+```
+
+![](images/sphx_glr_06_ken_embeddings_003.png){fig-align="center"}
+
+[Doc](https://skrub-data.org/stable/auto_examples/06_ken_embeddings.html)
+
+
+# Getting involved
+
+## Install skrub
+:::fragment
+Base installation:
+```shell
+# with pip
+pip install skrub -U
+# with conda
+conda install -c conda-forge skrub
+```
+:::
+
+:::fragment
+For deep learning features such as `TextEncoder`:
+```shell
+# with pip
+pip install skrub[transformers] -U
+# with conda
+conda install -c conda-forge skrub[transformers]
+```
+:::
+
+:::fragment
+[Documentation](https://skrub-data.org/stable/install.html){preview-link="true"}
+:::
+
+## Contribute to skrub
+- Open an [issue](https://github.com/skrub-data/skrub/issues) on GitHub
+- Check out the [documentation](https://skrub-data.org/stable/CONTRIBUTING.html) on how to contribute
+- Join the breakout session this afternoon
+
+## Join the community 
+- [Skrub website](https://skrub-data.org/stable/)
+- [Git repository](https://github.com/skrub-data/skrub/)
+- [Discord server](https://discord.gg/ABaPnm7fDC)
+- [Bluesky](https://bsky.app/profile/skrub-data.bsky.social)
