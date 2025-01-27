@@ -2,7 +2,7 @@
 title: "Skrub"
 subtitle: "Less wrangling, more machine learning"
 author: "Riccardo Cappuzzo, Jérôme Dockès, Vincent Maladiere"
-institute: "Inria"
+institute: "Inria, P16, Probabl."
 format: 
     revealjs:
         slide-number: c/t
@@ -32,7 +32,7 @@ incremental: true
 - Write your suggestions on Slido
 - Follow along at:
 
-
+![](images/qr-code-skrub-intro.png)
 
 ## In the beginning...
 Skrub stems from the development of `dirty_cat`, a package that provided support
@@ -391,7 +391,8 @@ Do you use circular encoding, or spline encoding for datetime features?
 
 
 ## Augmenting features through joining {.smaller}
-- [`Joiner`](https://skrub-data.org/stable/reference/generated/skrub.Joiner.html):  Perform fuzzy-joining: join columns that contain similar-looking values. - [`AggJoiner`](https://skrub-data.org/stable/reference/generated/skrub.AggJoiner.html#) Aggregate an auxiliary dataframe before joining it on a base dataframe, and create new features that aggregate (sum, mean, mode...) the values in the columns. 
+- [`Joiner`](https://skrub-data.org/stable/reference/generated/skrub.Joiner.html):  Perform fuzzy-joining: join columns that contain similar-looking values. 
+- [`AggJoiner`](https://skrub-data.org/stable/reference/generated/skrub.AggJoiner.html#) Aggregate an auxiliary dataframe before joining it on a base dataframe, and create new features that aggregate (sum, mean, mode...) the values in the columns. 
 - [`MultiAggJoiner`](https://skrub-data.org/stable/reference/generated/skrub.MultiAggJoiner.html) extends `AggJoiner` to a multi-table scenario.
 - [`InterpolationJoiner`](https://skrub-data.org/stable/reference/generated/skrub.InterpolationJoiner.html) Perform an equi-join and estimate what missing rows would contain if they existed in the table.
 
