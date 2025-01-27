@@ -1,7 +1,7 @@
 ---
 title: "Skrub"
 subtitle: "Less wrangling, more machine learning"
-author: "Riccardo Cappuzzo, Jérôme Dockès"
+author: "Riccardo Cappuzzo, Jérôme Dockès, Vincent Maladiere"
 institute: "Inria"
 format: 
     revealjs:
@@ -10,21 +10,26 @@ format:
         preview-links: auto
         embed-resources: false
         transition: slide
-        theme: league
+        theme: simple
         logo: images/skrub.svg
         footer: https://github.com/skrub-data/skrub
 incremental: true
 
 ---
 ## Plan for the presentation
-- Introducing skrub (speaker: Riccardo)
+- Introducing skrub
     - Example use case
     - Detailed explanation of the features
     - Getting involved
-- Development roadmap (speaker: Jérôme)
+- Development roadmap
     - Recipe
     - Timeseries
-    - Skrub expressions
+    - Discover
+    - Database interfaces
+
+## Before we start
+- If you have questions, raise your hand and someone will come and help. 
+
 
 ## In the beginning...
 Skrub stems from the development of `dirty_cat`, a package that provided support
@@ -83,7 +88,7 @@ TableReport(employee_salaries)
 
 
 :::fragment
-[More examples](https://skrub-data.org/skrub-reports/examples/)
+[Try it out yourselves!](https://skrub-data.org/skrub-reports/examples/)
 :::
 
 ## Build a predictive pipeline {auto-animate="true" .smaller}

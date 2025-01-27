@@ -10,16 +10,17 @@ format:
         preview-links: auto
         embed-resources: false
         transition: slide
-        theme: league
+        theme: simple
         logo: images/skrub.svg
         footer: https://github.com/skrub-data/skrub
 incremental: true
 ---
 
+
 ## Plan for the presentation
 - Context and explanation of the problem
 - The Retrieve, Merge, Predict pipeline
-- Discussion and conclusions
+- How is this relevant? 
 
 # Riddle me this...
 ::: {.fragment}
@@ -35,14 +36,17 @@ How do I combine the two to train a better model?
 
 ## Example: augmenting tables {auto-animate="true" auto-animate-unmatched="false"}
 
-![](images/alice_retrieve_merge_predict_1.png)
+![](images/ayame_retrieve_merge_predict_1.png)
 
-## Example: augmenting tables {auto-animate="true" auto-animate-unmatched="false"}
-![](images/alice_retrieve_merge_predict_2.png)
+## Example: augmenting tables {auto-animate="true" auto-animate-unmatched="false" visibility="uncounted"}
+![](images/ayame_retrieve_merge_predict_2.png)
 
 
-## Example: augmenting tables {auto-animate="true" auto-animate-unmatched="false"}
-![](images/alice_retrieve_merge_predict_3.png)
+## Example: augmenting tables {auto-animate="true" auto-animate-unmatched="false" visibility="uncounted"}
+![](images/ayame_retrieve_merge_predict_3.png)
+
+## Example: augmenting tables {auto-animate="true" auto-animate-unmatched="false" visibility="uncounted"}
+![](images/ayame_retrieve_merge_predict_4.png)
 
 ## Some definitions {.smaller}
 - **Base table**: the table we want to augment ("Movies", "Housing"...)
@@ -54,8 +58,32 @@ How do I combine the two to train a better model?
 
 
 ::: {.fragment}
+::: {.callout-warning}
 This terminology is slightly different from that used in the Skrub documentation
 :::
+:::
+
+## Jaccard Containment  {.smaller auto-animate=true}
+::: {.column width="55%"}
+::: {.nonincremental}
+- Jaccard Similarity: $\frac{|Q \cap X|}{|Q \cup X|}$
+- Jaccard Containment: $\frac{|Q \cap X|}{|Q|}$
+:::
+::: {.fragment}
+Jaccard containment is a "normalized" intersection:
+
+::: {.callout-important}
+What fraction of of *query set Q* is in *candidate column* X?
+:::
+:::
+:::
+
+::: {.column width="45%"}
+![https://ekzhu.com/datasketch/lshensemble.html](images/containment.png)
+
+:::
+
+
 
 ## The focus of the study:
 - Find the best way to discover candidates.
@@ -93,9 +121,8 @@ If you don't know the tables, **everyone is sus** ![](images/Amogus_non-free-lef
 
 ## Candidate selection
 
-- **NoJoin**: Reference selector. 
 - **Highest Containment Join**: Rank candidates by Jaccard Containment. 
-- **Top-k Full Join**: Join the top-k candidates. 
+- **Full Join**: Join all candidates. 
 - **Best Single Join**: Train a model on each candidate, select the best. 
 - **Stepwise Greedy Join**: Like Best Single Join, but keep all good candidates. 
 
@@ -106,7 +133,7 @@ If you don't know the tables, **everyone is sus** ![](images/Amogus_non-free-lef
 ## Aggregation {auto-animate="true"}
 - **Any**: take one value at random from each group
 - **Mean**: for each group, take the mean of numerical values and mode of categorical values
-- **Deep Feature Synthesis (DFS)** [@DFS]: greedily generate new features (count, mean, sum…) to already present features. 
+- **Deep Feature Synthesis (DFS)**: greedily generate new features (count, mean, sum…) to already present features. 
 
 ## Prediction 
 - RidgeCV: linear baseline 📈 
@@ -128,7 +155,6 @@ If you don't know the tables, **everyone is sus** ![](images/Amogus_non-free-lef
 |   Total  |   Both   |     21y 9m 26d 8h     |
 
 
-
 # What does this have to do with Skrub?
 
 ## "Features" of research code
@@ -139,12 +165,12 @@ Research code...
 - Often is poorly documented, or not at all
 - Involves a lot of technical debt
 
-## Skrub to the rescue {auto-animate="true"}
+## Skrub to the rescue
 - Well tested code
 - Good documentation
 - Features cover much of the pipeline
 
-## Skrub to the rescue {auto-animate="true"}
+## Using Skrub features in the pipeline
 - The `Discover` object can replace (part of) the retrieval step.
 - All the code for joining can be replaced by the `AggJoiner` or `MultiAggJoiner`.
 - The `MultiAggJoiner` is an additional baseline.
@@ -157,67 +183,52 @@ Research code...
 ## "Skrubified" pipeline  {auto-animate="true"}
 ![](images/benchmark-pipeline-v7-all-skrub.png){data-id="img1"}
 
-## With MultiAggJoiner {.smaller}
+## Example with MultiAggJoiner {.smaller}
 
 ::: {.columns}
 ::: {.column}
 ```{.python}
-def execute_join_all_candidates(
-    source_table: pl.DataFrame, 
-    index_cand: dict, 
-    aggregation: str
+merged = source_table.clone()
+hashes = []
+for hash_, mdata in tqdm(
+    index_cand.items(),
+    total=len(index_cand),
+    leave=False,
+    desc="Full Join",
+    position=2,
 ):
-    merged = source_table.clone()
-    hashes = []
-    for hash_, mdata in tqdm(
-        index_cand.items(),
-        total=len(index_cand),
-        leave=False,
-        desc="Full Join",
-        position=2,
-    ):
-        cnd_md = mdata.candidate_metadata
-        hashes.append(cnd_md["hash"])
-        candidate_table = pl.read_parquet(cnd_md["full_path"])
+    cnd_md = mdata.candidate_metadata
+    hashes.append(cnd_md["hash"])
+    candidate_table = pl.read_parquet(cnd_md["full_path"])
 
-        left_on = mdata.left_on
-        right_on = mdata.right_on
+    left_on = mdata.left_on
+    right_on = mdata.right_on
 
-        aggr_right = aggregate_table(
-            candidate_table, right_on, aggregation_method=aggregation
-        )
+    aggr_right = aggregate_table(
+        candidate_table, right_on, aggregation_method=aggregation
+    )
 
-        merged = execute_join(
-            merged,
-            aggr_right,
-            left_on=left_on,
-            right_on=right_on,
-            how="left",
-            suffix="_" + hash_[:10],
-        )
-
-    return merged
+    merged = execute_join(
+        merged,
+        aggr_right,
+        left_on=left_on,
+        right_on=right_on,
+        how="left",
+        suffix="_" + hash_[:10],
+    )
 ```
+
 :::
 ::: {.column}
 ```{.python}
 # MOCK-UP
 from skrub import MultiAggJoiner
-def execute_join_all_candidates(
-    source_table: pl.DataFrame, 
-    candidate_tables: list, 
-    candidate_keys: list
-):
-    joiner = MultiAggJoiner(candidate_tables, keys=candidate_keys)
-    merged = joiner.fit_transform(source_table)
-
-    return merged
+joiner = MultiAggJoiner(candidate_tables, keys=candidate_keys)
+merged = joiner.fit_transform(source_table)
 ```
 
 :::
 :::
-
-
 
 # Wrapping up
 
@@ -226,9 +237,34 @@ def execute_join_all_candidates(
 
 - [Retrieve, Merge, Predict website](https://soda-inria.github.io/retrieve-merge-predict/)
 - [Retrieve, Merge, Predict repository](https://github.com/rcap107/retrieve-merge-predict)
-- [YADL archive on Zenodo](https://zenodo.org/records/10624396)
-- [YADL preparation repository](https://github.com/rcap107/YADL)
 :::
+
+## Acknowledgements
+
+::: {.columns}
+::: {.column}
+![](images/inria.png){height="75"}
+
+![](images/soda_logo_can.png){height="75"}
+
+![](images/dataiku.png){height="75"}
+
+![](images/EURECOM_logo_quadri_300dpi.jpg){height="75"}
+
+:::
+::: {.column}
+Authors:
+
+::: {.nonincremental}
+- Riccardo Cappuzzo (SODA, Dataiku)
+- Aimee Coelho (Dataiku)
+- Felix Lefebvre (SODA)
+- Paolo Papotti (Eurecom)
+- Gael Varoquaux (SODA)
+:::
+:::
+:::
+
 
 ## Conclusions and summary {.smaller}
 
@@ -247,8 +283,4 @@ def execute_join_all_candidates(
 - Skrub provides well-tested, well-documented code
 - Skrub objects provide features that cover most of the pipeline
 - In return, the pipeline helped deciding on relevant features. 
-:::
-
-::: {.fragment}
-![](images/qr-code-bench-repo.png){width=40% fig-align="right"}
 :::
