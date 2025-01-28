@@ -7,9 +7,9 @@ This page is used to track all the publicly available material about Skrub.
 
 
 ### Skrub workshop 29/01/2025
-- 🗓️ [Program for the day](https://skrub-data.org/skrub-materials/skrub-workshop/skrub-day/skrub-day.html)
-- 💡 [Slido link for suggestions](https://app.sli.do/event/wEt4CxjD8ZDeJAniLVHdDz)
-- 🤝 [Introduction to Skrub and main features](https://skrub-data.org/skrub-materials/skrub-workshop/skrub-intro/skrub-intro.html)
-- 🌠 [Future developments and roadmap]()
-- 🎓 [A Skrub use case in Academia](https://skrub-data.org/skrub-materials/skrub-workshop/skrub-retrieve-merge-predict/skrub-retrieve-merge-predict.html)
-- [Skrub introductory notebook](https://skrub-data.org/skrub-materials/skrub-intro-quarto.html)
+- <a href="https://skrub-data.org/skrub-materials/skrub-workshop/skrub-day/skrub-day.html" target="_blank"> 🗓️ Program for the day</a>
+- <a href="https://app.sli.do/event/wEt4CxjD8ZDeJAniLVHdDz">💡 Slido link for suggestions</a>
+- <a href="https://skrub-data.org/skrub-materials/skrub-workshop/skrub-intro/skrub-intro.html">🤝 Introduction to Skrub and main features</a>
+- <a href="">🌠 Future developments and roadmap</a>
+- <a href="https://skrub-data.org/skrub-materials/skrub-workshop/skrub-retrieve-merge-predict/skrub-retrieve-merge-predict.html">🎓 A Skrub use case in Academia</a>
+- <a href="https://skrub-data.org/skrub-materials/skrub-intro-quarto.html">📔 Skrub introductory notebook</a>
