@@ -286,7 +286,7 @@ Riccardo Cappuzzo, Jérôme Dockès, Vincent Maladiere
 </section>
 <section id="exploring-the-data" class="slide level2 smaller">
 <h2>Exploring the data</h2>
-<div id="52f77443" class="cell" data-execution_count="1">
+<div id="bedbb3bc" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="im">import</span> skrub</span>
 <span id="cb1-2"><a href=""></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href=""></a><span class="im">from</span> skrub.datasets <span class="im">import</span> fetch_employee_salaries</span>
@@ -541,7 +541,7 @@ Riccardo Cappuzzo, Jérôme Dockès, Vincent Maladiere
 </section>
 <section id="build-a-predictive-pipeline-6" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Build a predictive pipeline</h2>
-<div id="5d9a42bc" class="cell" data-execution_count="2">
+<div id="c3be084c" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display" data-execution_count="2">
 <style>#sk-container-id-1 {
   /* Definition of color scheme common for light and dark mode */
@@ -1001,7 +1001,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </section>
 <section id="enter-tabular_learner-1" class="slide level2 smaller" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Enter: <code>tabular_learner</code></h2>
-<div id="4314e14a" class="cell" data-execution_count="3">
+<div id="fe6cf610" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display" data-execution_count="3">
 <style>#sk-container-id-2 {
   /* Definition of color scheme common for light and dark mode */
@@ -1441,7 +1441,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </ul>
 <div class="fragment">
 <p>You can also write “<code>tabular_learner("regressor")</code>”:</p>
-<div id="9b18be93" class="cell" data-execution_count="4">
+<div id="b39d9c1a" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display" data-execution_count="4">
 <style>#sk-container-id-3 {
   /* Definition of color scheme common for light and dark mode */
@@ -1926,7 +1926,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </section>
 <section id="under-the-hood-tablevectorizer-4" class="slide level2 smaller" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Under the hood: <code>TableVectorizer</code></h2>
-<div id="b3866110" class="cell" data-execution_count="5">
+<div id="f11deaa8" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href=""></a>vectorizer <span class="op">=</span> skrub.TableVectorizer()</span>
 <span id="cb11-2"><a href=""></a>transformed <span class="op">=</span> vectorizer.fit_transform(employees)</span>
 <span id="cb11-3"><a href=""></a><span class="im">from</span> pprint <span class="im">import</span> pprint</span>
@@ -1943,7 +1943,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
  'year_first_hired': 'numeric'}</code></pre>
 </div>
 </div>
-<div id="2a00a643" class="cell" data-execution_count="6">
+<div id="440f3ab5" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href=""></a>pprint(vectorizer.all_processing_steps_[<span class="st">"date_first_hired"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[CleanNullStrings(),
@@ -1956,7 +1956,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </section>
 <section id="encoding-datetime-features" class="slide level2 smaller" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Encoding datetime features</h2>
-<div id="013fa952" class="cell" data-execution_count="7">
+<div id="3b61b90b" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb15-1" class="hljs-ln-code"><a href=""></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb15-2" class="hljs-ln-code"><a href=""></a></span>
 <span id="cb15-3" class="hljs-ln-code"><a href=""></a>data <span class="op">=</span> pd.read_csv(</span>
@@ -2106,7 +2106,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </section>
 <section id="encoding-datetime-features-1" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Encoding datetime features</h2>
-<div id="a4d4c42b" class="cell" data-execution_count="8">
+<div id="269363bc" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb16-1" class="hljs-ln-code"><a href=""></a><span class="im">from</span> pprint <span class="im">import</span> pprint</span>
 <span id="cb16-2" class="hljs-ln-code"><a href=""></a><span class="im">from</span> skrub <span class="im">import</span> TableVectorizer, DatetimeEncoder</span>
 <span id="cb16-3" class="hljs-ln-code"><a href=""></a></span>
@@ -2121,7 +2121,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </section>
 <section id="encoding-datetime-features-2" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Encoding datetime features</h2>
-<div id="76287d8f" class="cell" data-execution_count="9">
+<div id="cf8ec5f6" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb18-1" class="hljs-ln-code"><a href=""></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> HistGradientBoostingRegressor</span>
 <span id="cb18-2" class="hljs-ln-code"><a href=""></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> make_pipeline</span>
 <span id="cb18-3" class="hljs-ln-code"><a href=""></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> TimeSeriesSplit, cross_val_score</span>
@@ -2133,14 +2133,14 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <span id="cb18-9" class="hljs-ln-code"><a href=""></a>    cv<span class="op">=</span>TimeSeriesSplit(n_splits<span class="op">=</span><span class="dv">5</span>),</span>
 <span id="cb18-10" class="hljs-ln-code"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
-<pre><code>array([ -3694.45159469,  -3180.1148674 , -15183.44808403,  -5035.99498851,
-        -5474.64780881])</code></pre>
+<pre><code>array([ -3694.45159469,  -3180.1148674 , -15183.44808403,  -4778.26021095,
+        -5413.53488034])</code></pre>
 </div>
 </div>
 </section>
 <section id="encoding-datetime-features-3" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Encoding datetime features</h2>
-<div id="7015860e" class="cell" data-execution_count="10">
+<div id="c6f809c4" class="cell" data-execution_count="10">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -2182,7 +2182,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <img data-src="images/aggjoiner.png" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section id="aggjoiner-automatically-aggregate-values-1" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title"><code>AggJoiner</code>: automatically aggregate values</h2>
-<div id="dcc01d00" class="cell" data-execution_count="11">
+<div id="1600784c" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb20-1" class="hljs-ln-code"><a href=""></a><span class="im">import</span> skrub</span>
 <span id="cb20-2" class="hljs-ln-code"><a href=""></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb20-3" class="hljs-ln-code"><a href=""></a></span>
@@ -2249,7 +2249,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </section>
 <section id="interpolationjoiner-infer-missing-values" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title"><code>InterpolationJoiner</code>: infer missing values</h2>
-<div id="8f99fc50" class="cell" data-execution_count="12">
+<div id="debfbf7d" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb21-1" class="hljs-ln-code"><a href=""></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb21-2" class="hljs-ln-code"><a href=""></a></span>
 <span id="cb21-3" class="hljs-ln-code"><a href=""></a><span class="im">from</span> skrub.datasets <span class="im">import</span> fetch_flight_delays</span>
@@ -2263,7 +2263,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <span id="cb21-11" class="hljs-ln-code"><a href=""></a>]</span>
 <span id="cb21-12" class="hljs-ln-code"><a href=""></a>weather[<span class="st">"YEAR/MONTH/DAY"</span>] <span class="op">=</span> pd.to_datetime(weather[<span class="st">"YEAR/MONTH/DAY"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="2d2f4619" class="cell" data-execution_count="13">
+<div id="be3553c3" class="cell" data-execution_count="13">
 <div class="cell-output cell-output-display" data-execution_count="13">
 <div>
 <style scoped="">
@@ -2347,7 +2347,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </section>
 <section id="interpolationjoiner" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title"><code>InterpolationJoiner</code></h2>
-<div id="e4db119e" class="cell" data-execution_count="14">
+<div id="b8756778" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb22-1" class="hljs-ln-code"><a href=""></a><span class="im">from</span> skrub <span class="im">import</span> InterpolationJoiner</span>
 <span id="cb22-2" class="hljs-ln-code"><a href=""></a>joiner <span class="op">=</span> InterpolationJoiner(</span>
 <span id="cb22-3" class="hljs-ln-code"><a href=""></a>    aux_table,</span>
@@ -2396,9 +2396,9 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <td>297.0</td>
 <td>NaN</td>
 <td>NaN</td>
-<td>246.278401</td>
-<td>14.907909</td>
-<td>-0.015226</td>
+<td>283.132081</td>
+<td>17.235774</td>
+<td>0.064046</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
@@ -2408,9 +2408,9 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <td>333.0</td>
 <td>NaN</td>
 <td>NaN</td>
-<td>291.277076</td>
-<td>18.593780</td>
-<td>0.106449</td>
+<td>308.980154</td>
+<td>18.474388</td>
+<td>0.177245</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
@@ -2420,9 +2420,9 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <td>430.0</td>
 <td>0.0</td>
 <td>NaN</td>
-<td>326.680112</td>
-<td>73.030432</td>
-<td>-0.103191</td>
+<td>356.484409</td>
+<td>61.132701</td>
+<td>0.010053</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">3</td>
@@ -2432,9 +2432,9 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <td>264.0</td>
 <td>0.0</td>
 <td>NaN</td>
-<td>280.555259</td>
-<td>35.816944</td>
-<td>0.488823</td>
+<td>298.779061</td>
+<td>42.264107</td>
+<td>0.402316</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">4</td>
@@ -2444,9 +2444,9 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <td>291.0</td>
 <td>NaN</td>
 <td>NaN</td>
-<td>249.422831</td>
-<td>17.765643</td>
-<td>0.138747</td>
+<td>276.454237</td>
+<td>12.241012</td>
+<td>-0.007211</td>
 </tr>
 </tbody>
 </table>
@@ -2457,11 +2457,11 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </section>
 <section id="interpolationjoiner-1" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title"><code>InterpolationJoiner</code></h2>
-<div id="4276a276" class="cell" data-execution_count="15">
+<div id="c4f28346" class="cell" data-execution_count="15">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="skrub-intro_files/figure-revealjs/cell-16-output-1.png" width="971" height="258"></p>
+<p><img data-src="skrub-intro_files/figure-revealjs/cell-16-output-1.png" width="971" height="255"></p>
 </figure>
 </div>
 </div>
@@ -2482,7 +2482,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <section id="additional-goodies-deduplication" class="slide level2 smaller">
 <h2>Additional goodies: deduplication</h2>
 <p><code>deduplicate</code> misspelled categories</p>
-<div id="52a035d5" class="cell" data-execution_count="17">
+<div id="cac84dfa" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href=""></a><span class="im">from</span> skrub <span class="im">import</span> deduplicate</span>
 <span id="cb23-2"><a href=""></a>pprint(duplicated)</span>
 <span id="cb23-3"><a href=""></a>deduplicate_correspondence <span class="op">=</span> deduplicate(duplicated)</span>
@@ -2553,6 +2553,12 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <p>Please play around with the <code>TableReport</code> examples on the website!</p>
 <div class="fragment">
 <ul>
+<li class="fragment">Do you program directly? In which language?</li>
+<li class="fragment">Do you use specific platforms (e.g., Dataiku)?</li>
+<li class="fragment">Do you use mostly pandas, polars, or other libraries?</li>
+<li class="fragment">Where is your data stored?</li>
+<li class="fragment">What dev environment do you use? Notebooks, IDEs…</li>
+<li class="fragment">How do you organize your code? A complete package, a few scripts, …</li>
 <li class="fragment">Do you use circular encoding, or spline encoding for datetime features?</li>
 </ul>
 </div>

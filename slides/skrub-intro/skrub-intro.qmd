@@ -580,6 +580,12 @@ conda install -c conda-forge skrub[transformers]
 Please play around with the `TableReport` examples on the website!
 
 ::: {.fragment}
+- Do you program directly? In which language?
+- Do you use specific platforms (e.g., Dataiku)?
+- Do you use mostly pandas, polars, or other libraries?
+- Where is your data stored?
+- What dev environment do you use? Notebooks, IDEs...
+- How do you organize your code? A complete package, a few scripts, ...
 - Do you use circular encoding, or spline encoding for datetime features?
 :::
 
