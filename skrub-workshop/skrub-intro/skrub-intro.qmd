@@ -12,7 +12,7 @@ format:
         transition: slide
         theme: simple
         logo: images/skrub.svg
-        footer: https://github.com/skrub-data/skrub
+        footer: https://bit.ly/skrub-workshop
 incremental: true
 
 ---
@@ -30,17 +30,26 @@ incremental: true
 ## Before we start
 - If you have questions, raise your hand and someone will come to you
 - Write your suggestions on Slido
-- Follow along at:
-
-![](images/qr-code-skrub-intro.png)
+- Open issues on Github (we can help with that)
+- All material is available at <a href="https://bit.ly/skrub-workshop" target="_blank">https://bit.ly/skrub-workshop</a>
 
 ## In the beginning...
 Skrub stems from the development of `dirty_cat`, a package that provided support
 for handling dirty columns and perform fuzzy joins across tables. 
 
+::: {.fragment}
+It has since evolved into a package that provides:
+
+::: {.nonincremental}
+- interactive data exploration
+- automated pre-processing of pandas and polars dataframes
+- powerful feature engineering
+:::
+
+:::
 
 ## Skrub's vision
-The goal of skrub is to facilitate building and deploying machine-learning models on tables: pandas dataframes, SQL databases...
+The goal of skrub is to facilitate building and deploying machine-learning models on pandas and polars dataframes (later, SQL databases...)
 
 ::: {.callout}
 Skrub is high-level, with a philosophy and an API matching that of scikit-learn. It strives to bridge the worlds of databases and machine-learning, enabling imperfect assembly and representations of the data when it is noisy.
@@ -54,7 +63,7 @@ Skrub is high-level, with a philosophy and an API matching that of scikit-learn.
     - Employee salaries, census, customer churn...
 2. Explore the data
     - Null values, dtypes, correlated features...
-3. Pre-process the data
+3. Pre-process the data 
 4. Build a scikit-learn estimator
 5. ???
 6. Profit 📈 
@@ -65,13 +74,10 @@ Skrub is high-level, with a philosophy and an API matching that of scikit-learn.
 #| echo: true
 import skrub
 import pandas as pd
+from skrub.datasets import fetch_employee_salaries
 
-employee_salaries = pd.read_csv(
-    "https://figshare.com/ndownloader/files/51755822"
-)
-
-employees = employee_salaries.drop("current_annual_salary", axis=1)
-salaries = employee_salaries["current_annual_salary"]
+dataset = fetch_employee_salaries()
+employees, salaries = dataset.X, dataset.y
 
 employees.describe(include="all")
 ```
@@ -86,8 +92,17 @@ TableReport(employee_salaries)
 ```
 [Preview](https://skrub-data.org/skrub-reports/examples/employee_salaries.html){preview-link="true"}
 
+::: {.fragment}
+Main features:
+:::
 
-:::fragment
+- Obtain high-level statistics about the data (number of uniques, missing values...)
+- Explore the distribution of values and find outliers
+- Discover highly correlated columns 
+- Export and share the report as an `html` file
+
+
+::: {.fragment}
 [Try it out yourself!](https://skrub-data.org/skrub-reports/examples/)
 :::
 
@@ -212,11 +227,11 @@ tl
 Given a scikit-learn estimator, `tabular_learner`:
 
 - extracts numerical features
-- imputes missing values with `SimpleImputer`
-- if necessary, scales the data with `StandardScaler`
+- imputes missing values with `SimpleImputer` (optional)
+- scales the data with `StandardScaler` (optional)
 
 ::: {.fragment}
-Or, just write "`tabular_learner("regressor")`":
+You can also write "`tabular_learner("regressor")`":
 ```{python}
 skrub.tabular_learner("regressor")
 ```
@@ -231,35 +246,33 @@ skrub.tabular_learner("regressor")
 
 ## Under the hood: `TableVectorizer` { auto-animate="true"}
 1. Pre-process the data
-2. Transform categorical columns to vectors
+2. Convert complex data types (datetimes, text) into numerical features 
 
 ## Under the hood: `TableVectorizer` {.smaller auto-animate="true"}
-::: {.fragment}
 Pre-process the data
-:::
 
-::: {.fragment}
+::: {.nonincremental}
 - Ensure consistent column names
 - Detect missing values such as "N/A"
 - Drop empty columns
 - Check and convert dtypes to `np.float32`
 - Parse dates, ensuring consistent dtype and timezone
-- Find low- and high-cardinality categorical features
+- Identify which categorical features are low- and high-cardinality
 :::
 
 ## Under the hood: `TableVectorizer` {.smaller auto-animate="true"}
 ![](images/skrub-table-vectorizer.png)
 
 ## Under the hood: `TableVectorizer` {.smaller auto-animate="true"}
-Transform categorical columns to vectors
+Convert complex data types (datetimes, text) into numerical features 
 
 - Encode dates with `DateTimeEncoder`
 - Encode low-cardinality features (<=30 cat.) with `OneHotEncoder`
 - Encode high-cardinality features (>30 cat.) with:
-    - `GapEncoder`: Relatively slow, easily interpretable, good quality embeddings.
-    - `MinHashEncoder`: Very fast, somewhat low quality embeddings.
-    - `TextEncoder`: Very slow, best solution for text and when context is available.
-    - `StringEncoder`: Best trade-off between compute cost and embeddings quality. 
+    - `GapEncoder`: Relatively slow, easily interpretable, good quality embeddings. Target encoding and hashing. 
+    - `MinHashEncoder`: Very fast, somewhat low quality embeddings. Hashing ngrams.
+    - `TextEncoder`: Very slow, relies on language models, best solution for text and when context is available.
+    - `StringEncoder`: Best trade-off between compute cost and embeddings quality. Tf-idf followed by SVD. 
 
 ::: {.fragment}
 High-cardinality encoders are robust in presence of typos and dirty data. 
@@ -275,6 +288,11 @@ transformed = vectorizer.fit_transform(employees)
 from pprint import pprint
 
 pprint(vectorizer.column_to_kind_)
+```
+
+
+```{python}
+#| echo: true
 pprint(vectorizer.all_processing_steps_["date_first_hired"])
 ```
 
@@ -293,7 +311,6 @@ y = data["cnt"]
 X = data[["date", "holiday", "temp", "hum", "windspeed", "weathersit"]]
 
 X
-
 ```
 
 ## Encoding datetime features {auto-animate="true"}
@@ -368,11 +385,6 @@ plt.tight_layout()
 Timeseries support in skrub is still in its early stages! Please stay tuned for  new developments. 
 :::
 
-::: {.callout}
-Do you use circular encoding, or spline encoding for datetime features?
-:::
-
-
 ## Augmenting features through joining {auto-animate="true"}
 ![](images/aggjoiner-1.png){data-id="img1"}
 
@@ -389,12 +401,27 @@ Do you use circular encoding, or spline encoding for datetime features?
 ![](images/aggjoiner-4.png){data-id="img1"}
 
 
+## `AggJoiner`: automatically aggregate values {auto-animate="true"}
+![](images/aggjoiner.png){fig-align="center"}
 
-## Augmenting features through joining {.smaller}
-- [`Joiner`](https://skrub-data.org/stable/reference/generated/skrub.Joiner.html):  Perform fuzzy-joining: join columns that contain similar-looking values. 
-- [`AggJoiner`](https://skrub-data.org/stable/reference/generated/skrub.AggJoiner.html#) Aggregate an auxiliary dataframe before joining it on a base dataframe, and create new features that aggregate (sum, mean, mode...) the values in the columns. 
-- [`MultiAggJoiner`](https://skrub-data.org/stable/reference/generated/skrub.MultiAggJoiner.html) extends `AggJoiner` to a multi-table scenario.
-- [`InterpolationJoiner`](https://skrub-data.org/stable/reference/generated/skrub.InterpolationJoiner.html) Perform an equi-join and estimate what missing rows would contain if they existed in the table.
+
+## `AggJoiner`: automatically aggregate values {auto-animate="true"} 
+```{python}
+#| echo: true
+import skrub
+import pandas as pd
+
+df1 = pd.DataFrame({
+    "UID": [28, 32, 28], 
+    "Basket ID": [1100, 1300, 1400]})
+df2 = pd.DataFrame({
+    "Basket ID": [1100, 1100, 1100, 1300, 1400], 
+    "Product ID": ["A521", "B695", "F221", "W214", "B695",], 
+    "Price": [25, 30, 10, 320, 30]})
+
+joiner = skrub.AggJoiner(df2, operations="sum", key="Basket ID", cols="Price")
+joiner.fit_transform(df1)
+```
 
 
 ## `InterpolationJoiner`: infer missing values {auto-animate="true"}
@@ -460,6 +487,16 @@ for ax, col in zip(axes.ravel(), ["TMAX", "PRCP", "SNOW"]):
 plt.show()
 ```
 
+
+## Augmenting features through joining {.smaller}
+- [`Joiner`](https://skrub-data.org/stable/reference/generated/skrub.Joiner.html):  Perform fuzzy-joining: join columns that contain similar-looking values. 
+- [`AggJoiner`](https://skrub-data.org/stable/reference/generated/skrub.AggJoiner.html#) Aggregate an auxiliary dataframe before joining it on a base dataframe, and create new features that aggregate (sum, mean, mode...) the values in the columns. 
+- [`MultiAggJoiner`](https://skrub-data.org/stable/reference/generated/skrub.MultiAggJoiner.html) extends `AggJoiner` to a multi-table scenario.
+- [`InterpolationJoiner`](https://skrub-data.org/stable/reference/generated/skrub.InterpolationJoiner.html) Perform an equi-join and estimate what missing rows would contain if they existed in the table.
+
+::: {.fragment}
+All `Joiner` objects are scikit-learn estimators, so they can be used in a `Pipeline`. 
+:::
 
 ## Additional goodies: deduplication {.smaller}
 `deduplicate` misspelled categories
@@ -527,13 +564,29 @@ conda install -c conda-forge skrub[transformers]
 [Documentation](https://skrub-data.org/stable/install.html){preview-link="true"}
 :::
 
-## Contribute to skrub
-- Open an [issue](https://github.com/skrub-data/skrub/issues) on GitHub
-- Check out the [documentation](https://skrub-data.org/stable/CONTRIBUTING.html) on how to contribute
-- Join the breakout session this afternoon
-
 ## Join the community 
 - [Skrub website](https://skrub-data.org/stable/)
 - [Git repository](https://github.com/skrub-data/skrub/)
 - [Discord server](https://discord.gg/ABaPnm7fDC)
 - [Bluesky](https://bsky.app/profile/skrub-data.bsky.social)
+
+
+## Contribute to skrub
+- Open an [issue](https://github.com/skrub-data/skrub/issues) on GitHub
+- Check out the [documentation](https://skrub-data.org/stable/CONTRIBUTING.html) on how to contribute
+- Join the breakout session this afternoon
+
+## Q & A time!
+Please play around with the `TableReport` examples on the website!
+
+::: {.fragment}
+- Do you program directly? In which language?
+- Do you use specific platforms (e.g., Dataiku)?
+- Do you use mostly pandas, polars, or other libraries?
+- Where is your data stored?
+- What dev environment do you use? Notebooks, IDEs...
+- How do you organize your code? A complete package, a few scripts, ...
+- Do you use circular encoding, or spline encoding for datetime features?
+:::
+
+https://bit.ly/skrub-workshop
