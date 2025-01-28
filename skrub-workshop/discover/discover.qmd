@@ -1,0 +1,92 @@
+---
+title: Discover object
+format:
+    revealjs:
+        slide-number: c/t
+        show-slide-number: all
+        preview-links: auto
+        embed-resources: false
+        transition: slide
+        theme: simple
+        logo: images/skrub.svg
+        footer: https://github.com/skrub-data/skrub
+incremental: true
+---
+
+## The discover object {auto-animate="true"}
+![](images/discover-object-discover-noquery.png){data-id="id1"}
+
+## The discover object {auto-animate="true"}
+![](images/discover-object-discover-query.png){data-id="id1"}
+
+## The discover object {auto-animate="true"}
+- Give a high level overview of the content of a data lake
+- Build an (approximate) schema of the data
+- Suggest tables that are relevant to what the user provides
+
+## Planned features {.smaller}
+::: {.fragment}
+If no query is provided:
+:::
+
+- Given a collection of tables, **profile them** and produce aggregated statistics.
+- Dtypes, null values, shape of the tables.
+
+::: {.fragment}
+If a query table is provided
+:::
+
+- Measure various **pairwise metrics** between columns in the query table, and the columns in the collection of tables.
+- **Rank the columns** based on the metrics to find those that are most relevant.
+- Jaccard containment will be the first metric. 
+- Statistics remain available to perform feature selection.
+
+## Mock-up of the code {auto-animate="true"}
+
+```{.python}
+from skrub import Discover
+
+path_to_tables = "./many_tables/"
+discover = Discover(path_to_tables)
+
+dataframe_stats = discover.fit_transform() 
+```
+
+## Mock-up of the code {auto-animate="true"}
+
+```{.python code-line-numbers="2,5,9"}
+from skrub import Discover
+import pandas as pd
+
+path_to_tables = "./many_tables/"
+query_table = pd.read_csv("this_table.csv")
+
+discover = Discover(path_to_tables)
+
+ranking_by_column = discover.fit_transform(query_table)
+
+```
+## Mock-up of the code {auto-animate="true"}
+
+```{.python code-line-numbers="1,11,12"}
+from skrub import Discover, MultiAggJoiner
+import pandas as pd
+
+path_to_tables = "./many_tables/"
+query_table = pd.read_csv("this_table.csv")
+
+discover = Discover(path_to_tables)
+
+ranking_by_column = discover.fit_transform(query_table)
+
+joiner = MultiAggJoiner(ranking_by_column)
+joined_table = joiner.fit_transform(query_table)
+```
+
+
+
+## Interface with the data
+- The initial implementation will read from a path/glob
+- Later version will target SQL databases
+- What other technologies should we consider? 
+
