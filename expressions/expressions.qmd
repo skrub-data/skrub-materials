@@ -1,0 +1,317 @@
+---
+author: "Jérôme Dockès"
+institute: "Inria"
+format: revealjs
+slide-number: true
+---
+
+## Building complex pipelines
+
+- Our learner contains several data-processing steps
+  - joining tables
+  - selecting columns
+  - applying machine-learning estimators
+- Some steps have state that needs to be fitted
+- Often several tables and aggregations are involved
+
+## Example
+
+- We have e-commerce check-out baskets
+- Each containing one or more products
+- Predict if the transaction is fraudulent
+
+<br/>
+
+<a target="_blank" href="dataset-overview.html">Dataset</a>
+
+## A first attempt ...
+
+- Scikit-learn assumes a single table `X` of the right shape
+
+## Loading data
+
+```{.python}
+data = skrub.datasets.fetch_credit_fraud()
+
+X = data.baskets[["ID"]]
+y = data.baskets["fraud_flag"]
+products = data.products
+```
+
+## Encoding the products
+
+```{.python}
+product_vectorizer = skrub.TableVectorizer(
+    high_cardinality=skrub.StringEncoder(n_components=5)
+)
+
+vectorized_products = product_vectorizer.fit_transform(data.products)
+```
+
+🤔
+
+::: {.incremental}
+
+- How to store `product_vectorizer`?
+- Fitted on whole `products` table: **data leakage**
+- Cannot tune hyper-parameters
+- Transforming only some columns is hard
+  - `ColumnTransformer` 😟😰  
+
+:::
+## Joining the product features
+
+```{.python}
+aggregated_products = (
+    vectorized_products.groupby("basket_ID").agg("mean").reset_index()
+)
+X = X.merge(aggregated_products, left_on="ID", right_on="basket_ID").drop(
+    columns=["ID", "basket_ID"]
+)
+```
+
+🤔
+
+::: {.incremental}
+
+- How to keep track of these transformations?
+- Cannot tune choices
+
+:::
+
+## Adding the supervised estimator
+
+```{.python}
+classifier = HistGradientBoostingClassifier()
+
+cross_val_score(classifier, X, y, scoring="roc_auc", n_jobs=5)
+```
+
+## Skrub to the rescue
+
+- Build complex pipelines involving multiple tables
+
+## Loading data
+
+```{.python}
+data = skrub.datasets.fetch_credit_fraud()
+
+X = skrub.X(data.baskets[["ID"]])
+y = skrub.y(data.baskets["fraud_flag"])
+products = skrub.var("products", data.products)
+```
+
+:::{.incremental}
+
+- `X`, `y`, `products` represent inputs to the model
+- Operations on those objects are evaluated lazily
+  - Recorded rather than evaluated immediately
+  - But a preview is computed for interactive development
+- They forward all operations to the result of their evaluation
+  - Full API of the underlying object is available
+
+:::
+
+## Encoding the products
+
+```{.python code-line-numbers="1-1"}
+products = products[products["basket_ID"].isin(X["ID"])]
+
+product_vectorizer = skrub.TableVectorizer(
+    high_cardinality=skrub.StringEncoder(n_components=5)
+)
+vectorized_products = products.skb.apply(
+    product_vectorizer, cols=s.all() - "basket_ID"
+)
+```
+
+- We can filter `products` based on `X`
+
+
+## Encoding the products
+
+```{.python code-line-numbers="|6-8"}
+products = products[products["basket_ID"].isin(X["ID"])]
+
+product_vectorizer = skrub.TableVectorizer(
+    high_cardinality=skrub.StringEncoder(n_components=5)
+)
+vectorized_products = products.skb.apply(
+    product_vectorizer, cols=s.all() - "basket_ID"
+)
+```
+
+- We can filter `products` based on `X`
+- `product_vectorizer` is added to the model
+
+
+## Encoding the products
+
+```{.python code-line-numbers="7"}
+products = products[products["basket_ID"].isin(X["ID"])]
+
+product_vectorizer = skrub.TableVectorizer(
+    high_cardinality=skrub.StringEncoder(n_components=5)
+)
+vectorized_products = products.skb.apply(
+    product_vectorizer, cols=s.all() - "basket_ID"
+)
+```
+
+- We can filter `products` based on `X`
+- `product_vectorizer` is added to the model
+- We can select columns to transform
+
+
+
+
+## Encoding the products
+
+```{.python code-line-numbers="|5"}
+products = products[products["basket_ID"].isin(X["ID"])]
+
+product_vectorizer = skrub.TableVectorizer(
+    high_cardinality=skrub.StringEncoder(
+        n_components=skrub.choose_int(2, 20)
+    )
+)
+vectorized_products = products.skb.apply(
+    product_vectorizer, cols=s.all() - "basket_ID"
+)
+```
+
+
+- `product_vectorizer` is added to the model
+- We can filter `products` based on `X`
+- We can select columns to transform
+- We can tune hyperparameters (more later)
+
+
+## Joining the product features
+
+```{.python}
+aggregated_products = (
+    vectorized_products.groupby("basket_ID").agg("mean").reset_index()
+)
+X = X.merge(aggregated_products, left_on="ID", right_on="basket_ID").drop(
+    columns=["ID", "basket_ID"]
+)
+```
+
+- Transformations added to the model
+- Can tune choices
+- While having access to all the dataframe's functionality
+
+
+## Adding the supervised estimator
+
+
+```{.python}
+classifier = HistGradientBoostingClassifier()
+pred = X.skb.apply(classifier, y=y)
+```
+
+Evaluation
+
+```{.python}
+pred.skb.cross_validate(scoring="roc_auc", n_jobs=5)
+```
+
+Training & using a model
+
+```{.python filename="train.py"}
+estimator = pred.skb.get_estimator(fitted=True)
+with open("estimator.pickle", "wb") as ostream:
+    pickle.dump(estimator, ostream)
+```
+
+```{.python filename="predict.py"}
+with open("estimator.pickle", "rb") as istream:
+    estimator = pickle.load(istream)
+
+estimator.predict({'X': unseen_baskets, 'products': unseen_products})
+```
+
+
+## Easy inspection
+
+```{.python}
+pred.skb.full_report()
+```
+
+<br/>
+
+<a href="expression_report/index.html" target="_blank">report</a>
+
+## Hyperparameter tuning
+
+- Any choice in the pipeline can be tuned
+- Options are specified inline
+- Inspecting results is easy
+
+## Hyperparameter tuning {.smaller}
+
+Without skrub: 😭😭😭
+
+```{.python}
+pipe = Pipeline([("dim_reduction", PCA()), ("regressor", Ridge())])
+grid = [
+    {
+        "dim_reduction": [PCA()],
+        "dim_reduction__n_components": [10, 20, 30],
+        "regressor": [Ridge()],
+        "regressor__alpha": loguniform(0.1, 10.0),
+    },
+    {
+        "dim_reduction": [SelectKBest()],
+        "dim_reduction__k": [10, 20, 30],
+        "regressor": [Ridge()],
+        "regressor__alpha": loguniform(0.1, 10.0),
+    },
+    {
+        "dim_reduction": [PCA()],
+        "dim_reduction__n_components": [10, 20, 30],
+        "regressor": [RandomForestClassifier()],
+        "regressor__n_estimators": loguniform(20, 200),
+    },
+    {
+        "dim_reduction": [SelectKBest()],
+        "dim_reduction__k": [10, 20, 30],
+        "regressor": [RandomForestClassifier()],
+        "regressor__n_estimators": loguniform(20, 200),
+    },
+]
+model = RandomizedSearchCV(pipe, grid)
+```
+##
+
+:::{.r-fit-text}
+
+**NO!**
+
+:::
+
+## Hyperparameter tuning
+
+With skrub: replace any value with a range
+
+```{.python code-line-numbers="|3|12"}
+product_vectorizer = skrub.TableVectorizer(
+    high_cardinality=skrub.StringEncoder(
+        n_components=skrub.choose_int(2, 20)
+    )
+)
+
+# ...
+
+search = pred.skb.get_randomized_search(scoring="roc_auc", fitted=True)
+
+search.plot_parallel_coord()
+```
+<br/>
+
+:::{.fragment}
+
+<a href="parallel_coord.html" target="_blank">parallel coordinates plot</a>
+
+:::
