@@ -11,19 +11,14 @@ format:
         subtitle: "29th January, 2025"
 incremental: false
 ---
-## First, a few questions... {.smaller}
-- Do you program directly? In which language?
-- Do you use specific platforms (e.g., Dataiku)?
-- Do you use mostly pandas, polars, or other libraries?
-- Where is your data stored?
-- What dev environment do you use? Notebooks, IDEs...
-- How do you organize your code? A complete package, a few scripts, ...
 
 ## Slido workshop
 Join the Slido suggestion poll
 https://app.sli.do/event/wEt4CxjD8ZDeJAniLVHdDz
 
 ![](images/qr-code-slido.png)
+
+(You can also find the link on the index!)
 
 ## Plan for the morning {.smaller} 
 - 10:00 - 10:30 - An overview on Skrub
@@ -43,7 +38,15 @@ https://app.sli.do/event/wEt4CxjD8ZDeJAniLVHdDz
 2. Skrub tutorial
 3. Contributing to skrub
 
-## Accessing the slides
-Slides are available at 
+::: {.callout-important}
+We will make more time for presenting and discussing use cases if needed! 
+:::
 
-Or scan the QR code:
+## Now, for some questions... {.smaller}
+- Do you program directly? In which language?
+- Do you use specific platforms (e.g., Dataiku)?
+- Do you use mostly pandas, polars, or other libraries?
+- Where is your data stored?
+- What dev environment do you use? Notebooks, IDEs...
+- How do you organize your code? A complete package, a few scripts, ...
+
