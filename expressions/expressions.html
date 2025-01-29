@@ -301,32 +301,28 @@
 </section>
 <section id="encoding-the-products-1" class="slide level2">
 <h2>Encoding the products</h2>
-<div class="sourceCode" id="cb6" data-code-line-numbers="3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a><span class="im">from</span> skrub <span class="im">import</span> selectors <span class="im">as</span> s</span>
+<div class="sourceCode" id="cb6" data-code-line-numbers="1-1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a>products <span class="op">=</span> products[products[<span class="st">"basket_ID"</span>].isin(X[<span class="st">"ID"</span>])]</span>
 <span id="cb6-2"><a href=""></a></span>
-<span id="cb6-3"><a href=""></a>products <span class="op">=</span> products[products[<span class="st">"basket_ID"</span>].isin(X[<span class="st">"ID"</span>])]</span>
-<span id="cb6-4"><a href=""></a></span>
-<span id="cb6-5"><a href=""></a>product_vectorizer <span class="op">=</span> skrub.TableVectorizer(</span>
-<span id="cb6-6"><a href=""></a>    high_cardinality<span class="op">=</span>skrub.StringEncoder(n_components<span class="op">=</span><span class="dv">5</span>)</span>
-<span id="cb6-7"><a href=""></a>)</span>
-<span id="cb6-8"><a href=""></a>vectorized_products <span class="op">=</span> products.skb.<span class="bu">apply</span>(</span>
-<span id="cb6-9"><a href=""></a>    product_vectorizer, cols<span class="op">=</span>s.<span class="bu">all</span>() <span class="op">-</span> <span class="st">"basket_ID"</span></span>
-<span id="cb6-10"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-3"><a href=""></a>product_vectorizer <span class="op">=</span> skrub.TableVectorizer(</span>
+<span id="cb6-4"><a href=""></a>    high_cardinality<span class="op">=</span>skrub.StringEncoder(n_components<span class="op">=</span><span class="dv">5</span>)</span>
+<span id="cb6-5"><a href=""></a>)</span>
+<span id="cb6-6"><a href=""></a>vectorized_products <span class="op">=</span> products.skb.<span class="bu">apply</span>(</span>
+<span id="cb6-7"><a href=""></a>    product_vectorizer, cols<span class="op">=</span>s.<span class="bu">all</span>() <span class="op">-</span> <span class="st">"basket_ID"</span></span>
+<span id="cb6-8"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li>We can filter <code>products</code> based on <code>X</code></li>
 </ul>
 </section>
 <section id="encoding-the-products-2" class="slide level2">
 <h2>Encoding the products</h2>
-<div class="sourceCode" id="cb7" data-code-line-numbers="|8-10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a><span class="im">from</span> skrub <span class="im">import</span> selectors <span class="im">as</span> s</span>
+<div class="sourceCode" id="cb7" data-code-line-numbers="|6-8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a>products <span class="op">=</span> products[products[<span class="st">"basket_ID"</span>].isin(X[<span class="st">"ID"</span>])]</span>
 <span id="cb7-2"><a href=""></a></span>
-<span id="cb7-3"><a href=""></a>products <span class="op">=</span> products[products[<span class="st">"basket_ID"</span>].isin(X[<span class="st">"ID"</span>])]</span>
-<span id="cb7-4"><a href=""></a></span>
-<span id="cb7-5"><a href=""></a>product_vectorizer <span class="op">=</span> skrub.TableVectorizer(</span>
-<span id="cb7-6"><a href=""></a>    high_cardinality<span class="op">=</span>skrub.StringEncoder(n_components<span class="op">=</span><span class="dv">5</span>)</span>
-<span id="cb7-7"><a href=""></a>)</span>
-<span id="cb7-8"><a href=""></a>vectorized_products <span class="op">=</span> products.skb.<span class="bu">apply</span>(</span>
-<span id="cb7-9"><a href=""></a>    product_vectorizer, cols<span class="op">=</span>s.<span class="bu">all</span>() <span class="op">-</span> <span class="st">"basket_ID"</span></span>
-<span id="cb7-10"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-3"><a href=""></a>product_vectorizer <span class="op">=</span> skrub.TableVectorizer(</span>
+<span id="cb7-4"><a href=""></a>    high_cardinality<span class="op">=</span>skrub.StringEncoder(n_components<span class="op">=</span><span class="dv">5</span>)</span>
+<span id="cb7-5"><a href=""></a>)</span>
+<span id="cb7-6"><a href=""></a>vectorized_products <span class="op">=</span> products.skb.<span class="bu">apply</span>(</span>
+<span id="cb7-7"><a href=""></a>    product_vectorizer, cols<span class="op">=</span>s.<span class="bu">all</span>() <span class="op">-</span> <span class="st">"basket_ID"</span></span>
+<span id="cb7-8"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li>We can filter <code>products</code> based on <code>X</code></li>
 <li><code>product_vectorizer</code> is added to the model</li>
@@ -334,16 +330,14 @@
 </section>
 <section id="encoding-the-products-3" class="slide level2">
 <h2>Encoding the products</h2>
-<div class="sourceCode" id="cb8" data-code-line-numbers="1,9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href=""></a><span class="im">from</span> skrub <span class="im">import</span> selectors <span class="im">as</span> s</span>
+<div class="sourceCode" id="cb8" data-code-line-numbers="7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href=""></a>products <span class="op">=</span> products[products[<span class="st">"basket_ID"</span>].isin(X[<span class="st">"ID"</span>])]</span>
 <span id="cb8-2"><a href=""></a></span>
-<span id="cb8-3"><a href=""></a>products <span class="op">=</span> products[products[<span class="st">"basket_ID"</span>].isin(X[<span class="st">"ID"</span>])]</span>
-<span id="cb8-4"><a href=""></a></span>
-<span id="cb8-5"><a href=""></a>product_vectorizer <span class="op">=</span> skrub.TableVectorizer(</span>
-<span id="cb8-6"><a href=""></a>    high_cardinality<span class="op">=</span>skrub.StringEncoder(n_components<span class="op">=</span><span class="dv">5</span>)</span>
-<span id="cb8-7"><a href=""></a>)</span>
-<span id="cb8-8"><a href=""></a>vectorized_products <span class="op">=</span> products.skb.<span class="bu">apply</span>(</span>
-<span id="cb8-9"><a href=""></a>    product_vectorizer, cols<span class="op">=</span>s.<span class="bu">all</span>() <span class="op">-</span> <span class="st">"basket_ID"</span></span>
-<span id="cb8-10"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-3"><a href=""></a>product_vectorizer <span class="op">=</span> skrub.TableVectorizer(</span>
+<span id="cb8-4"><a href=""></a>    high_cardinality<span class="op">=</span>skrub.StringEncoder(n_components<span class="op">=</span><span class="dv">5</span>)</span>
+<span id="cb8-5"><a href=""></a>)</span>
+<span id="cb8-6"><a href=""></a>vectorized_products <span class="op">=</span> products.skb.<span class="bu">apply</span>(</span>
+<span id="cb8-7"><a href=""></a>    product_vectorizer, cols<span class="op">=</span>s.<span class="bu">all</span>() <span class="op">-</span> <span class="st">"basket_ID"</span></span>
+<span id="cb8-8"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li>We can filter <code>products</code> based on <code>X</code></li>
 <li><code>product_vectorizer</code> is added to the model</li>
@@ -352,19 +346,20 @@
 </section>
 <section id="encoding-the-products-4" class="slide level2">
 <h2>Encoding the products</h2>
-<div class="sourceCode" id="cb9" data-code-line-numbers="|7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href=""></a><span class="im">from</span> skrub <span class="im">import</span> selectors <span class="im">as</span> s</span>
+<div class="sourceCode" id="cb9" data-code-line-numbers="|5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href=""></a>products <span class="op">=</span> products[products[<span class="st">"basket_ID"</span>].isin(X[<span class="st">"ID"</span>])]</span>
 <span id="cb9-2"><a href=""></a></span>
-<span id="cb9-3"><a href=""></a>products <span class="op">=</span> products[products[<span class="st">"basket_ID"</span>].isin(X[<span class="st">"ID"</span>])]</span>
-<span id="cb9-4"><a href=""></a></span>
-<span id="cb9-5"><a href=""></a>product_vectorizer <span class="op">=</span> skrub.TableVectorizer(</span>
-<span id="cb9-6"><a href=""></a>    high_cardinality<span class="op">=</span>skrub.StringEncoder(</span>
-<span id="cb9-7"><a href=""></a>        n_components<span class="op">=</span>skrub.choose_int(<span class="dv">2</span>, <span class="dv">20</span>)</span>
-<span id="cb9-8"><a href=""></a>    )</span>
-<span id="cb9-9"><a href=""></a>)</span>
-<span id="cb9-10"><a href=""></a>vectorized_products <span class="op">=</span> products.skb.<span class="bu">apply</span>(</span>
-<span id="cb9-11"><a href=""></a>    product_vectorizer, cols<span class="op">=</span>s.<span class="bu">all</span>() <span class="op">-</span> <span class="st">"basket_ID"</span></span>
-<span id="cb9-12"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-3"><a href=""></a>product_vectorizer <span class="op">=</span> skrub.TableVectorizer(</span>
+<span id="cb9-4"><a href=""></a>    high_cardinality<span class="op">=</span>skrub.StringEncoder(</span>
+<span id="cb9-5"><a href=""></a>        n_components<span class="op">=</span>skrub.choose_int(<span class="dv">2</span>, <span class="dv">20</span>)</span>
+<span id="cb9-6"><a href=""></a>    )</span>
+<span id="cb9-7"><a href=""></a>)</span>
+<span id="cb9-8"><a href=""></a>vectorized_products <span class="op">=</span> products.skb.<span class="bu">apply</span>(</span>
+<span id="cb9-9"><a href=""></a>    product_vectorizer, cols<span class="op">=</span>s.<span class="bu">all</span>() <span class="op">-</span> <span class="st">"basket_ID"</span></span>
+<span id="cb9-10"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
+<li><code>product_vectorizer</code> is added to the model</li>
+<li>We can filter <code>products</code> based on <code>X</code></li>
+<li>We can select columns to transform</li>
 <li>We can tune hyperparameters (more later)</li>
 </ul>
 </section>
