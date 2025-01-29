@@ -48,6 +48,18 @@ product_vectorizer = skrub.TableVectorizer(
 vectorized_products = product_vectorizer.fit_transform(data.products)
 ```
 
+![](credit-fraud.svg)
+
+## Encoding the products
+
+```{.python}
+product_vectorizer = skrub.TableVectorizer(
+    high_cardinality=skrub.StringEncoder(n_components=5)
+)
+
+vectorized_products = product_vectorizer.fit_transform(data.products)
+```
+
 🤔
 
 ::: {.incremental}
@@ -114,7 +126,9 @@ products = skrub.var("products", data.products)
 
 ## Encoding the products
 
-```{.python code-line-numbers="1-1"}
+```{.python code-line-numbers="3"}
+from skrub import selectors as s
+
 products = products[products["basket_ID"].isin(X["ID"])]
 
 product_vectorizer = skrub.TableVectorizer(
@@ -130,7 +144,9 @@ vectorized_products = products.skb.apply(
 
 ## Encoding the products
 
-```{.python code-line-numbers="|6-8"}
+```{.python code-line-numbers="|8-10"}
+from skrub import selectors as s
+
 products = products[products["basket_ID"].isin(X["ID"])]
 
 product_vectorizer = skrub.TableVectorizer(
@@ -147,7 +163,9 @@ vectorized_products = products.skb.apply(
 
 ## Encoding the products
 
-```{.python code-line-numbers="7"}
+```{.python code-line-numbers="1,9"}
+from skrub import selectors as s
+
 products = products[products["basket_ID"].isin(X["ID"])]
 
 product_vectorizer = skrub.TableVectorizer(
@@ -163,11 +181,11 @@ vectorized_products = products.skb.apply(
 - We can select columns to transform
 
 
-
-
 ## Encoding the products
 
-```{.python code-line-numbers="|5"}
+```{.python code-line-numbers="|7"}
+from skrub import selectors as s
+
 products = products[products["basket_ID"].isin(X["ID"])]
 
 product_vectorizer = skrub.TableVectorizer(
@@ -181,9 +199,6 @@ vectorized_products = products.skb.apply(
 ```
 
 
-- `product_vectorizer` is added to the model
-- We can filter `products` based on `X`
-- We can select columns to transform
 - We can tune hyperparameters (more later)
 
 

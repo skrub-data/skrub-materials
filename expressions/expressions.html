@@ -236,6 +236,15 @@
 <span id="cb2-3"><a href=""></a>)</span>
 <span id="cb2-4"><a href=""></a></span>
 <span id="cb2-5"><a href=""></a>vectorized_products <span class="op">=</span> product_vectorizer.fit_transform(data.products)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+<img data-src="credit-fraud.svg" class="r-stretch"></section>
+<section id="encoding-the-products-1" class="slide level2">
+<h2>Encoding the products</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a>product_vectorizer <span class="op">=</span> skrub.TableVectorizer(</span>
+<span id="cb3-2"><a href=""></a>    high_cardinality<span class="op">=</span>skrub.StringEncoder(n_components<span class="op">=</span><span class="dv">5</span>)</span>
+<span id="cb3-3"><a href=""></a>)</span>
+<span id="cb3-4"><a href=""></a></span>
+<span id="cb3-5"><a href=""></a>vectorized_products <span class="op">=</span> product_vectorizer.fit_transform(data.products)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>🤔</p>
 <div>
 <ul>
@@ -251,12 +260,12 @@
 </section>
 <section id="joining-the-product-features" class="slide level2">
 <h2>Joining the product features</h2>
-<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a>aggregated_products <span class="op">=</span> (</span>
-<span id="cb3-2"><a href=""></a>    vectorized_products.groupby(<span class="st">"basket_ID"</span>).agg(<span class="st">"mean"</span>).reset_index()</span>
-<span id="cb3-3"><a href=""></a>)</span>
-<span id="cb3-4"><a href=""></a>X <span class="op">=</span> X.merge(aggregated_products, left_on<span class="op">=</span><span class="st">"ID"</span>, right_on<span class="op">=</span><span class="st">"basket_ID"</span>).drop(</span>
-<span id="cb3-5"><a href=""></a>    columns<span class="op">=</span>[<span class="st">"ID"</span>, <span class="st">"basket_ID"</span>]</span>
-<span id="cb3-6"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a>aggregated_products <span class="op">=</span> (</span>
+<span id="cb4-2"><a href=""></a>    vectorized_products.groupby(<span class="st">"basket_ID"</span>).agg(<span class="st">"mean"</span>).reset_index()</span>
+<span id="cb4-3"><a href=""></a>)</span>
+<span id="cb4-4"><a href=""></a>X <span class="op">=</span> X.merge(aggregated_products, left_on<span class="op">=</span><span class="st">"ID"</span>, right_on<span class="op">=</span><span class="st">"basket_ID"</span>).drop(</span>
+<span id="cb4-5"><a href=""></a>    columns<span class="op">=</span>[<span class="st">"ID"</span>, <span class="st">"basket_ID"</span>]</span>
+<span id="cb4-6"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>🤔</p>
 <div>
 <ul>
@@ -267,9 +276,9 @@
 </section>
 <section id="adding-the-supervised-estimator" class="slide level2">
 <h2>Adding the supervised estimator</h2>
-<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a>classifier <span class="op">=</span> HistGradientBoostingClassifier()</span>
-<span id="cb4-2"><a href=""></a></span>
-<span id="cb4-3"><a href=""></a>cross_val_score(classifier, X, y, scoring<span class="op">=</span><span class="st">"roc_auc"</span>, n_jobs<span class="op">=</span><span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a>classifier <span class="op">=</span> HistGradientBoostingClassifier()</span>
+<span id="cb5-2"><a href=""></a></span>
+<span id="cb5-3"><a href=""></a>cross_val_score(classifier, X, y, scoring<span class="op">=</span><span class="st">"roc_auc"</span>, n_jobs<span class="op">=</span><span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="skrub-to-the-rescue" class="slide level2">
 <h2>Skrub to the rescue</h2>
@@ -279,11 +288,11 @@
 </section>
 <section id="loading-data-1" class="slide level2">
 <h2>Loading data</h2>
-<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a>data <span class="op">=</span> skrub.datasets.fetch_credit_fraud()</span>
-<span id="cb5-2"><a href=""></a></span>
-<span id="cb5-3"><a href=""></a>X <span class="op">=</span> skrub.X(data.baskets[[<span class="st">"ID"</span>]])</span>
-<span id="cb5-4"><a href=""></a>y <span class="op">=</span> skrub.y(data.baskets[<span class="st">"fraud_flag"</span>])</span>
-<span id="cb5-5"><a href=""></a>products <span class="op">=</span> skrub.var(<span class="st">"products"</span>, data.products)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a>data <span class="op">=</span> skrub.datasets.fetch_credit_fraud()</span>
+<span id="cb6-2"><a href=""></a></span>
+<span id="cb6-3"><a href=""></a>X <span class="op">=</span> skrub.X(data.baskets[[<span class="st">"ID"</span>]])</span>
+<span id="cb6-4"><a href=""></a>y <span class="op">=</span> skrub.y(data.baskets[<span class="st">"fraud_flag"</span>])</span>
+<span id="cb6-5"><a href=""></a>products <span class="op">=</span> skrub.var(<span class="st">"products"</span>, data.products)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div>
 <ul>
 <li class="fragment"><code>X</code>, <code>y</code>, <code>products</code> represent inputs to the model</li>
@@ -299,78 +308,83 @@
 </ul>
 </div>
 </section>
-<section id="encoding-the-products-1" class="slide level2">
-<h2>Encoding the products</h2>
-<div class="sourceCode" id="cb6" data-code-line-numbers="1-1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a>products <span class="op">=</span> products[products[<span class="st">"basket_ID"</span>].isin(X[<span class="st">"ID"</span>])]</span>
-<span id="cb6-2"><a href=""></a></span>
-<span id="cb6-3"><a href=""></a>product_vectorizer <span class="op">=</span> skrub.TableVectorizer(</span>
-<span id="cb6-4"><a href=""></a>    high_cardinality<span class="op">=</span>skrub.StringEncoder(n_components<span class="op">=</span><span class="dv">5</span>)</span>
-<span id="cb6-5"><a href=""></a>)</span>
-<span id="cb6-6"><a href=""></a>vectorized_products <span class="op">=</span> products.skb.<span class="bu">apply</span>(</span>
-<span id="cb6-7"><a href=""></a>    product_vectorizer, cols<span class="op">=</span>s.<span class="bu">all</span>() <span class="op">-</span> <span class="st">"basket_ID"</span></span>
-<span id="cb6-8"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<ul>
-<li>We can filter <code>products</code> based on <code>X</code></li>
-</ul>
-</section>
 <section id="encoding-the-products-2" class="slide level2">
 <h2>Encoding the products</h2>
-<div class="sourceCode" id="cb7" data-code-line-numbers="|6-8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a>products <span class="op">=</span> products[products[<span class="st">"basket_ID"</span>].isin(X[<span class="st">"ID"</span>])]</span>
+<div class="sourceCode" id="cb7" data-code-line-numbers="3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a><span class="im">from</span> skrub <span class="im">import</span> selectors <span class="im">as</span> s</span>
 <span id="cb7-2"><a href=""></a></span>
-<span id="cb7-3"><a href=""></a>product_vectorizer <span class="op">=</span> skrub.TableVectorizer(</span>
-<span id="cb7-4"><a href=""></a>    high_cardinality<span class="op">=</span>skrub.StringEncoder(n_components<span class="op">=</span><span class="dv">5</span>)</span>
-<span id="cb7-5"><a href=""></a>)</span>
-<span id="cb7-6"><a href=""></a>vectorized_products <span class="op">=</span> products.skb.<span class="bu">apply</span>(</span>
-<span id="cb7-7"><a href=""></a>    product_vectorizer, cols<span class="op">=</span>s.<span class="bu">all</span>() <span class="op">-</span> <span class="st">"basket_ID"</span></span>
-<span id="cb7-8"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-3"><a href=""></a>products <span class="op">=</span> products[products[<span class="st">"basket_ID"</span>].isin(X[<span class="st">"ID"</span>])]</span>
+<span id="cb7-4"><a href=""></a></span>
+<span id="cb7-5"><a href=""></a>product_vectorizer <span class="op">=</span> skrub.TableVectorizer(</span>
+<span id="cb7-6"><a href=""></a>    high_cardinality<span class="op">=</span>skrub.StringEncoder(n_components<span class="op">=</span><span class="dv">5</span>)</span>
+<span id="cb7-7"><a href=""></a>)</span>
+<span id="cb7-8"><a href=""></a>vectorized_products <span class="op">=</span> products.skb.<span class="bu">apply</span>(</span>
+<span id="cb7-9"><a href=""></a>    product_vectorizer, cols<span class="op">=</span>s.<span class="bu">all</span>() <span class="op">-</span> <span class="st">"basket_ID"</span></span>
+<span id="cb7-10"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li>We can filter <code>products</code> based on <code>X</code></li>
-<li><code>product_vectorizer</code> is added to the model</li>
 </ul>
 </section>
 <section id="encoding-the-products-3" class="slide level2">
 <h2>Encoding the products</h2>
-<div class="sourceCode" id="cb8" data-code-line-numbers="7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href=""></a>products <span class="op">=</span> products[products[<span class="st">"basket_ID"</span>].isin(X[<span class="st">"ID"</span>])]</span>
+<div class="sourceCode" id="cb8" data-code-line-numbers="|8-10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href=""></a><span class="im">from</span> skrub <span class="im">import</span> selectors <span class="im">as</span> s</span>
 <span id="cb8-2"><a href=""></a></span>
-<span id="cb8-3"><a href=""></a>product_vectorizer <span class="op">=</span> skrub.TableVectorizer(</span>
-<span id="cb8-4"><a href=""></a>    high_cardinality<span class="op">=</span>skrub.StringEncoder(n_components<span class="op">=</span><span class="dv">5</span>)</span>
-<span id="cb8-5"><a href=""></a>)</span>
-<span id="cb8-6"><a href=""></a>vectorized_products <span class="op">=</span> products.skb.<span class="bu">apply</span>(</span>
-<span id="cb8-7"><a href=""></a>    product_vectorizer, cols<span class="op">=</span>s.<span class="bu">all</span>() <span class="op">-</span> <span class="st">"basket_ID"</span></span>
-<span id="cb8-8"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-3"><a href=""></a>products <span class="op">=</span> products[products[<span class="st">"basket_ID"</span>].isin(X[<span class="st">"ID"</span>])]</span>
+<span id="cb8-4"><a href=""></a></span>
+<span id="cb8-5"><a href=""></a>product_vectorizer <span class="op">=</span> skrub.TableVectorizer(</span>
+<span id="cb8-6"><a href=""></a>    high_cardinality<span class="op">=</span>skrub.StringEncoder(n_components<span class="op">=</span><span class="dv">5</span>)</span>
+<span id="cb8-7"><a href=""></a>)</span>
+<span id="cb8-8"><a href=""></a>vectorized_products <span class="op">=</span> products.skb.<span class="bu">apply</span>(</span>
+<span id="cb8-9"><a href=""></a>    product_vectorizer, cols<span class="op">=</span>s.<span class="bu">all</span>() <span class="op">-</span> <span class="st">"basket_ID"</span></span>
+<span id="cb8-10"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li>We can filter <code>products</code> based on <code>X</code></li>
 <li><code>product_vectorizer</code> is added to the model</li>
-<li>We can select columns to transform</li>
 </ul>
 </section>
 <section id="encoding-the-products-4" class="slide level2">
 <h2>Encoding the products</h2>
-<div class="sourceCode" id="cb9" data-code-line-numbers="|5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href=""></a>products <span class="op">=</span> products[products[<span class="st">"basket_ID"</span>].isin(X[<span class="st">"ID"</span>])]</span>
+<div class="sourceCode" id="cb9" data-code-line-numbers="1,9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href=""></a><span class="im">from</span> skrub <span class="im">import</span> selectors <span class="im">as</span> s</span>
 <span id="cb9-2"><a href=""></a></span>
-<span id="cb9-3"><a href=""></a>product_vectorizer <span class="op">=</span> skrub.TableVectorizer(</span>
-<span id="cb9-4"><a href=""></a>    high_cardinality<span class="op">=</span>skrub.StringEncoder(</span>
-<span id="cb9-5"><a href=""></a>        n_components<span class="op">=</span>skrub.choose_int(<span class="dv">2</span>, <span class="dv">20</span>)</span>
-<span id="cb9-6"><a href=""></a>    )</span>
+<span id="cb9-3"><a href=""></a>products <span class="op">=</span> products[products[<span class="st">"basket_ID"</span>].isin(X[<span class="st">"ID"</span>])]</span>
+<span id="cb9-4"><a href=""></a></span>
+<span id="cb9-5"><a href=""></a>product_vectorizer <span class="op">=</span> skrub.TableVectorizer(</span>
+<span id="cb9-6"><a href=""></a>    high_cardinality<span class="op">=</span>skrub.StringEncoder(n_components<span class="op">=</span><span class="dv">5</span>)</span>
 <span id="cb9-7"><a href=""></a>)</span>
 <span id="cb9-8"><a href=""></a>vectorized_products <span class="op">=</span> products.skb.<span class="bu">apply</span>(</span>
 <span id="cb9-9"><a href=""></a>    product_vectorizer, cols<span class="op">=</span>s.<span class="bu">all</span>() <span class="op">-</span> <span class="st">"basket_ID"</span></span>
 <span id="cb9-10"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
-<li><code>product_vectorizer</code> is added to the model</li>
 <li>We can filter <code>products</code> based on <code>X</code></li>
+<li><code>product_vectorizer</code> is added to the model</li>
 <li>We can select columns to transform</li>
+</ul>
+</section>
+<section id="encoding-the-products-5" class="slide level2">
+<h2>Encoding the products</h2>
+<div class="sourceCode" id="cb10" data-code-line-numbers="|7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href=""></a><span class="im">from</span> skrub <span class="im">import</span> selectors <span class="im">as</span> s</span>
+<span id="cb10-2"><a href=""></a></span>
+<span id="cb10-3"><a href=""></a>products <span class="op">=</span> products[products[<span class="st">"basket_ID"</span>].isin(X[<span class="st">"ID"</span>])]</span>
+<span id="cb10-4"><a href=""></a></span>
+<span id="cb10-5"><a href=""></a>product_vectorizer <span class="op">=</span> skrub.TableVectorizer(</span>
+<span id="cb10-6"><a href=""></a>    high_cardinality<span class="op">=</span>skrub.StringEncoder(</span>
+<span id="cb10-7"><a href=""></a>        n_components<span class="op">=</span>skrub.choose_int(<span class="dv">2</span>, <span class="dv">20</span>)</span>
+<span id="cb10-8"><a href=""></a>    )</span>
+<span id="cb10-9"><a href=""></a>)</span>
+<span id="cb10-10"><a href=""></a>vectorized_products <span class="op">=</span> products.skb.<span class="bu">apply</span>(</span>
+<span id="cb10-11"><a href=""></a>    product_vectorizer, cols<span class="op">=</span>s.<span class="bu">all</span>() <span class="op">-</span> <span class="st">"basket_ID"</span></span>
+<span id="cb10-12"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
 <li>We can tune hyperparameters (more later)</li>
 </ul>
 </section>
 <section id="joining-the-product-features-1" class="slide level2">
 <h2>Joining the product features</h2>
-<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href=""></a>aggregated_products <span class="op">=</span> (</span>
-<span id="cb10-2"><a href=""></a>    vectorized_products.groupby(<span class="st">"basket_ID"</span>).agg(<span class="st">"mean"</span>).reset_index()</span>
-<span id="cb10-3"><a href=""></a>)</span>
-<span id="cb10-4"><a href=""></a>X <span class="op">=</span> X.merge(aggregated_products, left_on<span class="op">=</span><span class="st">"ID"</span>, right_on<span class="op">=</span><span class="st">"basket_ID"</span>).drop(</span>
-<span id="cb10-5"><a href=""></a>    columns<span class="op">=</span>[<span class="st">"ID"</span>, <span class="st">"basket_ID"</span>]</span>
-<span id="cb10-6"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href=""></a>aggregated_products <span class="op">=</span> (</span>
+<span id="cb11-2"><a href=""></a>    vectorized_products.groupby(<span class="st">"basket_ID"</span>).agg(<span class="st">"mean"</span>).reset_index()</span>
+<span id="cb11-3"><a href=""></a>)</span>
+<span id="cb11-4"><a href=""></a>X <span class="op">=</span> X.merge(aggregated_products, left_on<span class="op">=</span><span class="st">"ID"</span>, right_on<span class="op">=</span><span class="st">"basket_ID"</span>).drop(</span>
+<span id="cb11-5"><a href=""></a>    columns<span class="op">=</span>[<span class="st">"ID"</span>, <span class="st">"basket_ID"</span>]</span>
+<span id="cb11-6"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li>Transformations added to the model</li>
 <li>Can tune choices</li>
@@ -379,32 +393,32 @@
 </section>
 <section id="adding-the-supervised-estimator-1" class="slide level2">
 <h2>Adding the supervised estimator</h2>
-<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href=""></a>classifier <span class="op">=</span> HistGradientBoostingClassifier()</span>
-<span id="cb11-2"><a href=""></a>pred <span class="op">=</span> X.skb.<span class="bu">apply</span>(classifier, y<span class="op">=</span>y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href=""></a>classifier <span class="op">=</span> HistGradientBoostingClassifier()</span>
+<span id="cb12-2"><a href=""></a>pred <span class="op">=</span> X.skb.<span class="bu">apply</span>(classifier, y<span class="op">=</span>y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Evaluation</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href=""></a>pred.skb.cross_validate(scoring<span class="op">=</span><span class="st">"roc_auc"</span>, n_jobs<span class="op">=</span><span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href=""></a>pred.skb.cross_validate(scoring<span class="op">=</span><span class="st">"roc_auc"</span>, n_jobs<span class="op">=</span><span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Training &amp; using a model</p>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>train.py</strong></pre>
 </div>
-<div class="sourceCode" id="cb13" data-filename="train.py"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href=""></a>estimator <span class="op">=</span> pred.skb.get_estimator(fitted<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb13-2"><a href=""></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"estimator.pickle"</span>, <span class="st">"wb"</span>) <span class="im">as</span> ostream:</span>
-<span id="cb13-3"><a href=""></a>    pickle.dump(estimator, ostream)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb14" data-filename="train.py"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href=""></a>estimator <span class="op">=</span> pred.skb.get_estimator(fitted<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb14-2"><a href=""></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"estimator.pickle"</span>, <span class="st">"wb"</span>) <span class="im">as</span> ostream:</span>
+<span id="cb14-3"><a href=""></a>    pickle.dump(estimator, ostream)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>predict.py</strong></pre>
 </div>
-<div class="sourceCode" id="cb14" data-filename="predict.py"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href=""></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"estimator.pickle"</span>, <span class="st">"rb"</span>) <span class="im">as</span> istream:</span>
-<span id="cb14-2"><a href=""></a>    estimator <span class="op">=</span> pickle.load(istream)</span>
-<span id="cb14-3"><a href=""></a></span>
-<span id="cb14-4"><a href=""></a>estimator.predict({<span class="st">'X'</span>: unseen_baskets, <span class="st">'products'</span>: unseen_products})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb15" data-filename="predict.py"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href=""></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"estimator.pickle"</span>, <span class="st">"rb"</span>) <span class="im">as</span> istream:</span>
+<span id="cb15-2"><a href=""></a>    estimator <span class="op">=</span> pickle.load(istream)</span>
+<span id="cb15-3"><a href=""></a></span>
+<span id="cb15-4"><a href=""></a>estimator.predict({<span class="st">'X'</span>: unseen_baskets, <span class="st">'products'</span>: unseen_products})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="easy-inspection" class="slide level2">
 <h2>Easy inspection</h2>
-<div class="sourceCode" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href=""></a>pred.skb.full_report()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href=""></a>pred.skb.full_report()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><br></p>
 <p><a href="expression_report/index.html" target="_blank">report</a></p>
 </section>
@@ -419,34 +433,34 @@
 <section id="hyperparameter-tuning-1" class="slide level2 smaller">
 <h2>Hyperparameter tuning</h2>
 <p>Without skrub: 😭😭😭</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href=""></a>pipe <span class="op">=</span> Pipeline([(<span class="st">"dim_reduction"</span>, PCA()), (<span class="st">"regressor"</span>, Ridge())])</span>
-<span id="cb16-2"><a href=""></a>grid <span class="op">=</span> [</span>
-<span id="cb16-3"><a href=""></a>    {</span>
-<span id="cb16-4"><a href=""></a>        <span class="st">"dim_reduction"</span>: [PCA()],</span>
-<span id="cb16-5"><a href=""></a>        <span class="st">"dim_reduction__n_components"</span>: [<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>],</span>
-<span id="cb16-6"><a href=""></a>        <span class="st">"regressor"</span>: [Ridge()],</span>
-<span id="cb16-7"><a href=""></a>        <span class="st">"regressor__alpha"</span>: loguniform(<span class="fl">0.1</span>, <span class="fl">10.0</span>),</span>
-<span id="cb16-8"><a href=""></a>    },</span>
-<span id="cb16-9"><a href=""></a>    {</span>
-<span id="cb16-10"><a href=""></a>        <span class="st">"dim_reduction"</span>: [SelectKBest()],</span>
-<span id="cb16-11"><a href=""></a>        <span class="st">"dim_reduction__k"</span>: [<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>],</span>
-<span id="cb16-12"><a href=""></a>        <span class="st">"regressor"</span>: [Ridge()],</span>
-<span id="cb16-13"><a href=""></a>        <span class="st">"regressor__alpha"</span>: loguniform(<span class="fl">0.1</span>, <span class="fl">10.0</span>),</span>
-<span id="cb16-14"><a href=""></a>    },</span>
-<span id="cb16-15"><a href=""></a>    {</span>
-<span id="cb16-16"><a href=""></a>        <span class="st">"dim_reduction"</span>: [PCA()],</span>
-<span id="cb16-17"><a href=""></a>        <span class="st">"dim_reduction__n_components"</span>: [<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>],</span>
-<span id="cb16-18"><a href=""></a>        <span class="st">"regressor"</span>: [RandomForestClassifier()],</span>
-<span id="cb16-19"><a href=""></a>        <span class="st">"regressor__n_estimators"</span>: loguniform(<span class="dv">20</span>, <span class="dv">200</span>),</span>
-<span id="cb16-20"><a href=""></a>    },</span>
-<span id="cb16-21"><a href=""></a>    {</span>
-<span id="cb16-22"><a href=""></a>        <span class="st">"dim_reduction"</span>: [SelectKBest()],</span>
-<span id="cb16-23"><a href=""></a>        <span class="st">"dim_reduction__k"</span>: [<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>],</span>
-<span id="cb16-24"><a href=""></a>        <span class="st">"regressor"</span>: [RandomForestClassifier()],</span>
-<span id="cb16-25"><a href=""></a>        <span class="st">"regressor__n_estimators"</span>: loguniform(<span class="dv">20</span>, <span class="dv">200</span>),</span>
-<span id="cb16-26"><a href=""></a>    },</span>
-<span id="cb16-27"><a href=""></a>]</span>
-<span id="cb16-28"><a href=""></a>model <span class="op">=</span> RandomizedSearchCV(pipe, grid)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href=""></a>pipe <span class="op">=</span> Pipeline([(<span class="st">"dim_reduction"</span>, PCA()), (<span class="st">"regressor"</span>, Ridge())])</span>
+<span id="cb17-2"><a href=""></a>grid <span class="op">=</span> [</span>
+<span id="cb17-3"><a href=""></a>    {</span>
+<span id="cb17-4"><a href=""></a>        <span class="st">"dim_reduction"</span>: [PCA()],</span>
+<span id="cb17-5"><a href=""></a>        <span class="st">"dim_reduction__n_components"</span>: [<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>],</span>
+<span id="cb17-6"><a href=""></a>        <span class="st">"regressor"</span>: [Ridge()],</span>
+<span id="cb17-7"><a href=""></a>        <span class="st">"regressor__alpha"</span>: loguniform(<span class="fl">0.1</span>, <span class="fl">10.0</span>),</span>
+<span id="cb17-8"><a href=""></a>    },</span>
+<span id="cb17-9"><a href=""></a>    {</span>
+<span id="cb17-10"><a href=""></a>        <span class="st">"dim_reduction"</span>: [SelectKBest()],</span>
+<span id="cb17-11"><a href=""></a>        <span class="st">"dim_reduction__k"</span>: [<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>],</span>
+<span id="cb17-12"><a href=""></a>        <span class="st">"regressor"</span>: [Ridge()],</span>
+<span id="cb17-13"><a href=""></a>        <span class="st">"regressor__alpha"</span>: loguniform(<span class="fl">0.1</span>, <span class="fl">10.0</span>),</span>
+<span id="cb17-14"><a href=""></a>    },</span>
+<span id="cb17-15"><a href=""></a>    {</span>
+<span id="cb17-16"><a href=""></a>        <span class="st">"dim_reduction"</span>: [PCA()],</span>
+<span id="cb17-17"><a href=""></a>        <span class="st">"dim_reduction__n_components"</span>: [<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>],</span>
+<span id="cb17-18"><a href=""></a>        <span class="st">"regressor"</span>: [RandomForestClassifier()],</span>
+<span id="cb17-19"><a href=""></a>        <span class="st">"regressor__n_estimators"</span>: loguniform(<span class="dv">20</span>, <span class="dv">200</span>),</span>
+<span id="cb17-20"><a href=""></a>    },</span>
+<span id="cb17-21"><a href=""></a>    {</span>
+<span id="cb17-22"><a href=""></a>        <span class="st">"dim_reduction"</span>: [SelectKBest()],</span>
+<span id="cb17-23"><a href=""></a>        <span class="st">"dim_reduction__k"</span>: [<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>],</span>
+<span id="cb17-24"><a href=""></a>        <span class="st">"regressor"</span>: [RandomForestClassifier()],</span>
+<span id="cb17-25"><a href=""></a>        <span class="st">"regressor__n_estimators"</span>: loguniform(<span class="dv">20</span>, <span class="dv">200</span>),</span>
+<span id="cb17-26"><a href=""></a>    },</span>
+<span id="cb17-27"><a href=""></a>]</span>
+<span id="cb17-28"><a href=""></a>model <span class="op">=</span> RandomizedSearchCV(pipe, grid)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="section" class="slide level2">
 <h2></h2>
@@ -457,17 +471,17 @@
 <section id="hyperparameter-tuning-2" class="slide level2">
 <h2>Hyperparameter tuning</h2>
 <p>With skrub: replace any value with a range</p>
-<div class="sourceCode" id="cb17" data-code-line-numbers="|3|12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href=""></a>product_vectorizer <span class="op">=</span> skrub.TableVectorizer(</span>
-<span id="cb17-2"><a href=""></a>    high_cardinality<span class="op">=</span>skrub.StringEncoder(</span>
-<span id="cb17-3"><a href=""></a>        n_components<span class="op">=</span>skrub.choose_int(<span class="dv">2</span>, <span class="dv">20</span>)</span>
-<span id="cb17-4"><a href=""></a>    )</span>
-<span id="cb17-5"><a href=""></a>)</span>
-<span id="cb17-6"><a href=""></a></span>
-<span id="cb17-7"><a href=""></a><span class="co"># ...</span></span>
-<span id="cb17-8"><a href=""></a></span>
-<span id="cb17-9"><a href=""></a>search <span class="op">=</span> pred.skb.get_randomized_search(scoring<span class="op">=</span><span class="st">"roc_auc"</span>, fitted<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb17-10"><a href=""></a></span>
-<span id="cb17-11"><a href=""></a>search.plot_parallel_coord()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb18" data-code-line-numbers="|3|12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href=""></a>product_vectorizer <span class="op">=</span> skrub.TableVectorizer(</span>
+<span id="cb18-2"><a href=""></a>    high_cardinality<span class="op">=</span>skrub.StringEncoder(</span>
+<span id="cb18-3"><a href=""></a>        n_components<span class="op">=</span>skrub.choose_int(<span class="dv">2</span>, <span class="dv">20</span>)</span>
+<span id="cb18-4"><a href=""></a>    )</span>
+<span id="cb18-5"><a href=""></a>)</span>
+<span id="cb18-6"><a href=""></a></span>
+<span id="cb18-7"><a href=""></a><span class="co"># ...</span></span>
+<span id="cb18-8"><a href=""></a></span>
+<span id="cb18-9"><a href=""></a>search <span class="op">=</span> pred.skb.get_randomized_search(scoring<span class="op">=</span><span class="st">"roc_auc"</span>, fitted<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb18-10"><a href=""></a></span>
+<span id="cb18-11"><a href=""></a>search.plot_parallel_coord()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><br></p>
 <div class="fragment">
 <p><a href="parallel_coord.html" target="_blank">parallel coordinates plot</a></p>
