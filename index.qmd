@@ -8,17 +8,13 @@ This page is used to track all the publicly available material about Skrub.
 
 ## Skrub workshop 29/01/2025
 
-- <a href="https://inria.webex.com/meet/riccardo.cappuzzo" target="_blank">Webex (video conference)</a>
-
-### Morning
-- <a href="https://skrub-data.org/skrub-materials/skrub-workshop/skrub-day/skrub-day.html" target="_blank"> 🗓️ Program for the day</a>
-- <a href="https://app.sli.do/event/wEt4CxjD8ZDeJAniLVHdDz">💡 Slido link for suggestions</a>
+### Skrub features 
 - <a href="https://skrub-data.org/skrub-materials/skrub-workshop/skrub-intro/skrub-intro.html">🤝 Introduction to Skrub and main features</a>
 - <a href="https://skrub-data.org/skrub-reports/examples/">📑 Examples of `TableReport`</a> 
+- <a href="https://skrub-data.org/skrub-materials/skrub-intro-quarto.html">📔 Skrub introductory notebook</a>
+
+### Future developments
 - <a href="expressions/expressions.html">🌠 Skrub recipe and expressions</a>
 - <a href="https://docs.google.com/presentation/d/1pIUHmqpSDi8GyRCJ_4pXUfPKEXeLoql-YxpVDK97Cxc/edit?usp=sharing">⌚ Timeseries and KKBox</a>
-- <a href="">🔎 The Discover object</a>
-
-### Afternoon
+- <a href="https://skrub-data.org/skrub-materials/skrub-workshop/discover/discover.html">🔎 The Discover object</a>
 - <a href="https://skrub-data.org/skrub-materials/skrub-workshop/skrub-retrieve-merge-predict/skrub-retrieve-merge-predict.html">🎓 A Skrub use case in Academia</a>
-- <a href="https://skrub-data.org/skrub-materials/skrub-intro-quarto.html">📔 Skrub introductory notebook</a>
