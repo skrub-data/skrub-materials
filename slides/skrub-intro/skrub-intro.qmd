@@ -12,7 +12,6 @@ format:
         transition: slide
         theme: simple
         logo: images/skrub.svg
-        footer: https://bit.ly/skrub-workshop
 incremental: true
 
 ---
@@ -21,17 +20,6 @@ incremental: true
     - Example use case
     - Detailed explanation of the features
     - Getting involved
-- Development roadmap
-    - Recipe
-    - Timeseries
-    - Discover
-    - Database interfaces
-
-## Before we start
-- If you have questions, raise your hand and someone will come to you
-- Write your suggestions on Slido
-- Open issues on Github (we can help with that)
-- All material is available at <a href="https://bit.ly/skrub-workshop" target="_blank">https://bit.ly/skrub-workshop</a>
 
 ## In the beginning...
 Skrub stems from the development of `dirty_cat`, a package that provided support
@@ -84,7 +72,7 @@ employees.describe(include="all")
 ```
 ```
 
-## Exploring the data... interactively! 
+## Exploring the data... interactively! {.smaller}
 
 ```{.python}
 from skrub import TableReport
@@ -103,7 +91,7 @@ Main features:
 
 
 ::: {.fragment}
-[Try it out yourself!](https://skrub-data.org/skrub-reports/examples/)
+[More examples here](https://skrub-data.org/skrub-reports/examples/)
 :::
 
 ## Build a predictive pipeline {auto-animate="true" .smaller}
@@ -424,7 +412,7 @@ joiner.fit_transform(df1)
 ```
 
 
-## `InterpolationJoiner`: infer missing values {auto-animate="true"}
+## `InterpolationJoiner`: infer missing values {auto-animate="true" .smaller}
 ```{python}
 #| echo: true
 import pandas as pd
@@ -566,6 +554,7 @@ conda install -c conda-forge skrub[transformers]
 
 ## Join the community 
 - [Skrub website](https://skrub-data.org/stable/)
+- [Skrub materials website](https://skrub-data.org/skrub-materials/index.html)
 - [Git repository](https://github.com/skrub-data/skrub/)
 - [Discord server](https://discord.gg/ABaPnm7fDC)
 - [Bluesky](https://bsky.app/profile/skrub-data.bsky.social)
@@ -574,19 +563,5 @@ conda install -c conda-forge skrub[transformers]
 ## Contribute to skrub
 - Open an [issue](https://github.com/skrub-data/skrub/issues) on GitHub
 - Check out the [documentation](https://skrub-data.org/stable/CONTRIBUTING.html) on how to contribute
-- Join the breakout session this afternoon
 
-## Q & A time!
-Please play around with the `TableReport` examples on the website!
-
-::: {.fragment}
-- Do you program directly? In which language?
-- Do you use specific platforms (e.g., Dataiku)?
-- Do you use mostly pandas, polars, or other libraries?
-- Where is your data stored?
-- What dev environment do you use? Notebooks, IDEs...
-- How do you organize your code? A complete package, a few scripts, ...
-- Do you use circular encoding, or spline encoding for datetime features?
-:::
-
-https://bit.ly/skrub-workshop
+# Q & A time!
