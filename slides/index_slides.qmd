@@ -5,12 +5,12 @@ title: "Skrub slides and talks"
 This page is used to track all the publicly available material about Skrub. 
 
 ### Skrub features 
-- <a href="skrub-intro/skrub-intro.qmd">🤝 Introduction to Skrub and main features</a>
-- <a href="https://skrub-data.org/skrub-reports/examples/">📑 Examples of `TableReport`</a> 
+- <a href="skrub-intro/skrub-intro.qmd" target="_blank">🤝 Introduction to Skrub and main features</a>
+- <a href="https://skrub-data.org/skrub-reports/examples/" target="_blank">📑 Examples of `TableReport`</a> 
 - <a href="">📔 Skrub introductory notebook</a>
 
 ### Future developments
-- <a href="expressions/expressions.qmd">🌠 Skrub recipe and expressions</a>
-- <a href="https://docs.google.com/presentation/d/1pIUHmqpSDi8GyRCJ_4pXUfPKEXeLoql-YxpVDK97Cxc/edit?usp=sharing">⌚ Timeseries and KKBox</a>
-- <a href="discover/discover.qmd">🔎 The Discover object</a>
-- <a href="skrub-retrieve-merge-predict/skrub-retrieve-merge-predict.qmd">🎓 A Skrub use case in Academia</a>
+- <a href="expressions/expressions.qmd" target="_blank">🌠 Skrub recipe and expressions</a>
+- <a href="https://docs.google.com/presentation/d/1pIUHmqpSDi8GyRCJ_4pXUfPKEXeLoql-YxpVDK97Cxc/edit?usp=sharing" target="_blank">⌚ Timeseries and KKBox</a>
+- <a href="discover/discover.qmd" target="_blank">🔎 The Discover object</a>
+- <a href="skrub-retrieve-merge-predict/skrub-retrieve-merge-predict.qmd" target="_blank">🎓 A Skrub use case in Academia</a>
