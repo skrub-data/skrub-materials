@@ -1,6 +1,2 @@
-_build/
-
-slides/skrub-intro/skrub-intro_files
-slides/skrub-day/skrub-day_files
-slides/skrub-retrieve-merge-predict/skrub-retrieve-merge-predict_files
-slides/discover/discover_files
+/.quarto/
+/_site/

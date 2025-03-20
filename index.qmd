@@ -1,0 +1,10 @@
+---
+title: "Skrub materials index"
+---
+
+![](images/skrub.svg){width=320 fig-align="center"}
+
+This is the Skrub materials website. This website is used to host all the material used to teach and present Skrub to audiences. 
+
+Slides for presentations, talks and lectures are in [slides index](slides/index_slides.qmd).
+Notebooks and blog posts are instead located in the [notebook index](notebooks/index_notebooks.qmd).

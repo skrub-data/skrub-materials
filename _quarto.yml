@@ -1,0 +1,23 @@
+project:
+  type: website
+
+website:
+  title: "Skrub materials"
+  navbar:
+    left:
+      # - href: index.qmd
+      #   text: Home
+      - href: slides/index_slides.qmd
+        text: Slides
+      - href: notebooks/index_notebooks.qmd
+        text: Notebooks
+
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+
+
+
