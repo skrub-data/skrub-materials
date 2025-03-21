@@ -1,10 +1,22 @@
 ---
-title: "Skrub materials index"
+title: "Skrub learning materials index"
 ---
 
 ![](images/skrub.svg){width=320 fig-align="center"}
 
-This is the Skrub materials website. This website is used to host all the material used to teach and present Skrub to audiences. 
+This is the Skrub learning materials website. This website is used to host all the material 
+used to teach and present Skrub to audiences. 
 
-Slides for presentations, talks and lectures are in [slides index](slides/index_slides.qmd).
-Notebooks and blog posts are instead located in the [notebook index](notebooks/index_notebooks.qmd).
+
+Slides for presentations, talks and lectures are in [slides section](slides/index_slides.qmd).
+Notebooks and blog posts are instead located in the [notebook section](notebooks/index_notebooks.qmd).
+
+Note that the material that is gathered here may include material that has been 
+modified in later versions of Skrub.
+
+Updated information on Skrub and its API can be found in the 
+[documentation](https://skrub-data.org/stable/reference/index.html), and 
+additional examples are available in the 
+[gallery](https://skrub-data.org/stable/auto_examples/index.html) on the main 
+website. Examples on the website are guaranteed to work with the latest version 
+of skrub. 

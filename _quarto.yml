@@ -2,7 +2,8 @@ project:
   type: website
 
 website:
-  title: "Skrub materials"
+  title: "Skrub learning materials"
+  favicon: "images/skrub.svg"
   navbar:
     left:
       # - href: index.qmd
@@ -11,11 +12,15 @@ website:
         text: Slides
       - href: notebooks/index_notebooks.qmd
         text: Notebooks
+      - href: https://skrub-data.org/stable/reference/index.html
+        text: API docs
+      - href: https://skrub-data.org/stable/auto_examples/index.html
+        text: Examples
 
 
 format:
   html:
-    theme: cosmo
+    theme: united
     css: styles.css
     toc: true
 
