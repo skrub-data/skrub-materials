@@ -8,7 +8,7 @@
 
 <meta name="author" content="Riccardo Cappuzzo">
 
-<title>What’s the best way to encode categorical features? A use case with Skrub encoders – Skrub materials</title>
+<title>What’s the best way to encode categorical features? A use case with Skrub encoders – Skrub learning materials</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,6 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
+<link href="../../images/skrub.svg" rel="icon" type="image/svg+xml">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -73,7 +74,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-5da637c5959d2980cfe53a165f8e9318.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-58701dcafa624926dc532f819dd9b49b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -117,7 +118,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../../index.html">
-    <span class="navbar-title">Skrub materials</span>
+    <span class="navbar-title">Skrub learning materials</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -133,6 +134,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li class="nav-item">
     <a class="nav-link" href="../../notebooks/index_notebooks.html"> 
 <span class="menu-text">Notebooks</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://skrub-data.org/stable/reference/index.html"> 
+<span class="menu-text">API docs</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://skrub-data.org/stable/auto_examples/index.html"> 
+<span class="menu-text">Examples</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -150,7 +159,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#setting-up-the-experiments" id="toc-setting-up-the-experiments" class="nav-link active" data-scroll-target="#setting-up-the-experiments">Setting up the experiments</a></li>
+  <li><a href="#preparing-the-datasets" id="toc-preparing-the-datasets" class="nav-link active" data-scroll-target="#preparing-the-datasets">Preparing the datasets</a></li>
+  <li><a href="#setting-up-the-experiments" id="toc-setting-up-the-experiments" class="nav-link" data-scroll-target="#setting-up-the-experiments">Setting up the experiments</a></li>
+  <li><a href="#running-the-experiments-and-saving-the-results" id="toc-running-the-experiments-and-saving-the-results" class="nav-link" data-scroll-target="#running-the-experiments-and-saving-the-results">Running the experiments and saving the results</a></li>
+  <li><a href="#plotting-the-results" id="toc-plotting-the-results" class="nav-link" data-scroll-target="#plotting-the-results">Plotting the results</a></li>
   <li><a href="#in-summary" id="toc-in-summary" class="nav-link" data-scroll-target="#in-summary">In summary</a></li>
   </ul>
 </nav>
@@ -191,9 +203,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><code>skrub.StringEncoder</code>, an encoder that vectorizes data with tf-idf and then applies SVD to reduce the number of features.</li>
 </ul>
 <p>The objective of this post is to test the performance of each encoder on a few datasets in order to find out which methods should be considered in various circumstances.</p>
-<section id="setting-up-the-experiments" class="level3">
-<h3 class="anchored">Setting up the experiments</h3>
-<p>I begin by importing and preparing the datasets that should be used for the experiments:</p>
+<section id="preparing-the-datasets" class="level3">
+<h3 class="anchored" data-anchor-id="preparing-the-datasets">Preparing the datasets</h3>
+<p>We begin by importing and preparing the datasets that should be used for the experiments:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> skrub.datasets <span class="im">import</span> fetch_toxicity, fetch_movielens, fetch_employee_salaries, fetch_open_payments</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>datasets <span class="op">=</span> {}</span>
@@ -229,8 +241,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> X.drop(<span class="st">"current_annual_salary"</span>)</span>
 <span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>datasets[<span class="st">"Employee salaries"</span>]<span class="op">=</span>(X,y, <span class="st">"regression"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>I test each method by building a scikit-learn pipeline for each categorical encoder, using the default <code>HistGradientBoostingClassifier</code> and <code>HistGradientBoostingRegressor</code> as my prediction model.</p>
-<p>I use the <code>cross_validate</code> function to track the fit and score time, as well as the prediction performance of each pipeline over different splits. For simplicity, I am not performing hyperparameter optimization for either the categorical encoder or the learner.</p>
+</section>
+<section id="setting-up-the-experiments" class="level3">
+<h3 class="anchored" data-anchor-id="setting-up-the-experiments">Setting up the experiments</h3>
+<p>We can test each method by building a scikit-learn pipeline for each categorical encoder, using the default <code>HistGradientBoostingClassifier</code> and <code>HistGradientBoostingRegressor</code> as prediction model.</p>
+<p>Them, we use the <code>cross_validate</code> function to track the fit and score time, as well as the prediction performance of each pipeline over different splits. For simplicity, we are not performing hyperparameter optimization for either the categorical encoder or the learner.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> (</span>
@@ -258,40 +273,44 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    results <span class="op">=</span> []</span>
 <span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    gap_pipe <span class="op">=</span> make_pipeline(</span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>        TableVectorizer(high_cardinality<span class="op">=</span>GapEncoder(n_components<span class="op">=</span><span class="dv">30</span>)), model</span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>    minhash_pipe <span class="op">=</span> make_pipeline(</span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>        TableVectorizer(high_cardinality<span class="op">=</span>MinHashEncoder(n_components<span class="op">=</span><span class="dv">30</span>)), model</span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>    text_encoder <span class="op">=</span> TextEncoder(</span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>        <span class="st">"sentence-transformers/paraphrase-albert-small-v2"</span>,</span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>        device<span class="op">=</span><span class="st">"cpu"</span>,</span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>    text_encoder_pipe <span class="op">=</span> make_pipeline(</span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>        TableVectorizer(high_cardinality<span class="op">=</span>text_encoder),</span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>        model,</span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>    string_encoder <span class="op">=</span> StringEncoder(ngram_range<span class="op">=</span>(<span class="dv">3</span>, <span class="dv">4</span>), analyzer<span class="op">=</span><span class="st">"char_wb"</span>)</span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>    string_encoder_pipe <span class="op">=</span> make_pipeline(</span>
-<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>        TableVectorizer(high_cardinality<span class="op">=</span>string_encoder),</span>
-<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>        model,</span>
-<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>    pipes <span class="op">=</span> [</span>
-<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>        (<span class="st">"GapEncoder"</span>, gap_pipe),</span>
-<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>        (<span class="st">"MinHashEncoder"</span>, minhash_pipe),</span>
-<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>        (<span class="st">"TextEncoder"</span>, text_encoder_pipe),</span>
-<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>        (<span class="st">"StringEncoder"</span>, string_encoder_pipe),</span>
-<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>    ]</span>
-<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> name, p <span class="kw">in</span> pipes:</span>
-<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>        cross_validate_results <span class="op">=</span> cross_validate(p, X, y, scoring<span class="op">=</span>scoring)</span>
-<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>        results.append(</span>
-<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>            pl.DataFrame(add_results(name, dataset_name, cross_validate_results))</span>
-<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>    df_results <span class="op">=</span> pl.concat(results).with_columns(task<span class="op">=</span>pl.lit(task))</span>
-<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> df_results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    <span class="co"># For each encoder, create a new pipeline</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>    gap_pipe <span class="op">=</span> make_pipeline(</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>        TableVectorizer(high_cardinality<span class="op">=</span>GapEncoder(n_components<span class="op">=</span><span class="dv">30</span>)), model</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>    minhash_pipe <span class="op">=</span> make_pipeline(</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>        TableVectorizer(high_cardinality<span class="op">=</span>MinHashEncoder(n_components<span class="op">=</span><span class="dv">30</span>)), model</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>    text_encoder <span class="op">=</span> TextEncoder(</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>        <span class="st">"sentence-transformers/paraphrase-albert-small-v2"</span>,</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>        device<span class="op">=</span><span class="st">"cpu"</span>,</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>    text_encoder_pipe <span class="op">=</span> make_pipeline(</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>        TableVectorizer(high_cardinality<span class="op">=</span>text_encoder),</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>        model,</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>    string_encoder <span class="op">=</span> StringEncoder(ngram_range<span class="op">=</span>(<span class="dv">3</span>, <span class="dv">4</span>), analyzer<span class="op">=</span><span class="st">"char_wb"</span>)</span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>    string_encoder_pipe <span class="op">=</span> make_pipeline(</span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>        TableVectorizer(high_cardinality<span class="op">=</span>string_encoder),</span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>        model,</span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>    pipes <span class="op">=</span> [</span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>        (<span class="st">"GapEncoder"</span>, gap_pipe),</span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>        (<span class="st">"MinHashEncoder"</span>, minhash_pipe),</span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>        (<span class="st">"TextEncoder"</span>, text_encoder_pipe),</span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>        (<span class="st">"StringEncoder"</span>, string_encoder_pipe),</span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> name, p <span class="kw">in</span> pipes:</span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>        cross_validate_results <span class="op">=</span> cross_validate(p, X, y, scoring<span class="op">=</span>scoring)</span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>        results.append(</span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>            pl.DataFrame(add_results(name, dataset_name, cross_validate_results))</span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>    df_results <span class="op">=</span> pl.concat(results).with_columns(task<span class="op">=</span>pl.lit(task))</span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> df_results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="running-the-experiments-and-saving-the-results" class="level3">
+<h3 class="anchored" data-anchor-id="running-the-experiments-and-saving-the-results">Running the experiments and saving the results</h3>
 <p>Finally, I ran the crossvalidation step for each encoder on all dataset and I recorded the files in a csv file. This step took quite some time, and was done offline in a separater script.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>all_results <span class="op">=</span> []</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> dataset_name,v <span class="kw">in</span> datasets.items():</span>
@@ -300,7 +319,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    all_results.append(results)</span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>df_all_results <span class="op">=</span> pl.concat(all_results)</span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>df_all_results.write_csv(<span class="st">"results-encoder_benchmark.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Now, I can load the results and start plotting the results. I first split the results in two subtables based on the specific tast (either regression or classification), so that metrics don’t get mixed.</p>
+</section>
+<section id="plotting-the-results" class="level3">
+<h3 class="anchored">Plotting the results</h3>
+<p>Now, we can load the results and start plotting the results. We first split the results in two subtables based on the specific task (either regression or classification), to avoid mixing metrics.</p>
 <div id="cell-3" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> polars <span class="im">as</span> pl</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -308,75 +330,72 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>df_regression <span class="op">=</span> df.<span class="bu">filter</span>(task<span class="op">=</span><span class="st">"regression"</span>)</span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>df_classification <span class="op">=</span> df.<span class="bu">filter</span>(task<span class="op">=</span><span class="st">"classification"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-4" class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>tab10_colors <span class="op">=</span> plt.get_cmap(<span class="st">'tab10'</span>).colors</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>colors <span class="op">=</span> <span class="bu">dict</span>(<span class="bu">zip</span>(df[<span class="st">"estimator"</span>].unique().to_list(),tab10_colors[:<span class="dv">5</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>To see the tradeoff between fit time and prediction performance, we use a scatterplot with error bars to find the average performance and run time for each method.</p>
+<p>Then, we can plot the prediction performance as a function of the run time.</p>
+<div id="cell-5" class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_scatter_errorbar(df, ylabel, sharey<span class="op">=</span><span class="va">False</span>, suptitle<span class="op">=</span><span class="st">""</span>):</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Fixing the colors for each cluster of points and the error bars</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    tab10_colors <span class="op">=</span> plt.get_cmap(<span class="st">'tab10'</span>).colors</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    colors <span class="op">=</span> <span class="bu">dict</span>(<span class="bu">zip</span>(df[<span class="st">"estimator"</span>].unique().sort().to_list(),tab10_colors[:<span class="dv">4</span>]))</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    fig, axs <span class="op">=</span> plt.subplots(<span class="dv">1</span>,<span class="dv">2</span>, sharey<span class="op">=</span>sharey, layout<span class="op">=</span><span class="st">"constrained"</span>, figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">3</span>))</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Each dataset gets a subplot</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> idx, (dataset, g) <span class="kw">in</span> <span class="bu">enumerate</span>(df.group_by(<span class="st">"dataset"</span>)):</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        ax<span class="op">=</span>axs[idx]</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Each estimator is plotted separately as a cluster of points</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> estimator, gdf <span class="kw">in</span> g.group_by(<span class="st">"estimator"</span>):</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>            estim <span class="op">=</span> estimator[<span class="dv">0</span>]</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>            color <span class="op">=</span> colors[estim]</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>            x <span class="op">=</span> gdf[<span class="st">"fit_time"</span>].to_numpy()</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>            y <span class="op">=</span> gdf[<span class="st">"test_score"</span>].to_numpy()</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>            label <span class="op">=</span> estim <span class="cf">if</span> idx <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> <span class="st">"_"</span> <span class="op">+</span> estim</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>            ax.scatter(x<span class="op">=</span>x, y<span class="op">=</span>y, label<span class="op">=</span>label, color<span class="op">=</span>color)</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>            <span class="co"># find the mean and the error bars </span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>            xerr_mean <span class="op">=</span> gdf[<span class="st">"fit_time"</span>].mean()</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>            yerr_mean <span class="op">=</span> gdf[<span class="st">"test_score"</span>].mean()</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>            x_err <span class="op">=</span> gdf[<span class="st">"fit_time"</span>].std()</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>            y_err <span class="op">=</span> gdf[<span class="st">"test_score"</span>].std()</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>            <span class="co"># plot the error bars</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>            ax.errorbar(xerr_mean, yerr_mean, xerr<span class="op">=</span>x_err, fmt<span class="op">=</span><span class="st">"none"</span>, color<span class="op">=</span>color)</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>            ax.errorbar(xerr_mean, yerr_mean, yerr<span class="op">=</span>y_err, fmt<span class="op">=</span><span class="st">"none"</span>, color<span class="op">=</span>color)</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>        ax.set_title(dataset[<span class="dv">0</span>])</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>        ax.set_xlabel(<span class="st">"Fit time (s)"</span>)</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>        ax.set_ylabel(ylabel)</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>        ax.set_xscale(<span class="st">"log"</span>)</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>    fig.suptitle(suptitle)</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>    fig.legend(loc<span class="op">=</span><span class="st">"lower center"</span>, ncols<span class="op">=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>To see the tradeoff between fit time and prediction performance, I am using a scatterplot with error bars to find the average performance and run time for each method.</p>
-<div id="cell-6" class="cell" data-execution_count="36">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_scatter_errorbar(df, ylabel, sharey<span class="op">=</span><span class="va">False</span>, suptitle<span class="op">=</span><span class="st">""</span>):</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Fixing the colors for each cluster of points and the error bars</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    tab10_colors <span class="op">=</span> plt.get_cmap(<span class="st">'tab10'</span>).colors</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    colors <span class="op">=</span> <span class="bu">dict</span>(<span class="bu">zip</span>(df[<span class="st">"estimator"</span>].unique().sort().to_list(),tab10_colors[:<span class="dv">5</span>]))</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    fig, axs <span class="op">=</span> plt.subplots(<span class="dv">1</span>,<span class="dv">2</span>, sharey<span class="op">=</span>sharey, layout<span class="op">=</span><span class="st">"constrained"</span>, figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">3</span>))</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Each dataset gets a subplot</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> idx, (dataset, g) <span class="kw">in</span> <span class="bu">enumerate</span>(df.group_by(<span class="st">"dataset"</span>)):</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>        ax<span class="op">=</span>axs[idx]</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Each estimator is plotted separately as a cluster of points</span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> estimator, gdf <span class="kw">in</span> g.group_by(<span class="st">"estimator"</span>):</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>            estim <span class="op">=</span> estimator[<span class="dv">0</span>]</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>            color <span class="op">=</span> colors[estim]</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>            x <span class="op">=</span> gdf[<span class="st">"fit_time"</span>].to_numpy()</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>            y <span class="op">=</span> gdf[<span class="st">"test_score"</span>].to_numpy()</span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>            label <span class="op">=</span> estim <span class="cf">if</span> idx <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> <span class="st">"_"</span> <span class="op">+</span> estim</span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>            ax.scatter(x<span class="op">=</span>x, y<span class="op">=</span>y, label<span class="op">=</span>label, color<span class="op">=</span>color)</span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>            </span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>            <span class="co"># find the mean and the error bars </span></span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>            xerr_mean <span class="op">=</span> gdf[<span class="st">"fit_time"</span>].mean()</span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>            yerr_mean <span class="op">=</span> gdf[<span class="st">"test_score"</span>].mean()</span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>            x_err <span class="op">=</span> gdf[<span class="st">"fit_time"</span>].std()</span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>            y_err <span class="op">=</span> gdf[<span class="st">"test_score"</span>].std()</span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>            <span class="co"># plot the error bars</span></span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>            ax.errorbar(xerr_mean, yerr_mean, xerr<span class="op">=</span>x_err, fmt<span class="op">=</span><span class="st">"none"</span>, color<span class="op">=</span>color)</span>
-<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>            ax.errorbar(xerr_mean, yerr_mean, yerr<span class="op">=</span>y_err, fmt<span class="op">=</span><span class="st">"none"</span>, color<span class="op">=</span>color)</span>
-<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>            </span>
-<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>        ax.set_title(dataset[<span class="dv">0</span>])</span>
-<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>        ax.set_xlabel(<span class="st">"Fit time (s)"</span>)</span>
-<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>        ax.set_ylabel(ylabel)</span>
-<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>        ax.set_xscale(<span class="st">"log"</span>)</span>
-<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>    fig.suptitle(suptitle)</span>
-<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>    fig.legend(loc<span class="op">=</span><span class="st">"lower center"</span>, ncols<span class="op">=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="cell-7" class="cell" data-execution_count="37">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>plot_scatter_errorbar(df_classification, <span class="st">"ROC-AUC"</span>, sharey<span class="op">=</span><span class="va">True</span>, suptitle<span class="op">=</span><span class="st">"Classification"</span>)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>plot_scatter_errorbar(df_regression, <span class="st">"R2 score"</span>, sharey<span class="op">=</span><span class="va">False</span>, suptitle<span class="op">=</span><span class="st">"Regression"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-6" class="cell" data-execution_count="37">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>plot_scatter_errorbar(df_classification, <span class="st">"ROC-AUC"</span>, sharey<span class="op">=</span><span class="va">True</span>, suptitle<span class="op">=</span><span class="st">"Classification"</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>plot_scatter_errorbar(df_regression, <span class="st">"R2 score"</span>, sharey<span class="op">=</span><span class="va">False</span>, suptitle<span class="op">=</span><span class="st">"Regression"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="categorical-encoders_files/figure-html/cell-5-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="categorical-encoders_files/figure-html/cell-4-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="categorical-encoders_files/figure-html/cell-5-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="categorical-encoders_files/figure-html/cell-4-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>The prediction performance is fairly consistent across methods, although this depends on the table under observation. <code>MinhashEncoder</code> and <code>StringEncoder</code> are consistently faster than the alternatives.<br>
-<code>TextEncoder</code> is always much slower than the other methods, however it must be noted that I am running the code on a CPU, rather than a much faster GPU.</p>
+<code>TextEncoder</code> is always much slower than the other methods, however it must be noted that this example was run on a CPU, rather than a much faster GPU.</p>
 <p>To have a better idea of why some methods may outperform others, we should take a look at the actual tables. We can do so very easily thanks to the skrub <code>TableReport</code> object.</p>
-<div id="cell-9" class="cell" data-execution_count="38">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> skrub <span class="im">import</span> TableReport</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> skrub.datasets <span class="im">import</span> fetch_toxicity, fetch_movielens, fetch_employee_salaries, fetch_open_payments</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-8" class="cell" data-execution_count="38">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> skrub <span class="im">import</span> TableReport</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> skrub.datasets <span class="im">import</span> fetch_toxicity, fetch_movielens, fetch_employee_salaries, fetch_open_payments</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-10" class="cell" data-execution_count="46">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># OPEN PAYMENTS</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>dataset <span class="op">=</span> fetch_open_payments()</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>X, y <span class="op">=</span> dataset.X, dataset.y</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>TableReport(X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-9" class="cell" data-execution_count="46">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># OPEN PAYMENTS</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>dataset <span class="op">=</span> fetch_open_payments()</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>X, y <span class="op">=</span> dataset.X, dataset.y</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>TableReport(X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Processing column   5 / 5</code></pre>
 </div>
@@ -7917,7 +7936,7 @@ No columns match the selected filter: <strong data-manager="ColumnFilterName"></
 </div>
 
 <div id="report_0eec6add-wrapper-fallback">
-    <h2 class="anchored" data-anchor-id="setting-up-the-experiments">Please enable javascript</h2>
+    <h2 class="anchored" data-anchor-id="plotting-the-results">Please enable javascript</h2>
     <p>
         The skrub table reports need javascript to display correctly. If you are
         displaying a report in a Jupyter notebook and you see this message, you may need to
@@ -7932,11 +7951,11 @@ No columns match the selected filter: <strong data-manager="ColumnFilterName"></
 </script>
 </div>
 </div>
-<div id="cell-11" class="cell" data-execution_count="47">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># TOXICITY</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>dataset <span class="op">=</span> fetch_toxicity()</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>X, y <span class="op">=</span> dataset.X, dataset.y</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>TableReport(X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-10" class="cell" data-execution_count="47">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># TOXICITY</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>dataset <span class="op">=</span> fetch_toxicity()</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>X, y <span class="op">=</span> dataset.X, dataset.y</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>TableReport(X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Processing column   1 / 1</code></pre>
 </div>
@@ -11612,18 +11631,18 @@ No columns match the selected filter: <strong data-manager="ColumnFilterName"></
 </script>
 </div>
 </div>
-<div id="cell-12" class="cell" data-execution_count="48">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># MOVIELENS</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>dataset <span class="op">=</span> fetch_movielens()</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>X, y <span class="op">=</span> pl.from_pandas(dataset.movies), pl.from_pandas(dataset.ratings)</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> (</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    X.join(y, on<span class="op">=</span><span class="st">"movieId"</span>)</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    .group_by(<span class="st">"movieId"</span>, <span class="st">"title"</span>, <span class="st">"genres"</span>)</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    .agg(target<span class="op">=</span>pl.mean(<span class="st">"rating"</span>))</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> X.drop(<span class="st">"target"</span>)</span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>TableReport(X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-11" class="cell" data-execution_count="48">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># MOVIELENS</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>dataset <span class="op">=</span> fetch_movielens()</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>X, y <span class="op">=</span> pl.from_pandas(dataset.movies), pl.from_pandas(dataset.ratings)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> (</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    X.join(y, on<span class="op">=</span><span class="st">"movieId"</span>)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    .group_by(<span class="st">"movieId"</span>, <span class="st">"title"</span>, <span class="st">"genres"</span>)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    .agg(target<span class="op">=</span>pl.mean(<span class="st">"rating"</span>))</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> X.drop(<span class="st">"target"</span>)</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>TableReport(X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Processing column   3 / 3</code></pre>
 </div>
@@ -16983,12 +17002,12 @@ No columns match the selected filter: <strong data-manager="ColumnFilterName"></
 </script>
 </div>
 </div>
-<div id="cell-13" class="cell" data-execution_count="49">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># EMPLOYEE SALARIES</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>dataset <span class="op">=</span> fetch_employee_salaries()</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> pl.from_pandas(dataset.employee_salaries)</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> X.drop(<span class="st">"current_annual_salary"</span>)</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>TableReport(X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-12" class="cell" data-execution_count="49">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># EMPLOYEE SALARIES</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>dataset <span class="op">=</span> fetch_employee_salaries()</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> pl.from_pandas(dataset.employee_salaries)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> X.drop(<span class="st">"current_annual_salary"</span>)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>TableReport(X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Processing column   8 / 8</code></pre>
 </div>
