@@ -1,5 +1,0 @@
-skrub[optional, transformers]
-seaborn
-jupyter
-jupytext
-nbconvert
