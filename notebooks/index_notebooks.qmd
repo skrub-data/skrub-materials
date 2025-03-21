@@ -1,0 +1,6 @@
+---
+title: "Skrub notebooks"
+---
+
+- <a href="skrub-intro/skrub-intro.py" target="_blank">An introductory notebook for skrub</a>
+- <a href="categorical-encoders/categorical-encoders.ipynb" target="_blank">Comparing different categorical encoders.</a>

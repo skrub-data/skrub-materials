@@ -1,0 +1,286 @@
+---
+title: A Skrub use case in academia
+author: "Riccardo Cappuzzo"
+institute: "Inria"
+
+format: 
+    revealjs:
+        slide-number: c/t
+        show-slide-number: all
+        preview-links: auto
+        embed-resources: false
+        transition: slide
+        theme: simple
+        logo: images/skrub.svg
+        footer: https://github.com/skrub-data/skrub
+incremental: true
+---
+
+
+## Plan for the presentation
+- Context and explanation of the problem
+- The Retrieve, Merge, Predict pipeline
+- How is this relevant? 
+
+# Riddle me this...
+::: {.fragment}
+I have a table I want to train a model on. I also have access to a large collection of tables. 
+:::
+
+
+::: {.fragment}
+::: {.callout}
+How do I combine the two to train a better model? 
+:::
+:::
+
+## Example: augmenting tables {auto-animate="true" auto-animate-unmatched="false"}
+
+![](images/ayame_retrieve_merge_predict_1.png)
+
+## Example: augmenting tables {auto-animate="true" auto-animate-unmatched="false" visibility="uncounted"}
+![](images/ayame_retrieve_merge_predict_2.png)
+
+
+## Example: augmenting tables {auto-animate="true" auto-animate-unmatched="false" visibility="uncounted"}
+![](images/ayame_retrieve_merge_predict_3.png)
+
+## Example: augmenting tables {auto-animate="true" auto-animate-unmatched="false" visibility="uncounted"}
+![](images/ayame_retrieve_merge_predict_4.png)
+
+## Some definitions {.smaller}
+- **Base table**: the table we want to augment ("Movies", "Housing"...)
+- **Query column**: a column that should be used as join key ("Movie title", "Address"...)
+- **Data lake**: an unstructured repository of many (thousands of...) "candidate tables"
+- **Candidate table**: a table that may be useful for augmenting the base table ("Movie directors"...)
+- **Candidate column**: a column in a candidate table that could be joined on the query column ("Title" in a table about filmographies)
+- **Augmented table**: the result of joining the base table and a candidate table
+
+
+::: {.fragment}
+::: {.callout-warning}
+This terminology is slightly different from that used in the Skrub documentation
+:::
+:::
+
+## Jaccard Containment  {.smaller auto-animate=true}
+::: {.column width="55%"}
+::: {.nonincremental}
+- Jaccard Similarity: $\frac{|Q \cap X|}{|Q \cup X|}$
+- Jaccard Containment: $\frac{|Q \cap X|}{|Q|}$
+:::
+::: {.fragment}
+Jaccard containment is a "normalized" intersection:
+
+::: {.callout-important}
+What fraction of of *query set Q* is in *candidate column* X?
+:::
+:::
+:::
+
+::: {.column width="45%"}
+![https://ekzhu.com/datasketch/lshensemble.html](images/containment.png)
+
+:::
+
+
+
+## The focus of the study:
+- Find the best way to discover candidates.
+- Work within a defined computational budget
+- Work with exact joins between a base table and multiple join candidates. 
+- Guarantee that results are reproducible. 
+
+## We do not consider:
+- Entity matching or fuzzy joins (e.g., matching “NYT” and “The New York Times”).
+- Discovering the query column. 
+- Multi-key joins
+
+## Working with data lakes is hard 
+- Some CSVs don't use commas
+- Some CSVs have no (known) schema
+- Some CSVs aren't CSVs, they're actually JSON files in disguise
+- Some JSONs aren't JSONs, they're actually strings in disguise
+
+::: {.fragment}
+If you don't know the tables, **everyone is sus** ![](images/Amogus_non-free-left.png){.absolute bottom=0 right=30 width=10%}
+:::
+
+# Retrieve, Merge, Predict
+
+## Pipeline schema
+
+![](images/benchmark-pipeline-v5.5.png)
+
+## Candidate retrieval {.smaller}
+
+- **Exact Matching**: measure the exact Jaccard containment (JC) for each column in the data lake.
+- **MinHash**: estimate the Jaccard containment, query to get columns with a JC larger than a threshold.
+- **Hybrid MinHash**: query with MinHash, then measure the exact JC for the retrieved candidates.
+- **Starmie** : use a language model to query candidate columns.
+
+## Candidate selection
+
+- **Highest Containment Join**: Rank candidates by Jaccard Containment. 
+- **Full Join**: Join all candidates. 
+- **Best Single Join**: Train a model on each candidate, select the best. 
+- **Stepwise Greedy Join**: Like Best Single Join, but keep all good candidates. 
+
+
+## Aggregation {auto-animate="true"}
+![](images/left_join-v2.png)
+
+## Aggregation {auto-animate="true"}
+- **Any**: take one value at random from each group
+- **Mean**: for each group, take the mean of numerical values and mode of categorical values
+- **Deep Feature Synthesis (DFS)**: greedily generate new features (count, mean, sum…) to already present features. 
+
+## Prediction 
+- RidgeCV: linear baseline 📈 
+- CatBoost: GDBT  🌲
+- ResNet: Neural Networks 🧠
+- RealMLP: Neural Networks 🧠
+
+
+## Some experimental results
+![](images/dep_pair_full.png)
+
+## Total compute time
+| ML Model | Platform | Total compute time |
+|:--------:|:--------:|:------------------:|
+|  RidgeCV |    CPU   |      4y 3m 10d 7h     |
+| CatBoost |    CPU   |     1y 3m 29d 21h     |
+|  ResNet  |    GPU   |      5y 6m 23d 0h     |
+|  RealMLP |    GPU   |     10y 7m 23d 3h     |
+|   Total  |   Both   |     21y 9m 26d 8h     |
+
+
+# What does this have to do with Skrub?
+
+## "Features" of research code
+Research code...
+
+- Is mostly custom-made for a specific experiment
+- Features little to no testing
+- Often is poorly documented, or not at all
+- Involves a lot of technical debt
+
+## Skrub to the rescue
+- Well tested code
+- Good documentation
+- Features cover much of the pipeline
+
+## Using Skrub features in the pipeline
+- The `Discover` object can replace (part of) the retrieval step.
+- All the code for joining can be replaced by the `AggJoiner` or `MultiAggJoiner`.
+- The `MultiAggJoiner` is an additional baseline.
+- The `TableVectorizer` can handle automated preprocessing of the tables.
+- Joined candidates can be examined quickly using the `TableReport`.
+
+## "Skrubified" pipeline  {auto-animate="true"}
+![](images/benchmark-pipeline-v5.5.png){data-id="img1"}
+
+## "Skrubified" pipeline  {auto-animate="true"}
+![](images/benchmark-pipeline-v7-all-skrub.png){data-id="img1"}
+
+## Example with MultiAggJoiner {.smaller}
+
+::: {.columns}
+::: {.column}
+```{.python}
+merged = source_table.clone()
+hashes = []
+for hash_, mdata in tqdm(
+    index_cand.items(),
+    total=len(index_cand),
+    leave=False,
+    desc="Full Join",
+    position=2,
+):
+    cnd_md = mdata.candidate_metadata
+    hashes.append(cnd_md["hash"])
+    candidate_table = pl.read_parquet(cnd_md["full_path"])
+
+    left_on = mdata.left_on
+    right_on = mdata.right_on
+
+    aggr_right = aggregate_table(
+        candidate_table, right_on, aggregation_method=aggregation
+    )
+
+    merged = execute_join(
+        merged,
+        aggr_right,
+        left_on=left_on,
+        right_on=right_on,
+        how="left",
+        suffix="_" + hash_[:10],
+    )
+```
+
+:::
+::: {.column}
+```{.python}
+# MOCK-UP
+from skrub import MultiAggJoiner
+joiner = MultiAggJoiner(candidate_tables, keys=candidate_keys)
+merged = joiner.fit_transform(source_table)
+```
+
+:::
+:::
+
+# Wrapping up
+
+## Repositories
+::: {.nonincremental}
+
+- [Retrieve, Merge, Predict website](https://soda-inria.github.io/retrieve-merge-predict/)
+- [Retrieve, Merge, Predict repository](https://github.com/rcap107/retrieve-merge-predict)
+:::
+
+## Acknowledgements
+
+::: {.columns}
+::: {.column}
+![](images/inria.png){height="75"}
+
+![](images/soda_logo_can.png){height="75"}
+
+![](images/dataiku.png){height="75"}
+
+![](images/EURECOM_logo_quadri_300dpi.jpg){height="75"}
+
+:::
+::: {.column}
+Authors:
+
+::: {.nonincremental}
+- Riccardo Cappuzzo (SODA, Dataiku)
+- Aimee Coelho (Dataiku)
+- Felix Lefebvre (SODA)
+- Paolo Papotti (Eurecom)
+- Gael Varoquaux (SODA)
+:::
+:::
+:::
+
+
+## Conclusions and summary {.smaller}
+
+::: {.column width="45%"}
+
+::: {.fragment}
+:::
+- Tree-based models are more effective and more resilient than the alternatives
+- Good table retrieval affects the whole pipeline
+- Simple methods produce results comparable or even better  than more complex methods
+:::
+
+
+::: {.column width="50%"}
+::: {.fragment}
+- Skrub provides well-tested, well-documented code
+- Skrub objects provide features that cover most of the pipeline
+- In return, the pipeline helped deciding on relevant features. 
+:::
