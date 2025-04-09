@@ -1,0 +1,31 @@
+---
+title: "Latest "
+listing: 
+    - id: notebooks
+      sort: "date desc"
+      contents:
+        - "notebooks/*/*.qmd"
+        - "notebooks/*/*.ipynb"
+      exclude:
+        - file: "notebooks/index_notebooks.qmd"
+        - file: "notebooks/skrub-intro.ipynb" # not sure why it's not rendering properly
+      max-items: 3
+    - id: talks
+      sort: "date desc"
+      contents:
+        - "slides/*/*.qmd"
+      exclude:
+        - file: "notebooks/index_slides.qmd"
+      max-items: 2
+---
+
+## Blog posts
+
+:::{#notebooks}
+:::
+
+## Talks
+
+:::{#slides}
+:::
+

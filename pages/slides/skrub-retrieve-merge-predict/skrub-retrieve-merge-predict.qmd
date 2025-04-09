@@ -1,8 +1,9 @@
 ---
 title: A Skrub use case in academia
 author: "Riccardo Cappuzzo"
+date: 2025-01-29
 institute: "Inria"
-
+description: "In this talk, we discuss how skrub could be used in a research project in academia."
 format: 
     revealjs:
         slide-number: c/t
