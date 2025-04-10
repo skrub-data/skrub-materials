@@ -1,10 +1,11 @@
 ---
 author: "Jérôme Dockès"
 institute: "Inria"
+date: 2025/01/29
 format: revealjs
 slide-number: true
 ---
-
+# Skrub expressions
 ## Building complex pipelines
 
 - Our learner contains several data-processing steps

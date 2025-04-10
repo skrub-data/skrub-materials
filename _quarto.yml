@@ -8,14 +8,16 @@ website:
     left:
       # - href: index.qmd
       #   text: Home
-      - href: slides/index_slides.qmd
+      - href: pages/slides/index_slides.qmd
         text: Slides
-      - href: notebooks/index_notebooks.qmd
+      - href: pages/notebooks/index_notebooks.qmd
         text: Notebooks
       - href: https://skrub-data.org/stable/reference/index.html
         text: API docs
       - href: https://skrub-data.org/stable/auto_examples/index.html
-        text: Examples
+        text: Skrub Examples
+      - href: pages/listings.qmd
+        text: Latest updates
 
 
 format:

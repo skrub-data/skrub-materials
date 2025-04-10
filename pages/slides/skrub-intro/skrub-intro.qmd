@@ -1,5 +1,6 @@
 ---
 title: "Skrub"
+date: 2025-01-29
 subtitle: "Less wrangling, more machine learning"
 author: "Riccardo Cappuzzo, Jérôme Dockès, Vincent Maladiere"
 institute: "Inria, P16, Probabl."

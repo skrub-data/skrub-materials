@@ -9,9 +9,9 @@ this is where you'll be able to find all the material that is used to teach and
 present Skrub to audiences. 
 
 Slides for presentations, talks and lectures are in 
-[slides section](slides/index_slides.qmd).
+[slides section](pages/slides/index_slides.qmd).
 Notebooks and blog posts are instead located in the 
-[notebook section](notebooks/index_notebooks.qmd).
+[notebook section](pages/notebooks/index_notebooks.qmd).
 
 Note that the material that is gathered here may become obsolete depending on 
 the development of Skrub.
