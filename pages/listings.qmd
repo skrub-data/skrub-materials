@@ -8,7 +8,6 @@ listing:
         - "notebooks/*/*.ipynb"
       exclude:
         - file: "notebooks/index_notebooks.qmd"
-        - file: "notebooks/skrub-intro.ipynb" # not sure why it's not rendering properly
       max-items: 3
     - id: talks
       sort: "date desc"
