@@ -1,22 +1,23 @@
 <!DOCTYPE html>
 <html lang="en"><head>
-<link href="../../images/skrub.svg" rel="icon" type="image/svg+xml">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../site_libs/quarto-html/tabby.min.js"></script>
-<script src="../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+<link href="../../../images/skrub.svg" rel="icon" type="image/svg+xml">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.6.39">
 
   <meta name="author" content="Riccardo Cappuzzo, Jérôme Dockès, Vincent Maladiere">
+  <meta name="dcterms.date" content="2025-01-29">
   <title>Skrub learning materials – Skrub</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-  <link rel="stylesheet" href="../../site_libs/revealjs/dist/reset.css">
-  <link rel="stylesheet" href="../../site_libs/revealjs/dist/reveal.css">
+  <link rel="stylesheet" href="../../../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../../../site_libs/revealjs/dist/reveal.css">
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -95,11 +96,11 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-423d414d36ce366a9d05f36d06304417.css">
-  <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
-  <link href="../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
-  <link href="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
-  <link href="../../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../../site_libs/revealjs/dist/theme/quarto-423d414d36ce366a9d05f36d06304417.css">
+  <link href="../../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../../../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
     .reveal div.sourceCode {
       margin: 0;
@@ -210,6 +211,7 @@ Riccardo Cappuzzo, Jérôme Dockès, Vincent Maladiere
     </div>
 </div>
 
+  <p class="date">2025-01-29</p>
 </section>
 <section id="plan-for-the-presentation" class="slide level2">
 <h2>Plan for the presentation</h2>
@@ -271,7 +273,7 @@ Riccardo Cappuzzo, Jérôme Dockès, Vincent Maladiere
 </section>
 <section id="exploring-the-data" class="slide level2 smaller">
 <h2>Exploring the data</h2>
-<div id="0d14a6f7" class="cell" data-execution_count="1">
+<div id="f5835207" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a><span class="im">import</span> skrub</span>
 <span id="cb1-2"><a></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a></a><span class="im">from</span> skrub.datasets <span class="im">import</span> fetch_employee_salaries</span>
@@ -526,7 +528,7 @@ Riccardo Cappuzzo, Jérôme Dockès, Vincent Maladiere
 </section>
 <section id="build-a-predictive-pipeline-6" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Build a predictive pipeline</h2>
-<div id="1663f6d3" class="cell" data-execution_count="2">
+<div id="afe1bd72" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display" data-execution_count="2">
 <style>#sk-container-id-1 {
   /* Definition of color scheme common for light and dark mode */
@@ -986,7 +988,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </section>
 <section id="enter-tabular_learner-1" class="slide level2 smaller" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Enter: <code>tabular_learner</code></h2>
-<div id="c24c7686" class="cell" data-execution_count="3">
+<div id="9182bb5b" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display" data-execution_count="3">
 <style>#sk-container-id-2 {
   /* Definition of color scheme common for light and dark mode */
@@ -1403,11 +1405,13 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-3);
 }
-</style><div id="sk-container-id-2" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>Pipeline(steps=[('tablevectorizer', TableVectorizer()),
+</style><div id="sk-container-id-2" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>Pipeline(steps=[('tablevectorizer',
+                 TableVectorizer(datetime=DatetimeEncoder(periodic_encoding='spline'))),
                 ('simpleimputer', SimpleImputer(add_indicator=True)),
-                ('standardscaler', StandardScaler()), ('ridge', Ridge())])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-9" type="checkbox"><label for="sk-estimator-id-9" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>Pipeline</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.6/modules/generated/sklearn.pipeline.Pipeline.html">?<span>Documentation for Pipeline</span></a><span class="sk-estimator-doc-link ">i<span>Not fitted</span></span></div></label><div class="sk-toggleable__content "><pre>Pipeline(steps=[('tablevectorizer', TableVectorizer()),
+                ('standardscaler', StandardScaler()), ('ridge', Ridge())])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-9" type="checkbox"><label for="sk-estimator-id-9" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>Pipeline</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.6/modules/generated/sklearn.pipeline.Pipeline.html">?<span>Documentation for Pipeline</span></a><span class="sk-estimator-doc-link ">i<span>Not fitted</span></span></div></label><div class="sk-toggleable__content "><pre>Pipeline(steps=[('tablevectorizer',
+                 TableVectorizer(datetime=DatetimeEncoder(periodic_encoding='spline'))),
                 ('simpleimputer', SimpleImputer(add_indicator=True)),
-                ('standardscaler', StandardScaler()), ('ridge', Ridge())])</pre></div> </div></div><div class="sk-serial"><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-10" type="checkbox"><label for="sk-estimator-id-10" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>tablevectorizer: TableVectorizer</div></div></label><div class="sk-toggleable__content "><pre>TableVectorizer()</pre></div> </div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><label>numeric</label></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-11" type="checkbox"><label for="sk-estimator-id-11" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>PassThrough</div></div></label><div class="sk-toggleable__content "><pre>PassThrough()</pre></div> </div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><label>datetime</label></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-12" type="checkbox"><label for="sk-estimator-id-12" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>DatetimeEncoder</div></div></label><div class="sk-toggleable__content "><pre>DatetimeEncoder()</pre></div> </div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><label>low_cardinality</label></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-13" type="checkbox"><label for="sk-estimator-id-13" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>OneHotEncoder</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.6/modules/generated/sklearn.preprocessing.OneHotEncoder.html">?<span>Documentation for OneHotEncoder</span></a></div></label><div class="sk-toggleable__content "><pre>OneHotEncoder(drop='if_binary', dtype='float32', handle_unknown='ignore',
+                ('standardscaler', StandardScaler()), ('ridge', Ridge())])</pre></div> </div></div><div class="sk-serial"><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-10" type="checkbox"><label for="sk-estimator-id-10" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>tablevectorizer: TableVectorizer</div></div></label><div class="sk-toggleable__content "><pre>TableVectorizer(datetime=DatetimeEncoder(periodic_encoding='spline'))</pre></div> </div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><label>numeric</label></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-11" type="checkbox"><label for="sk-estimator-id-11" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>PassThrough</div></div></label><div class="sk-toggleable__content "><pre>PassThrough()</pre></div> </div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><label>datetime</label></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-12" type="checkbox"><label for="sk-estimator-id-12" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>DatetimeEncoder</div></div></label><div class="sk-toggleable__content "><pre>DatetimeEncoder(periodic_encoding='spline')</pre></div> </div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><label>low_cardinality</label></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-13" type="checkbox"><label for="sk-estimator-id-13" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>OneHotEncoder</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.6/modules/generated/sklearn.preprocessing.OneHotEncoder.html">?<span>Documentation for OneHotEncoder</span></a></div></label><div class="sk-toggleable__content "><pre>OneHotEncoder(drop='if_binary', dtype='float32', handle_unknown='ignore',
               sparse_output=False)</pre></div> </div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><label>high_cardinality</label></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-14" type="checkbox"><label for="sk-estimator-id-14" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>GapEncoder</div></div></label><div class="sk-toggleable__content "><pre>GapEncoder(n_components=30)</pre></div> </div></div></div></div></div></div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-15" type="checkbox"><label for="sk-estimator-id-15" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>SimpleImputer</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.6/modules/generated/sklearn.impute.SimpleImputer.html">?<span>Documentation for SimpleImputer</span></a></div></label><div class="sk-toggleable__content "><pre>SimpleImputer(add_indicator=True)</pre></div> </div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-16" type="checkbox"><label for="sk-estimator-id-16" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>StandardScaler</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.6/modules/generated/sklearn.preprocessing.StandardScaler.html">?<span>Documentation for StandardScaler</span></a></div></label><div class="sk-toggleable__content "><pre>StandardScaler()</pre></div> </div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-17" type="checkbox"><label for="sk-estimator-id-17" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>Ridge</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.6/modules/generated/sklearn.linear_model.Ridge.html">?<span>Documentation for Ridge</span></a></div></label><div class="sk-toggleable__content "><pre>Ridge()</pre></div> </div></div></div></div></div></div>
 </div>
 </div>
@@ -1426,7 +1430,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </ul>
 <div class="fragment">
 <p>You can also write “<code>tabular_learner("regressor")</code>”:</p>
-<div id="a157d2a9" class="cell" data-execution_count="4">
+<div id="34415c93" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display" data-execution_count="4">
 <style>#sk-container-id-3 {
   /* Definition of color scheme common for light and dark mode */
@@ -1911,7 +1915,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </section>
 <section id="under-the-hood-tablevectorizer-4" class="slide level2 smaller" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Under the hood: <code>TableVectorizer</code></h2>
-<div id="1dc4766e" class="cell" data-execution_count="5">
+<div id="3d2318d8" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a></a>vectorizer <span class="op">=</span> skrub.TableVectorizer()</span>
 <span id="cb11-2"><a></a>transformed <span class="op">=</span> vectorizer.fit_transform(employees)</span>
 <span id="cb11-3"><a></a><span class="im">from</span> pprint <span class="im">import</span> pprint</span>
@@ -1928,7 +1932,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
  'year_first_hired': 'numeric'}</code></pre>
 </div>
 </div>
-<div id="c0fcadea" class="cell" data-execution_count="6">
+<div id="da32d7e1" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a></a>pprint(vectorizer.all_processing_steps_[<span class="st">"date_first_hired"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[CleanNullStrings(),
@@ -1941,7 +1945,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </section>
 <section id="encoding-datetime-features" class="slide level2 smaller" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Encoding datetime features</h2>
-<div id="16812b36" class="cell" data-execution_count="7">
+<div id="799c51a6" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb15-1" class="hljs-ln-code"><a></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb15-2" class="hljs-ln-code"><a></a></span>
 <span id="cb15-3" class="hljs-ln-code"><a></a>data <span class="op">=</span> pd.read_csv(</span>
@@ -2091,7 +2095,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </section>
 <section id="encoding-datetime-features-1" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Encoding datetime features</h2>
-<div id="74d2f90d" class="cell" data-execution_count="8">
+<div id="709dced3" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb16-1" class="hljs-ln-code"><a></a><span class="im">from</span> pprint <span class="im">import</span> pprint</span>
 <span id="cb16-2" class="hljs-ln-code"><a></a><span class="im">from</span> skrub <span class="im">import</span> TableVectorizer, DatetimeEncoder</span>
 <span id="cb16-3" class="hljs-ln-code"><a></a></span>
@@ -2106,7 +2110,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </section>
 <section id="encoding-datetime-features-2" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Encoding datetime features</h2>
-<div id="896ad29c" class="cell" data-execution_count="9">
+<div id="6d377910" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb18-1" class="hljs-ln-code"><a></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> HistGradientBoostingRegressor</span>
 <span id="cb18-2" class="hljs-ln-code"><a></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> make_pipeline</span>
 <span id="cb18-3" class="hljs-ln-code"><a></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> TimeSeriesSplit, cross_val_score</span>
@@ -2118,14 +2122,14 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <span id="cb18-9" class="hljs-ln-code"><a></a>    cv<span class="op">=</span>TimeSeriesSplit(n_splits<span class="op">=</span><span class="dv">5</span>),</span>
 <span id="cb18-10" class="hljs-ln-code"><a></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
-<pre><code>array([ -3694.45159469,  -3180.1148674 , -15183.44808403,  -5014.73117528,
-        -5099.44406791])</code></pre>
+<pre><code>array([ -3694.45159469,  -3180.1148674 , -15183.44808403,  -4951.38045834,
+        -5313.94110184])</code></pre>
 </div>
 </div>
 </section>
 <section id="encoding-datetime-features-3" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Encoding datetime features</h2>
-<div id="02905e27" class="cell" data-execution_count="10">
+<div id="0f1c0cbe" class="cell" data-execution_count="10">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -2167,7 +2171,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <img data-src="images/aggjoiner.png" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section id="aggjoiner-automatically-aggregate-values-1" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title"><code>AggJoiner</code>: automatically aggregate values</h2>
-<div id="c05cd206" class="cell" data-execution_count="11">
+<div id="2a078b83" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb20-1" class="hljs-ln-code"><a></a><span class="im">import</span> skrub</span>
 <span id="cb20-2" class="hljs-ln-code"><a></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb20-3" class="hljs-ln-code"><a></a></span>
@@ -2234,7 +2238,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </section>
 <section id="interpolationjoiner-infer-missing-values" class="slide level2 smaller" data-auto-animate="true">
 <h2 data-id="quarto-animate-title"><code>InterpolationJoiner</code>: infer missing values</h2>
-<div id="a68b29c6" class="cell" data-execution_count="12">
+<div id="231f401a" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb21-1" class="hljs-ln-code"><a></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb21-2" class="hljs-ln-code"><a></a></span>
 <span id="cb21-3" class="hljs-ln-code"><a></a><span class="im">from</span> skrub.datasets <span class="im">import</span> fetch_flight_delays</span>
@@ -2248,7 +2252,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <span id="cb21-11" class="hljs-ln-code"><a></a>]</span>
 <span id="cb21-12" class="hljs-ln-code"><a></a>weather[<span class="st">"YEAR/MONTH/DAY"</span>] <span class="op">=</span> pd.to_datetime(weather[<span class="st">"YEAR/MONTH/DAY"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="8d8f4b9e" class="cell" data-execution_count="13">
+<div id="aa8f9dc6" class="cell" data-execution_count="13">
 <div class="cell-output cell-output-display" data-execution_count="13">
 <div>
 <style scoped="">
@@ -2332,7 +2336,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </section>
 <section id="interpolationjoiner" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title"><code>InterpolationJoiner</code></h2>
-<div id="ef186b2c" class="cell" data-execution_count="14">
+<div id="44dd900d" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb22-1" class="hljs-ln-code"><a></a><span class="im">from</span> skrub <span class="im">import</span> InterpolationJoiner</span>
 <span id="cb22-2" class="hljs-ln-code"><a></a>joiner <span class="op">=</span> InterpolationJoiner(</span>
 <span id="cb22-3" class="hljs-ln-code"><a></a>    aux_table,</span>
@@ -2381,9 +2385,9 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <td>297.0</td>
 <td>NaN</td>
 <td>NaN</td>
-<td>255.451987</td>
-<td>13.584247</td>
-<td>0.184904</td>
+<td>269.766060</td>
+<td>20.028580</td>
+<td>-0.009862</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
@@ -2393,9 +2397,9 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <td>333.0</td>
 <td>NaN</td>
 <td>NaN</td>
-<td>293.276394</td>
-<td>16.160247</td>
-<td>0.438175</td>
+<td>301.909280</td>
+<td>23.768689</td>
+<td>0.150956</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
@@ -2405,9 +2409,9 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <td>430.0</td>
 <td>0.0</td>
 <td>NaN</td>
-<td>333.817549</td>
-<td>75.097549</td>
-<td>0.184904</td>
+<td>340.105062</td>
+<td>110.111181</td>
+<td>0.028439</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">3</td>
@@ -2417,9 +2421,9 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <td>264.0</td>
 <td>0.0</td>
 <td>NaN</td>
-<td>273.666911</td>
-<td>29.584152</td>
-<td>0.585151</td>
+<td>277.172637</td>
+<td>31.305187</td>
+<td>0.510217</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">4</td>
@@ -2429,9 +2433,9 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <td>291.0</td>
 <td>NaN</td>
 <td>NaN</td>
-<td>256.609327</td>
-<td>7.336283</td>
-<td>0.300271</td>
+<td>263.253988</td>
+<td>13.981040</td>
+<td>0.141219</td>
 </tr>
 </tbody>
 </table>
@@ -2442,11 +2446,11 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </section>
 <section id="interpolationjoiner-1" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title"><code>InterpolationJoiner</code></h2>
-<div id="5324f518" class="cell" data-execution_count="15">
+<div id="84f11f95" class="cell" data-execution_count="15">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="skrub-intro_files/figure-revealjs/cell-16-output-1.png" width="971" height="260"></p>
+<p><img data-src="skrub-intro_files/figure-revealjs/cell-16-output-1.png" width="971" height="254"></p>
 </figure>
 </div>
 </div>
@@ -2467,7 +2471,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <section id="additional-goodies-deduplication" class="slide level2 smaller">
 <h2>Additional goodies: deduplication</h2>
 <p><code>deduplicate</code> misspelled categories</p>
-<div id="21d9e32b" class="cell" data-execution_count="17">
+<div id="97bb5321" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a></a><span class="im">from</span> skrub <span class="im">import</span> deduplicate</span>
 <span id="cb23-2"><a></a>pprint(duplicated)</span>
 <span id="cb23-3"><a></a>deduplicate_correspondence <span class="op">=</span> deduplicate(duplicated)</span>
@@ -2547,19 +2551,19 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </div></div>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script>
-  <script src="../../site_libs/revealjs/dist/reveal.js"></script>
+  <script src="../../../site_libs/revealjs/dist/reveal.js"></script>
   <!-- reveal.js plugins -->
-  <script src="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
-  <script src="../../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
-  <script src="../../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
-  <script src="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
-  <script src="../../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
-  <script src="../../site_libs/revealjs/plugin/notes/notes.js"></script>
-  <script src="../../site_libs/revealjs/plugin/search/search.js"></script>
-  <script src="../../site_libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="../../site_libs/revealjs/plugin/math/math.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>
