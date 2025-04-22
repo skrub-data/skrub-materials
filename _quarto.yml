@@ -18,7 +18,8 @@ website:
         text: Skrub Examples
       - href: pages/listings.qmd
         text: Latest updates
-
+execute:
+  freeze: auto
 
 format:
   html:
