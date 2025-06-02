@@ -1,0 +1,14 @@
+.reveal .title-slide {
+    display: flex;
+    align-items: center;
+}
+
+.reveal .title-slide h1 {
+    margin-left: 20px;
+}
+
+.reveal .title-slide img {
+    width: 150px; /* Adjust the width as needed */
+    height: auto;
+    margin-right: 20px;
+}
