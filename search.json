@@ -900,7 +900,7 @@
     "href": "pages/slides/index_slides.html",
     "title": "Skrub slides and talks",
     "section": "",
-    "text": "This page is used to track all the publicly available material about Skrub.\n\nSkrub features\n\n🤝 Introduction to Skrub and main features\n📑 Examples of TableReport\n\n\n\nFuture developments\n\n🌠 Skrub recipe and expressions\n⌚ Timeseries and KKBox\n🔎 The Discover object\n🎓 A Skrub use case in Academia"
+    "text": "This page is used to track all the publicly available material about Skrub.\n\nIntroductory talks\n\n🤝 Introduction to Skrub and main features - Skrub Workshop, January 2025\n Skrub, Machine learning with dataframes - SODA Kickoff, June 2025\n\n📑 Examples of TableReport\n\n\n\nFuture developments\n\n🌠 Skrub recipe and expressions - Skrub Workshop, January 2025\n⌚ Timeseries and KKBox - Skrub Workshop, January 2025\n🔎 The Discover object - Skrub Workshop, January 2025\n🎓 A Skrub use case in Academia - Skrub Workshop, January 2025"
   },
   {
     "objectID": "pages/notebooks/categorical-encoders/categorical-encoders.html",
