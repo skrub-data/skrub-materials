@@ -2,7 +2,7 @@
 title: "Skrub"
 title-block-banner: true
 date: 2025-06-03
-subtitle: "Machine Learning with Dataframes"
+subtitle: "SODA Kickoff 2025 - Machine Learning with Dataframes"
 author: "Riccardo Cappuzzo"
 format: 
     revealjs:
