@@ -1,14 +1,7 @@
-.reveal .title-slide {
-    display: flex;
-    align-items: center;
-}
-
-.reveal .title-slide h1 {
-    margin-left: 20px;
-}
-
-.reveal .title-slide img {
-    width: 150px; /* Adjust the width as needed */
-    height: auto;
-    margin-right: 20px;
+h1.title {
+  background-image: url(images/skrub.svg);
+  background-repeat: no-repeat;
+  background-position: left;
+  background-size: 200px;
+  min-height: 200px; /* Set the minimum height to match the background image height */
 }

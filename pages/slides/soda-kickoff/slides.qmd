@@ -1,5 +1,6 @@
 ---
 title: "Skrub"
+title-block-banner: true
 date: 2025-06-03
 subtitle: "Machine Learning with Dataframes"
 author: "Riccardo Cappuzzo"
@@ -12,13 +13,35 @@ format:
         transition: slide
         theme: [simple]
         logo: images/skrub.svg
-
+        css: style.css
 incremental: true
 
 ---
+## Fun facts
+
+- I'm Italian, but I don't drink coffee, wine, and I like pizza with fries
+- I did my PhD in Côte d'Azur, and I moved away because it was too sunny and 
+I don't like the sea
+
+## Fun facts {auto-animate="true"}
+::: {.nonincremental}
+- I'm mildly obsessed with matplotlib
+:::
+![](images/ob.jpg){fig-align="center"}
+
 # Boost your productivity with `skrub`! {auto-animate="true"}
 
 `skrub` simplifies many tedious data preparation operations
+
+## An example pipeline
+1. Gather some data
+2. Explore the data
+3. Pre-process the data 
+4. Perform feature engineering
+5. Build a scikit-learn pipeline
+6. ???
+7. Profit?  
+
 
 ## Exploring the data {.smaller auto-animate="true"}
 ```python
@@ -217,7 +240,7 @@ X_date = ToDatetime().fit_transform(df["date"])
 X_enc = de.fit_transform(X_date)
 print(X_enc)
 ```
-
+}
 ## Encoding _all the features_: `TableVectorizer` {.smaller auto-animate="true"}
 
 ![](images/skrub-table-vectorizer.png)
@@ -259,11 +282,13 @@ ct = make_column_transformer(
 
 model = make_pipeline(ct, SimpleImputer(), Ridge())
 ```
-## Build a predictive pipeline with `tabular_learner` {auto-animate="true"}
-```{.python}
+## Build a predictive pipeline with `tabular_learner` {auto-animate="true" .smaller}
+```{python}
+#| echo: true
 import skrub
 from sklearn.linear_model import Ridge
 model = skrub.tabular_learner(Ridge())
+model
 ```
 ## 
 ![](images/drakeno.png){fig-align="center"}
@@ -364,15 +389,15 @@ model = RandomizedSearchCV(pipe, grid)
 dim_reduction = X.skb.apply(
     skrub.choose_from(
         {
-            "PCA": PCA(skrub.choose_int(10, 30)),
-            "SelectKBest": SelectKBest(skrub.choose_int(10, 30))
+            "PCA": PCA(n_components=skrub.choose_int(10, 30)),
+            "SelectKBest": SelectKBest(k=skrub.choose_int(10, 30))
         }, name="dim_reduction"
     )
 )
 regressor = dim_reduction.skb.apply(
     skrub.choose_from(
         {
-            "Ridge": Ridge(skrub.choose_float(0.1, 10.0, log=True)),
+            "Ridge": Ridge(alpha=skrub.choose_float(0.1, 10.0, log=True)),
             "RandomForest": RandomForestClassifier(
                 n_estimators=skrub.choose_int(20, 200, log=True)
             )

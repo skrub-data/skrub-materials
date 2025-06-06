@@ -96,6 +96,7 @@
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="slides_files/libs/revealjs/dist/theme/quarto-423d414d36ce366a9d05f36d06304417.css">
+  <link rel="stylesheet" href="style.css">
   <link href="slides_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="slides_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="slides_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -209,10 +210,39 @@ Riccardo Cappuzzo
 
   <p class="date">2025-06-03</p>
 </section>
+<section id="fun-facts" class="slide level2">
+<h2>Fun facts</h2>
+<ul>
+<li class="fragment">I’m Italian, but I don’t drink coffee, wine, and I like pizza with fries</li>
+<li class="fragment">I did my PhD in Côte d’Azur, and I moved away because it was too sunny and I don’t like the sea</li>
+<li class="fragment">I like memes, videogames and Japanese pop culture <img data-src="images/talala.png" class="quarto-figure quarto-figure-center" height="300"></li>
+</ul>
+</section>
+<section id="fun-facts-1" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Fun facts</h2>
+<div>
+<ul>
+<li>I’m mildly obsessed with matplotlib</li>
+</ul>
+</div>
+
+<img data-src="images/ob.jpg" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section>
 <section id="boost-your-productivity-with-skrub" class="title-slide slide level1 center" data-auto-animate="true">
 <h1 data-id="quarto-animate-title">Boost your productivity with <code>skrub</code>!</h1>
 <p><code>skrub</code> simplifies many tedious data preparation operations</p>
+</section>
+<section id="an-example-pipeline" class="slide level2">
+<h2>An example pipeline</h2>
+<ol type="1">
+<li class="fragment">Gather some data</li>
+<li class="fragment">Explore the data</li>
+<li class="fragment">Pre-process the data</li>
+<li class="fragment">Perform feature engineering</li>
+<li class="fragment">Build a scikit-learn pipeline</li>
+<li class="fragment">???</li>
+<li class="fragment">Profit?</li>
+</ol>
 </section>
 <section id="exploring-the-data" class="slide level2 smaller" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Exploring the data</h2>
@@ -252,7 +282,7 @@ Riccardo Cappuzzo
 </section>
 <section id="exploring-the-data-1" class="slide level2 smaller" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Exploring the data</h2>
-<div id="1728caf2" class="cell" data-execution_count="1">
+<div id="80f1f951" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -281,7 +311,7 @@ Riccardo Cappuzzo
 </section>
 <section id="data-cleaning-with-pandas" class="slide level2 smaller" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Data cleaning with Pandas</h2>
-<div id="cf956a14" class="cell" data-execution_count="2">
+<div id="721e6dab" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb3-1" class="hljs-ln-code"><a href=""></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb3-2" class="hljs-ln-code"><a href=""></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb3-3" class="hljs-ln-code"><a href=""></a></span>
@@ -365,7 +395,7 @@ Riccardo Cappuzzo
 </section>
 <section id="data-cleaning-with-pandas-1" class="slide level2 smaller" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Data cleaning with Pandas</h2>
-<div id="ec48a9af" class="cell" data-execution_count="3">
+<div id="7bd5f1de" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb4-1" class="hljs-ln-code"><a href=""></a><span class="co"># Parse the datetime strings with a specific format</span></span>
 <span id="cb4-2" class="hljs-ln-code"><a href=""></a>df[<span class="st">'Date'</span>] <span class="op">=</span> pd.to_datetime(df[<span class="st">'Date'</span>], <span class="bu">format</span><span class="op">=</span><span class="st">'</span><span class="sc">%d</span><span class="st">/%m/%Y'</span>)</span>
 <span id="cb4-3" class="hljs-ln-code"><a href=""></a></span>
@@ -437,7 +467,7 @@ Riccardo Cappuzzo
 </section>
 <section id="lightweight-data-cleaning-cleaner" class="slide level2 smaller" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Lightweight data cleaning: <code>Cleaner</code></h2>
-<div id="8cad996b" class="cell" data-execution_count="4">
+<div id="5519be8e" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb5-1" class="hljs-ln-code"><a href=""></a><span class="im">from</span> skrub <span class="im">import</span> Cleaner</span>
 <span id="cb5-2" class="hljs-ln-code"><a href=""></a>cleaner <span class="op">=</span> Cleaner(drop_if_constant<span class="op">=</span><span class="va">True</span>, datetime_format<span class="op">=</span><span class="st">'</span><span class="sc">%d</span><span class="st">/%m/%Y'</span>)</span>
 <span id="cb5-3" class="hljs-ln-code"><a href=""></a>df_cleaned <span class="op">=</span> cleaner.fit_transform(df)</span>
@@ -495,7 +525,7 @@ Riccardo Cappuzzo
 </section>
 <section id="encoding-datetime-features-with-pandas" class="slide level2 smaller">
 <h2>Encoding datetime features with Pandas</h2>
-<div id="c19ebbdf" class="cell" data-execution_count="5">
+<div id="220a25b1" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb6-2"><a href=""></a>data <span class="op">=</span> {</span>
 <span id="cb6-3"><a href=""></a>    <span class="st">'date'</span>: [<span class="st">'2023-01-01 12:34:56'</span>, <span class="st">'2023-02-15 08:45:23'</span>, <span class="st">'2023-03-20 18:12:45'</span>],</span>
@@ -516,7 +546,7 @@ Riccardo Cappuzzo
 </section>
 <section id="encoding-datetime-features-with-pandas-1" class="slide level2 smaller">
 <h2>Encoding datetime features with Pandas</h2>
-<div id="3e2f07af" class="cell" data-execution_count="6">
+<div id="e2561e91" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a>df_expanded[<span class="st">'hour_sin'</span>] <span class="op">=</span> np.sin(<span class="dv">2</span> <span class="op">*</span> np.pi <span class="op">*</span> df_expanded[<span class="st">'hour'</span>] <span class="op">/</span> <span class="dv">24</span>)</span>
 <span id="cb7-2"><a href=""></a>df_expanded[<span class="st">'hour_cos'</span>] <span class="op">=</span> np.cos(<span class="dv">2</span> <span class="op">*</span> np.pi <span class="op">*</span> df_expanded[<span class="st">'hour'</span>] <span class="op">/</span> <span class="dv">24</span>)</span>
 <span id="cb7-3"><a href=""></a></span>
@@ -549,7 +579,7 @@ DataFrame with expanded datetime columns:
 </section>
 <section id="encoding-datetime-features-skrub.datetimeencoder" class="slide level2 smaller" data-auto-animate="true" data-visibility="uncounted">
 <h2 data-id="quarto-animate-title">Encoding datetime features <code>skrub.DatetimeEncoder</code></h2>
-<div id="36a36195" class="cell" data-execution_count="7">
+<div id="f5bb2f3c" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb9-1" class="hljs-ln-code"><a href=""></a><span class="im">from</span> skrub <span class="im">import</span> DatetimeEncoder, ToDatetime</span>
 <span id="cb9-2" class="hljs-ln-code"><a href=""></a></span>
 <span id="cb9-3" class="hljs-ln-code"><a href=""></a>de <span class="op">=</span> DatetimeEncoder(periodic_encoding<span class="op">=</span><span class="st">"circular"</span>)</span>
@@ -612,11 +642,439 @@ DataFrame with expanded datetime columns:
 <span id="cb13-16" class="hljs-ln-code"><a href=""></a></span>
 <span id="cb13-17" class="hljs-ln-code"><a href=""></a>model <span class="op">=</span> make_pipeline(ct, SimpleImputer(), Ridge())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="build-a-predictive-pipeline-with-tabular_learner" class="slide level2" data-auto-animate="true">
+<section id="build-a-predictive-pipeline-with-tabular_learner" class="slide level2 smaller" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Build a predictive pipeline with <code>tabular_learner</code></h2>
-<div class="sourceCode" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb14-1" class="hljs-ln-code"><a href=""></a><span class="im">import</span> skrub</span>
+<div id="4207b101" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb14-1" class="hljs-ln-code"><a href=""></a><span class="im">import</span> skrub</span>
 <span id="cb14-2" class="hljs-ln-code"><a href=""></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> Ridge</span>
-<span id="cb14-3" class="hljs-ln-code"><a href=""></a>model <span class="op">=</span> skrub.tabular_learner(Ridge())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-3" class="hljs-ln-code"><a href=""></a>model <span class="op">=</span> skrub.tabular_learner(Ridge())</span>
+<span id="cb14-4" class="hljs-ln-code"><a href=""></a>model</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<style>#sk-container-id-1 {
+  /* Definition of color scheme common for light and dark mode */
+  --sklearn-color-text: #000;
+  --sklearn-color-text-muted: #666;
+  --sklearn-color-line: gray;
+  /* Definition of color scheme for unfitted estimators */
+  --sklearn-color-unfitted-level-0: #fff5e6;
+  --sklearn-color-unfitted-level-1: #f6e4d2;
+  --sklearn-color-unfitted-level-2: #ffe0b3;
+  --sklearn-color-unfitted-level-3: chocolate;
+  /* Definition of color scheme for fitted estimators */
+  --sklearn-color-fitted-level-0: #f0f8ff;
+  --sklearn-color-fitted-level-1: #d4ebff;
+  --sklearn-color-fitted-level-2: #b3dbfd;
+  --sklearn-color-fitted-level-3: cornflowerblue;
+
+  /* Specific color for light theme */
+  --sklearn-color-text-on-default-background: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, black)));
+  --sklearn-color-background: var(--sg-background-color, var(--theme-background, var(--jp-layout-color0, white)));
+  --sklearn-color-border-box: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, black)));
+  --sklearn-color-icon: #696969;
+
+  @media (prefers-color-scheme: dark) {
+    /* Redefinition of color scheme for dark theme */
+    --sklearn-color-text-on-default-background: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, white)));
+    --sklearn-color-background: var(--sg-background-color, var(--theme-background, var(--jp-layout-color0, #111)));
+    --sklearn-color-border-box: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, white)));
+    --sklearn-color-icon: #878787;
+  }
+}
+
+#sk-container-id-1 {
+  color: var(--sklearn-color-text);
+}
+
+#sk-container-id-1 pre {
+  padding: 0;
+}
+
+#sk-container-id-1 input.sk-hidden--visually {
+  border: 0;
+  clip: rect(1px 1px 1px 1px);
+  clip: rect(1px, 1px, 1px, 1px);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+#sk-container-id-1 div.sk-dashed-wrapped {
+  border: 1px dashed var(--sklearn-color-line);
+  margin: 0 0.4em 0.5em 0.4em;
+  box-sizing: border-box;
+  padding-bottom: 0.4em;
+  background-color: var(--sklearn-color-background);
+}
+
+#sk-container-id-1 div.sk-container {
+  /* jupyter's `normalize.less` sets `[hidden] { display: none; }`
+     but bootstrap.min.css set `[hidden] { display: none !important; }`
+     so we also need the `!important` here to be able to override the
+     default hidden behavior on the sphinx rendered scikit-learn.org.
+     See: https://github.com/scikit-learn/scikit-learn/issues/21755 */
+  display: inline-block !important;
+  position: relative;
+}
+
+#sk-container-id-1 div.sk-text-repr-fallback {
+  display: none;
+}
+
+div.sk-parallel-item,
+div.sk-serial,
+div.sk-item {
+  /* draw centered vertical line to link estimators */
+  background-image: linear-gradient(var(--sklearn-color-text-on-default-background), var(--sklearn-color-text-on-default-background));
+  background-size: 2px 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+/* Parallel-specific style estimator block */
+
+#sk-container-id-1 div.sk-parallel-item::after {
+  content: "";
+  width: 100%;
+  border-bottom: 2px solid var(--sklearn-color-text-on-default-background);
+  flex-grow: 1;
+}
+
+#sk-container-id-1 div.sk-parallel {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  background-color: var(--sklearn-color-background);
+  position: relative;
+}
+
+#sk-container-id-1 div.sk-parallel-item {
+  display: flex;
+  flex-direction: column;
+}
+
+#sk-container-id-1 div.sk-parallel-item:first-child::after {
+  align-self: flex-end;
+  width: 50%;
+}
+
+#sk-container-id-1 div.sk-parallel-item:last-child::after {
+  align-self: flex-start;
+  width: 50%;
+}
+
+#sk-container-id-1 div.sk-parallel-item:only-child::after {
+  width: 0;
+}
+
+/* Serial-specific style estimator block */
+
+#sk-container-id-1 div.sk-serial {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--sklearn-color-background);
+  padding-right: 1em;
+  padding-left: 1em;
+}
+
+
+/* Toggleable style: style used for estimator/Pipeline/ColumnTransformer box that is
+clickable and can be expanded/collapsed.
+- Pipeline and ColumnTransformer use this feature and define the default style
+- Estimators will overwrite some part of the style using the `sk-estimator` class
+*/
+
+/* Pipeline and ColumnTransformer style (default) */
+
+#sk-container-id-1 div.sk-toggleable {
+  /* Default theme specific background. It is overwritten whether we have a
+  specific estimator or a Pipeline/ColumnTransformer */
+  background-color: var(--sklearn-color-background);
+}
+
+/* Toggleable label */
+#sk-container-id-1 label.sk-toggleable__label {
+  cursor: pointer;
+  display: flex;
+  width: 100%;
+  margin-bottom: 0;
+  padding: 0.5em;
+  box-sizing: border-box;
+  text-align: center;
+  align-items: start;
+  justify-content: space-between;
+  gap: 0.5em;
+}
+
+#sk-container-id-1 label.sk-toggleable__label .caption {
+  font-size: 0.6rem;
+  font-weight: lighter;
+  color: var(--sklearn-color-text-muted);
+}
+
+#sk-container-id-1 label.sk-toggleable__label-arrow:before {
+  /* Arrow on the left of the label */
+  content: "▸";
+  float: left;
+  margin-right: 0.25em;
+  color: var(--sklearn-color-icon);
+}
+
+#sk-container-id-1 label.sk-toggleable__label-arrow:hover:before {
+  color: var(--sklearn-color-text);
+}
+
+/* Toggleable content - dropdown */
+
+#sk-container-id-1 div.sk-toggleable__content {
+  max-height: 0;
+  max-width: 0;
+  overflow: hidden;
+  text-align: left;
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-0);
+}
+
+#sk-container-id-1 div.sk-toggleable__content.fitted {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-0);
+}
+
+#sk-container-id-1 div.sk-toggleable__content pre {
+  margin: 0.2em;
+  border-radius: 0.25em;
+  color: var(--sklearn-color-text);
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-0);
+}
+
+#sk-container-id-1 div.sk-toggleable__content.fitted pre {
+  /* unfitted */
+  background-color: var(--sklearn-color-fitted-level-0);
+}
+
+#sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {
+  /* Expand drop-down */
+  max-height: 200px;
+  max-width: 100%;
+  overflow: auto;
+}
+
+#sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
+  content: "▾";
+}
+
+/* Pipeline/ColumnTransformer-specific style */
+
+#sk-container-id-1 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
+  color: var(--sklearn-color-text);
+  background-color: var(--sklearn-color-unfitted-level-2);
+}
+
+#sk-container-id-1 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+  background-color: var(--sklearn-color-fitted-level-2);
+}
+
+/* Estimator-specific style */
+
+/* Colorize estimator box */
+#sk-container-id-1 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-2);
+}
+
+#sk-container-id-1 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-2);
+}
+
+#sk-container-id-1 div.sk-label label.sk-toggleable__label,
+#sk-container-id-1 div.sk-label label {
+  /* The background is the default theme color */
+  color: var(--sklearn-color-text-on-default-background);
+}
+
+/* On hover, darken the color of the background */
+#sk-container-id-1 div.sk-label:hover label.sk-toggleable__label {
+  color: var(--sklearn-color-text);
+  background-color: var(--sklearn-color-unfitted-level-2);
+}
+
+/* Label box, darken color on hover, fitted */
+#sk-container-id-1 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
+  color: var(--sklearn-color-text);
+  background-color: var(--sklearn-color-fitted-level-2);
+}
+
+/* Estimator label */
+
+#sk-container-id-1 div.sk-label label {
+  font-family: monospace;
+  font-weight: bold;
+  display: inline-block;
+  line-height: 1.2em;
+}
+
+#sk-container-id-1 div.sk-label-container {
+  text-align: center;
+}
+
+/* Estimator-specific */
+#sk-container-id-1 div.sk-estimator {
+  font-family: monospace;
+  border: 1px dotted var(--sklearn-color-border-box);
+  border-radius: 0.25em;
+  box-sizing: border-box;
+  margin-bottom: 0.5em;
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-0);
+}
+
+#sk-container-id-1 div.sk-estimator.fitted {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-0);
+}
+
+/* on hover */
+#sk-container-id-1 div.sk-estimator:hover {
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-2);
+}
+
+#sk-container-id-1 div.sk-estimator.fitted:hover {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-2);
+}
+
+/* Specification for estimator info (e.g. "i" and "?") */
+
+/* Common style for "i" and "?" */
+
+.sk-estimator-doc-link,
+a:link.sk-estimator-doc-link,
+a:visited.sk-estimator-doc-link {
+  float: right;
+  font-size: smaller;
+  line-height: 1em;
+  font-family: monospace;
+  background-color: var(--sklearn-color-background);
+  border-radius: 1em;
+  height: 1em;
+  width: 1em;
+  text-decoration: none !important;
+  margin-left: 0.5em;
+  text-align: center;
+  /* unfitted */
+  border: var(--sklearn-color-unfitted-level-1) 1pt solid;
+  color: var(--sklearn-color-unfitted-level-1);
+}
+
+.sk-estimator-doc-link.fitted,
+a:link.sk-estimator-doc-link.fitted,
+a:visited.sk-estimator-doc-link.fitted {
+  /* fitted */
+  border: var(--sklearn-color-fitted-level-1) 1pt solid;
+  color: var(--sklearn-color-fitted-level-1);
+}
+
+/* On hover */
+div.sk-estimator:hover .sk-estimator-doc-link:hover,
+.sk-estimator-doc-link:hover,
+div.sk-label-container:hover .sk-estimator-doc-link:hover,
+.sk-estimator-doc-link:hover {
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-3);
+  color: var(--sklearn-color-background);
+  text-decoration: none;
+}
+
+div.sk-estimator.fitted:hover .sk-estimator-doc-link.fitted:hover,
+.sk-estimator-doc-link.fitted:hover,
+div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
+.sk-estimator-doc-link.fitted:hover {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-3);
+  color: var(--sklearn-color-background);
+  text-decoration: none;
+}
+
+/* Span, style for the box shown on hovering the info icon */
+.sk-estimator-doc-link span {
+  display: none;
+  z-index: 9999;
+  position: relative;
+  font-weight: normal;
+  right: .2ex;
+  padding: .5ex;
+  margin: .5ex;
+  width: min-content;
+  min-width: 20ex;
+  max-width: 50ex;
+  color: var(--sklearn-color-text);
+  box-shadow: 2pt 2pt 4pt #999;
+  /* unfitted */
+  background: var(--sklearn-color-unfitted-level-0);
+  border: .5pt solid var(--sklearn-color-unfitted-level-3);
+}
+
+.sk-estimator-doc-link.fitted span {
+  /* fitted */
+  background: var(--sklearn-color-fitted-level-0);
+  border: var(--sklearn-color-fitted-level-3);
+}
+
+.sk-estimator-doc-link:hover span {
+  display: block;
+}
+
+/* "?"-specific style due to the `<a>` HTML tag */
+
+#sk-container-id-1 a.estimator_doc_link {
+  float: right;
+  font-size: 1rem;
+  line-height: 1em;
+  font-family: monospace;
+  background-color: var(--sklearn-color-background);
+  border-radius: 1rem;
+  height: 1rem;
+  width: 1rem;
+  text-decoration: none;
+  /* unfitted */
+  color: var(--sklearn-color-unfitted-level-1);
+  border: var(--sklearn-color-unfitted-level-1) 1pt solid;
+}
+
+#sk-container-id-1 a.estimator_doc_link.fitted {
+  /* fitted */
+  border: var(--sklearn-color-fitted-level-1) 1pt solid;
+  color: var(--sklearn-color-fitted-level-1);
+}
+
+/* On hover */
+#sk-container-id-1 a.estimator_doc_link:hover {
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-3);
+  color: var(--sklearn-color-background);
+  text-decoration: none;
+}
+
+#sk-container-id-1 a.estimator_doc_link.fitted:hover {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-3);
+}
+</style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>Pipeline(steps=[('tablevectorizer',
+                 TableVectorizer(datetime=DatetimeEncoder(periodic_encoding='spline'))),
+                ('simpleimputer', SimpleImputer(add_indicator=True)),
+                ('standardscaler', StandardScaler()), ('ridge', Ridge())])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox"><label for="sk-estimator-id-1" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>Pipeline</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.6/modules/generated/sklearn.pipeline.Pipeline.html">?<span>Documentation for Pipeline</span></a><span class="sk-estimator-doc-link ">i<span>Not fitted</span></span></div></label><div class="sk-toggleable__content "><pre>Pipeline(steps=[('tablevectorizer',
+                 TableVectorizer(datetime=DatetimeEncoder(periodic_encoding='spline'))),
+                ('simpleimputer', SimpleImputer(add_indicator=True)),
+                ('standardscaler', StandardScaler()), ('ridge', Ridge())])</pre></div> </div></div><div class="sk-serial"><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox"><label for="sk-estimator-id-2" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>tablevectorizer: TableVectorizer</div></div></label><div class="sk-toggleable__content "><pre>TableVectorizer(datetime=DatetimeEncoder(periodic_encoding='spline'))</pre></div> </div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><label>numeric</label></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-3" type="checkbox"><label for="sk-estimator-id-3" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>PassThrough</div></div></label><div class="sk-toggleable__content "><pre>PassThrough()</pre></div> </div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><label>datetime</label></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-4" type="checkbox"><label for="sk-estimator-id-4" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>DatetimeEncoder</div></div></label><div class="sk-toggleable__content "><pre>DatetimeEncoder(periodic_encoding='spline')</pre></div> </div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><label>low_cardinality</label></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-5" type="checkbox"><label for="sk-estimator-id-5" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>OneHotEncoder</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.6/modules/generated/sklearn.preprocessing.OneHotEncoder.html">?<span>Documentation for OneHotEncoder</span></a></div></label><div class="sk-toggleable__content "><pre>OneHotEncoder(drop='if_binary', dtype='float32', handle_unknown='ignore',
+              sparse_output=False)</pre></div> </div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><label>high_cardinality</label></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-6" type="checkbox"><label for="sk-estimator-id-6" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>StringEncoder</div></div></label><div class="sk-toggleable__content "><pre>StringEncoder()</pre></div> </div></div></div></div></div></div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-7" type="checkbox"><label for="sk-estimator-id-7" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>SimpleImputer</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.6/modules/generated/sklearn.impute.SimpleImputer.html">?<span>Documentation for SimpleImputer</span></a></div></label><div class="sk-toggleable__content "><pre>SimpleImputer(add_indicator=True)</pre></div> </div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-8" type="checkbox"><label for="sk-estimator-id-8" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>StandardScaler</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.6/modules/generated/sklearn.preprocessing.StandardScaler.html">?<span>Documentation for StandardScaler</span></a></div></label><div class="sk-toggleable__content "><pre>StandardScaler()</pre></div> </div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-9" type="checkbox"><label for="sk-estimator-id-9" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>Ridge</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.6/modules/generated/sklearn.linear_model.Ridge.html">?<span>Documentation for Ridge</span></a></div></label><div class="sk-toggleable__content "><pre>Ridge()</pre></div> </div></div></div></div></div></div>
+</div>
+</div>
 </section>
 <section id="section" class="slide level2">
 <h2></h2>
