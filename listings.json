@@ -1,0 +1,13 @@
+[
+  {
+    "listing": "/pages/listings.html",
+    "items": [
+      "/pages/notebooks/categorical-encoders/categorical-encoders.html",
+      "/pages/slides/soda-kickoff/slides.html",
+      "/pages/slides/discover/discover.html",
+      "/pages/slides/expressions/expressions.html",
+      "/pages/slides/skrub-intro/skrub-intro.html",
+      "/pages/slides/skrub-retrieve-merge-predict/skrub-retrieve-merge-predict.html"
+    ]
+  }
+]
