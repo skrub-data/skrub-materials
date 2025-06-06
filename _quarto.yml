@@ -1,5 +1,7 @@
 project:
   type: website
+  render:
+    - "!src/"
 
 website:
   title: "Skrub learning materials"
@@ -18,7 +20,8 @@ website:
         text: Skrub Examples
       - href: pages/listings.qmd
         text: Latest updates
-
+execute:
+  freeze: auto
 
 format:
   html:
