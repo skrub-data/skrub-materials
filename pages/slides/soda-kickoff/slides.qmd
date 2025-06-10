@@ -241,6 +241,7 @@ X_enc = de.fit_transform(X_date)
 print(X_enc)
 ```
 }
+
 ## Encoding _all the features_: `TableVectorizer` {.smaller auto-animate="true"}
 
 ![](images/skrub-table-vectorizer.png)
