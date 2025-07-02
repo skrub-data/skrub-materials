@@ -6,6 +6,7 @@ This page is used to track all the publicly available material about Skrub.
 
 ### Introductory talks 
 - <a href="skrub-intro/skrub-intro.qmd" target="_blank">🤝 Introduction to Skrub and main features</a> - Skrub Workshop, January 2025
+- <a href="skrub-intro/skrub-intro-trimmed.qmd" target="_blank">🤝 Faster introduction to Skrub</a>
 - <a href="soda-kickoff/slides.qmd" target="_blank"> Skrub, Machine learning with dataframes</a> - SODA Kickoff, June 2025    
 - <a href="https://skrub-data.org/skrub-reports/examples/" target="_blank">📑 Examples of `TableReport`</a>
 
