@@ -19,7 +19,7 @@ website:
       - href: pages/listings.qmd
         text: Latest updates
 execute:
-  freeze: auto
+  freeze: true
 
 format:
   html:
