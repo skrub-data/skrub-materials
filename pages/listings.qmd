@@ -14,7 +14,7 @@ listing:
       contents:
         - "slides/*/*.qmd"
       exclude:
-        - file: "notebooks/index_slides.qmd"
+        - file: "slides/index_slides.qmd"
       max-items: 2
 ---
 

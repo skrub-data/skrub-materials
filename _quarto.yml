@@ -14,10 +14,8 @@ website:
         text: Slides
       - href: pages/notebooks/index_notebooks.qmd
         text: Notebooks
-      - href: https://skrub-data.org/stable/reference/index.html
-        text: API docs
       - href: https://skrub-data.org/stable/auto_examples/index.html
-        text: Skrub Examples
+        text: Skrub Examples Gallery
       - href: pages/listings.qmd
         text: Latest updates
 execute:

@@ -1,5 +1,5 @@
 ---
-title: "Skrub"
+title: "SODA Kickoff 2025"
 title-block-banner: true
 date: 2025-06-03
 subtitle: "SODA Kickoff 2025 - Machine Learning with Dataframes"

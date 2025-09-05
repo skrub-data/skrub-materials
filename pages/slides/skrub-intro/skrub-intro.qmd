@@ -1,5 +1,5 @@
 ---
-title: "Skrub"
+title: "Skrub workshop - Introducing Skrub"
 date: 2025-01-29
 subtitle: "Less wrangling, more machine learning"
 author: "Riccardo Cappuzzo, Jérôme Dockès, Vincent Maladiere"
