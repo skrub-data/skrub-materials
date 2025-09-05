@@ -6,6 +6,7 @@ project:
 website:
   title: "Skrub learning materials"
   favicon: "images/skrub.svg"
+  site-url: "https://skrub-data.org/skrub-materials/"
   navbar:
     left:
       # - href: index.qmd
