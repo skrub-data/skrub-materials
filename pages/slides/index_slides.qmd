@@ -1,16 +1,35 @@
 ---
-title: "Skrub slides and talks"
+title: "Skrub talks"
+listing: 
+    - id: talks
+      sort: "date desc"
+      contents:
+        - "*/*.qmd"
+      exclude:
+        - file: "slides/index_slides.qmd"
+
 ---
 
-This page is used to track all the publicly available material about Skrub. 
+This page is used to track all the talks about skrub, together with some useful
+additional material. 
 
-### Introductory talks 
-- <a href="skrub-intro/skrub-intro.qmd" target="_blank">🤝 Introduction to Skrub and main features</a> - Skrub Workshop, January 2025
-- <a href="soda-kickoff/slides.qmd" target="_blank"> Skrub, Machine learning with dataframes</a> - SODA Kickoff, June 2025    
+### Additional material
 - <a href="https://skrub-data.org/skrub-reports/examples/" target="_blank">📑 Examples of `TableReport`</a>
 
+
 ### Future developments
-- <a href="expressions/expressions.qmd" target="_blank">🌠 Skrub recipe and expressions</a> - Skrub Workshop, January 2025
+These talks may become obsolete as we release new features. 
+
+- <a href="expressions/expressions.qmd" target="_blank">🌠 Skrub recipe and expressions</a> - Skrub Workshop, January 2025 (**Feature renamed to Data Ops and 
+released in Skrub 0.6.0**)
 - <a href="https://docs.google.com/presentation/d/1pIUHmqpSDi8GyRCJ_4pXUfPKEXeLoql-YxpVDK97Cxc/edit?usp=sharing" target="_blank">⌚ Timeseries and KKBox</a> - Skrub Workshop, January 2025
 - <a href="discover/discover.qmd" target="_blank">🔎 The Discover object</a> - Skrub Workshop, January 2025
-- <a href="skrub-retrieve-merge-predict/skrub-retrieve-merge-predict.qmd" target="_blank">🎓 A Skrub use case in Academia</a> - Skrub Workshop, January 2025
+- <a href="skrub-retrieve-merge-predict/skrub-retrieve-merge-predict.qmd" 
+target="_blank">🎓 A Skrub use case in Academia</a> - Skrub Workshop, January 2025 
+
+
+## All talks
+
+
+:::{#slides}
+:::

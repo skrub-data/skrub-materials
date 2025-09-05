@@ -1,5 +1,5 @@
 ---
-title: "Skrub"
+title: "Probabl Sprint - July 2025"
 title-block-banner: true
 date: 2025-07-09
 subtitle: "Machine Learning with Dataframes"

@@ -1,0 +1,976 @@
+---
+title: "Skrub"
+title-block-banner: true
+date: 2025-10-01
+canonical-url: "https://skrub-data.org/skrub-materials/pydata-2025/"
+subtitle: "Machine learning with dataframes"
+author: "Riccardo Cappuzzo, Jérôme Dockès, Guillaume Lemaître"
+institute: "Inria P16, Probabl."
+format: 
+    revealjs:
+        slide-number: c/t
+        show-slide-number: all
+        preview-links: auto
+        embed-resources: false
+        transition: slide
+        theme: simple
+        logo: images/skrub.svg
+        css: style.css
+        footer: "https://skrub-data.org/skrub-materials/pydata-2025/"
+incremental: true
+freeze: auto
+---
+
+## `whoami`
+- I am a research engineer at Inria in the P16 team, and I am the lead developer of skrub ![](images/skrub.svg){width=150}
+- I'm Italian, but I don't drink coffee, wine, and I like pizza with fries ![](images/raora.png){width=50}
+- I did my PhD in Côte d'Azur, and I moved away because it was too sunny and 
+I don't like the sea ![](images/nice.jpg){width=250}
+
+# Boost your productivity with `skrub`! {auto-animate="true"}
+
+`skrub` simplifies many tedious data preparation operations
+
+## 
+![](images/here-we-go-again.png)
+
+## skrub compatibility
+- skrub is fully compatible with pandas and polars
+- skrub transformers are fully compatible with scikit-learn
+
+## An example pipeline
+1. Gather some data
+2. Explore the data
+3. Preprocess the data 
+4. Perform feature engineering 
+5. Build a scikit-learn pipeline
+6. ???
+7. Profit?  
+
+## Exploring the data {.smaller auto-animate="true"}
+```{.python}
+import pandas as pd
+import matplotlib.pyplot as plt
+import skrub
+
+dataset = skrub.datasets.fetch_employee_salaries()
+employees, salaries = dataset.X, dataset.y
+
+df = pd.DataFrame(employees)
+
+# Plot the distribution of the numerical values using a histogram
+fig, axs = plt.subplots(2,1, figsize=(10, 6))
+ax1, ax2 = axs
+
+ax1.hist(df['year_first_hired'], bins=30, edgecolor='black', alpha=0.7)
+ax1.set_xlabel('Year first hired')
+ax1.set_ylabel('Frequency')
+ax1.grid(True, linestyle='--', alpha=0.5)
+
+# Count the frequency of each category
+category_counts = df['department'].value_counts()
+
+# Create a bar plot
+category_counts.plot(kind='bar', edgecolor='black', ax=ax2)
+
+# Add labels and title
+ax2.set_xlabel('Department')
+ax2.set_ylabel('Frequency')
+ax2.grid(True, linestyle='--', axis='y', alpha=0.5)  # Add grid lines for y-axis
+
+fig.suptitle("Distribution of values")
+
+# Show the plot
+plt.show()
+```
+## Exploring the data {.smaller auto-animate="true"}
+
+```{python}
+#| echo: false
+import pandas as pd
+import matplotlib.pyplot as plt
+import skrub
+from skrub.datasets import fetch_employee_salaries
+from pprint import pprint
+
+dataset = fetch_employee_salaries()
+employees, salaries = dataset.X, dataset.y
+
+df = pd.DataFrame(employees)
+
+# Plot the distribution of the numerical values using a histogram
+fig, axs = plt.subplots(2,1, figsize=(10, 6))
+ax1, ax2 = axs
+
+ax1.hist(df['year_first_hired'], bins=30, edgecolor='black', alpha=0.7)
+ax1.set_xlabel('Year first hired')
+ax1.set_ylabel('Frequency')
+ax1.grid(True, linestyle='--', alpha=0.5)
+
+# Count the frequency of each category
+category_counts = df['department'].value_counts()
+
+# Create a bar plot
+category_counts.plot(kind='bar', edgecolor='black', ax=ax2)
+
+# Add labels and title
+ax2.set_xlabel('Department')
+ax2.set_ylabel('Frequency')
+ax2.grid(True, linestyle='--', axis='y', alpha=0.5)  # Add grid lines for y-axis
+
+fig.suptitle("Distribution of values")
+
+# Show the plot
+plt.show()
+```
+
+
+## Exploring the data with `skrub` {.smaller auto-animate="true"}
+
+```{.python}
+from skrub import TableReport
+TableReport(employee_salaries)
+```
+[Preview](https://skrub-data.org/skrub-reports/examples/employee_salaries.html){preview-link="true"}
+
+
+::: {.fragment}
+::: {.nonincremental}
+Main features:
+
+- Obtain high-level statistics about the data
+- Explore the distribution of values and find outliers
+- Discover highly correlated columns 
+- Export and share the report as an `html` file
+:::
+:::
+
+::: {.fragment}
+<a href="https://skrub-data.org/skrub-reports/examples/" target="_blank">More examples</a>
+
+:::
+
+## Data cleaning with pandas/polars: setup {.smaller auto-animate="true"}
+
+::: {.panel-tabset}
+
+### Pandas
+```{python}
+#| echo: true
+import pandas as pd
+import numpy as np
+data = {
+    'Constant int': [1, 1, 1],  # Single unique value
+    'B': [2, 3, 2],  # Multiple unique values
+    'Constant str': ['x', 'x', 'x'],  # Single unique value
+    'D': [4, 5, 6],  # Multiple unique values
+    'All nan': [np.nan, np.nan, np.nan],  # All missing values 
+    'All empty': ['', '', ''],  # All empty strings
+    'Date': ['01/01/2023', '02/01/2023', '03/01/2023'],
+}
+
+df_pd = pd.DataFrame(data)
+display(df_pd)
+```
+
+### Polars
+```{python}
+#| echo: true
+import polars as pl
+import numpy as np
+data = {
+    'Constant int': [1, 1, 1],  # Single unique value
+    'B': [2, 3, 2],  # Multiple unique values
+    'Constant str': ['x', 'x', 'x'],  # Single unique value
+    'D': [4, 5, 6],  # Multiple unique values
+    'All nan': [np.nan, np.nan, np.nan],  # All missing values 
+    'All empty': ['', '', ''],  # All empty strings
+    'Date': ['01/01/2023', '02/01/2023', '03/01/2023'],
+}
+
+df_pl = pl.DataFrame(data)
+display(df_pl)
+```
+
+:::
+
+
+## Nulls, datetimes, constant columns with pandas/polars {.smaller auto-animate="true"}
+
+:::{.panel-tabset}
+### Pandas
+```{python}
+#| echo: true
+# Parse the datetime strings with a specific format
+df_pd['Date'] = pd.to_datetime(df_pd['Date'], format='%d/%m/%Y')
+
+# Drop columns with only a single unique value
+df_pd_cleaned = df_pd.loc[:, df_pd.nunique(dropna=True) > 1]
+
+# Function to drop columns with only missing values or empty strings
+def drop_empty_columns(df):
+    # Drop columns with only missing values
+    df_cleaned = df.dropna(axis=1, how='all')
+    # Drop columns with only empty strings
+    empty_string_cols = df_cleaned.columns[df_cleaned.eq('').all()]
+    df_cleaned = df_cleaned.drop(columns=empty_string_cols)
+    return df_cleaned
+
+# Apply the function to the DataFrame
+df_pd_cleaned = drop_empty_columns(df_pd_cleaned)
+```
+
+### Polars
+```{python}
+#| echo: true 
+# Parse the datetime strings with a specific format
+df_pl = df_pl.with_columns([
+    pl.col("Date").str.strptime(pl.Date, "%d/%m/%Y", strict=False).alias("Date")
+])
+
+# Drop columns with only a single unique value
+df_pl_cleaned = df_pl.select([
+    col for col in df_pl.columns if df_pl[col].n_unique() > 1
+])
+
+# Import selectors for dtype selection
+import polars.selectors as cs
+
+# Drop columns with only missing values or only empty strings
+def drop_empty_columns(df):
+    all_nan = df.select(
+        [
+            col for col in df.select(cs.numeric()).columns if 
+            df [col].is_nan().all()
+        ]
+    ).columns
+    
+    all_empty = df.select(
+        [
+            col for col in df.select(cs.string()).columns if 
+            (df[col].str.strip_chars().str.len_chars()==0).all()
+        ]
+    ).columns
+
+    to_drop = all_nan + all_empty
+
+    return df.drop(to_drop)
+
+df_pl_cleaned = drop_empty_columns(df_pl_cleaned)
+``` 
+
+:::
+
+## Data cleaning with `skrub.Cleaner` {.smaller auto-animate="true"}
+
+:::{.panel-tabset}
+### Pandas
+```{python}
+#| echo: true
+from skrub import Cleaner
+cleaner = Cleaner(drop_if_constant=True, datetime_format='%d/%m/%Y')
+df_cleaned = cleaner.fit_transform(df_pd)
+display(df_cleaned)
+```
+
+### Polars
+```{python}
+#| echo: true
+from skrub import Cleaner
+cleaner = Cleaner(drop_if_constant=True, datetime_format='%d/%m/%Y')
+df_cleaned = cleaner.fit_transform(df_pl)
+display(df_cleaned)
+```
+
+:::
+
+## Comparison
+
+:::{.panel-tabset}
+### Pandas
+::: {.columns}
+::: {.column}
+```{python}
+from skrub import Cleaner
+cleaner = Cleaner(drop_if_constant=True, datetime_format='%d/%m/%Y')
+df_cleaned = cleaner.fit_transform(df_pd)
+```
+```{python}
+#|echo: true
+print(df_pd_cleaned)
+```  
+:::
+::: {.column}
+```{python}
+#|echo: true
+print(df_cleaned)
+```  
+:::
+::: 
+
+### Polars
+::: {.columns}
+::: {.column}
+```{python}
+#|echo: true
+print(df_pl_cleaned)
+```  
+:::
+::: {.column}
+```{python}
+from skrub import Cleaner
+cleaner = Cleaner(drop_if_constant=True, datetime_format='%d/%m/%Y')
+df_cleaned = cleaner.fit_transform(df_pl)
+```
+
+```{python}
+#|echo: true
+print(df_cleaned)
+```  
+:::
+::: 
+<!-- end columns -->
+:::
+
+## Encoding datetime features with pandas/polars {.smaller}
+:::{.panel-tabset}
+
+### Pandas
+```{python}
+#|echo: true
+import pandas as pd
+data = {
+    'date': ['2023-01-01 12:34:56', '2023-02-15 08:45:23', '2023-03-20 18:12:45'],
+    'value': [10, 20, 30]
+}
+df_pd = pd.DataFrame(data)
+datetime_column = "date"
+df_pd[datetime_column] = pd.to_datetime(df_pd[datetime_column], errors='coerce')
+
+df_pd['year'] = df_pd[datetime_column].dt.year
+df_pd['month'] = df_pd[datetime_column].dt.month
+df_pd['day'] = df_pd[datetime_column].dt.day
+df_pd['hour'] = df_pd[datetime_column].dt.hour
+df_pd['minute'] = df_pd[datetime_column].dt.minute
+df_pd['second'] = df_pd[datetime_column].dt.second
+```
+
+### Polars
+```{python}
+#|echo: true
+import polars as pl
+data = {
+    'date': ['2023-01-01 12:34:56', '2023-02-15 08:45:23', '2023-03-20 18:12:45'],
+    'value': [10, 20, 30]
+}
+df_pl = pl.DataFrame(data)
+df_pl = df_pl.with_columns(date=pl.col("date").str.to_datetime())
+
+df_pl = df_pl.with_columns(
+    year=pl.col("date").dt.year(),
+    month=pl.col("date").dt.month(),
+    day=pl.col("date").dt.day(),
+    hour=pl.col("date").dt.hour(),
+    minute=pl.col("date").dt.minute(),
+    second=pl.col("date").dt.second(),
+)
+```
+
+:::
+
+## Adding periodic features with pandas/polars{.smaller}
+:::{.panel-tabset}
+
+### Pandas
+```{python}
+import pandas as pd
+data = {
+    'date': ['2023-01-01 12:34:56', '2023-02-15 08:45:23', '2023-03-20 18:12:45'],
+    'value': [10, 20, 30]
+}
+```
+```{python}
+#| echo: true
+df_pd['hour_sin'] = np.sin(2 * np.pi * df_pd['hour'] / 24)
+df_pd['hour_cos'] = np.cos(2 * np.pi * df_pd['hour'] / 24)
+
+df_pd['month_sin'] = np.sin(2 * np.pi * df_pd['month'] / 12)
+df_pd['month_cos'] = np.cos(2 * np.pi * df_pd['month'] / 12)
+```
+
+### Polars
+```{python}
+#| echo: true
+df_pl = df_pl.with_columns(
+    hour_sin = np.sin(2 * np.pi * pl.col("hour") / 24),
+    hour_cos = np.cos(2 * np.pi * pl.col("hour") / 24),
+    
+    month_sin = np.sin(2 * np.pi * pl.col("month") / 12),
+    month_cos = np.cos(2 * np.pi * pl.col("month") / 12),
+)
+```
+
+:::
+
+## Encoding datetime features `skrub.DatetimeEncoder` {auto-animate="true" visibility="uncounted" .smaller}
+```{python}
+import polars as pl
+data = {
+    'date': ['2023-01-01 12:34:56', '2023-02-15 08:45:23', '2023-03-20 18:12:45'],
+    'value': [10, 20, 30]
+}
+df = pl.DataFrame(data)
+```
+```{python}
+#| echo: true
+from skrub import DatetimeEncoder, ToDatetime
+
+X_date = ToDatetime().fit_transform(df["date"])
+de = DatetimeEncoder(periodic_encoding="circular")
+X_enc = de.fit_transform(X_date)
+print(X_enc)
+```
+
+
+## What periodic features look like
+![](images/periodic_features.png){fig-align="center"}
+
+## Encoding numerical features with `skrub.SquashingScaler`
+```{python}
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+
+np.random.seed(0)  # for reproducibility
+
+values = np.random.rand(100, 1)
+n_outliers = 15
+outlier_indices = np.random.choice(values.shape[0], size=n_outliers, replace=False)
+values[outlier_indices] = np.random.rand(n_outliers, 1) * 100 - 50
+
+x = np.arange(values.shape[0])
+fig, axs = plt.subplots(1, layout="constrained", figsize=(6, 4))
+
+axs.plot(x,values)
+_ = axs.set(
+    title="Feature with outliers",
+    ylabel="value",
+    xlabel="Sample ID"
+    )
+axs.axhspan(-2, 2, color="gray", alpha=0.15)
+
+x_data, y_data = [30, 2]
+desc = "Data is mostly\nin [-2, 2]"
+axs.annotate(
+    desc,
+    xy=(x_data, y_data),
+    xytext=(0.15, 0.8),
+    textcoords="axes fraction",
+    arrowprops=dict(arrowstyle="->", color="red"),
+
+)
+
+x_outlier, y_outlier = np.argmax(values), np.max(values)
+desc = "There are large\noutliers throughout."
+_ = axs.annotate(
+    desc,
+    xy=(x_outlier, y_outlier),
+    xytext=(0.6, 0.85),
+    textcoords="axes fraction",
+    arrowprops=dict(arrowstyle="->", color="red"),
+
+)
+```
+
+## Encoding numerical features with `skrub.SquashingScaler`
+```{python}
+#| fig-align: center
+from sklearn.preprocessing import QuantileTransformer, RobustScaler, StandardScaler
+from skrub import SquashingScaler
+
+squash_scaler = SquashingScaler()
+squash_scaled = squash_scaler.fit_transform(values)
+
+robust_scaler = RobustScaler()
+robust_scaled = robust_scaler.fit_transform(values)
+
+standard_scaler = StandardScaler()
+standard_scaled = standard_scaler.fit_transform(values)
+
+quantile_transformer = QuantileTransformer(n_quantiles=100)
+quantile_scaled = quantile_transformer.fit_transform(values)
+# %%
+import matplotlib.pyplot as plt
+
+x = np.arange(values.shape[0])
+fig, axs = plt.subplots(1, 2, layout="constrained", figsize=(8, 5))
+
+ax = axs[0]
+ax.plot(x, sorted(values), label="Original Values", linewidth=2.5)
+ax.plot(x, sorted(squash_scaled), label="SquashingScaler")
+ax.plot(x, sorted(robust_scaled), label="RobustScaler", linestyle="--")
+ax.plot(x, sorted(standard_scaled), label="StandardScaler")
+ax.plot(x, sorted(quantile_scaled), label="QuantileTransformer")
+
+# Add a horizontal band in [-4, +4]
+ax.axhspan(-4, 4, color="gray", alpha=0.15)
+ax.set(title="Original data", xlim=[0, values.shape[0]], xlabel="Percentile")
+ax.legend()
+
+ax = axs[1]
+ax.plot(x, sorted(values), label="Original Values", linewidth=2.5)
+ax.plot(x, sorted(squash_scaled), label="SquashingScaler")
+ax.plot(x, sorted(robust_scaled), label="RobustScaler", linestyle="--")
+ax.plot(x, sorted(standard_scaled), label="StandardScaler")
+ax.plot(x, sorted(quantile_scaled), label="QuantileTransformer")
+
+ax.set(ylim=[-4, 4])
+ax.set(title="In range [-4, 4]", xlim=[0, values.shape[0]], xlabel="Percentile")
+
+# Highlight the bounds of the SquashingScaler
+ax.axhline(y=3, alpha=0.2)
+ax.axhline(y=-3, alpha=0.2)
+
+fig.suptitle(
+    "Comparison of different scalers on sorted data with outliers", fontsize=20
+)
+fig.supylabel("Value")
+
+desc = "The RobustScaler is\naffected by outliers"
+axs[0].annotate(
+    desc,
+    xy=(0, -70),
+    xytext=(0.4, 0.2),
+    textcoords="axes fraction",
+    arrowprops=dict(arrowstyle="->", color="red"),
+)
+
+desc = "The SquashingScaler is\nclipped to a finite value"
+_ = axs[1].annotate(
+    desc,
+    xy=(0, -3),
+    xytext=(0.4, 0.2),
+    textcoords="axes fraction",
+    arrowprops=dict(arrowstyle="->", color="red"),
+)
+
+```
+
+
+## Encoding categorical (string/text) features
+Categorical features have a "cardinality": the number of unique values
+
+- Low cardinality features: `OneHotEncoder`
+- High cardinality features (>40 unique values): `skrub.StringEncoder`
+- Textual features: `skrub.TextEncoder` and pretrained models from HuggingFace Hub
+
+## Encoding _all the features_: `TableVectorizer` { auto-animate="true"}
+
+```{.python}
+from skrub import TableVectorizer, TextEncoder
+
+text = TextEncoder()
+table_vec = TableVectorizer(high_cardinality=text)
+df_encoded = table_vec.fit_transform(df)
+
+```
+
+## Encoding _all the features_: `TableVectorizer` {.smaller auto-animate="true"}
+
+![](images/skrub-table-vectorizer.png)
+
+## Build a predictive pipeline {auto-animate="true"}
+```{.python}
+from sklearn.linear_model import Ridge
+model = Ridge()
+```
+
+## Build a predictive pipeline {auto-animate="true" visibility="uncounted"}
+```{.python code-line-numbers="3-6"}
+from sklearn.linear_model import Ridge
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.impute import SimpleImputer
+
+model = make_pipeline(StandardScaler(), SimpleImputer(), Ridge())
+```
+
+
+## Build a predictive pipeline {auto-animate="true" visibility="uncounted"}
+```{.python code-line-numbers="3,5,6-17|"}
+from sklearn.linear_model import Ridge
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import StandardScaler, OneHotEncoder
+from sklearn.impute import SimpleImputer
+from sklearn.compose import make_column_selector as selector
+from sklearn.compose import make_column_transformer
+
+categorical_columns = selector(dtype_include=object)(employees)
+numerical_columns = selector(dtype_exclude=object)(employees)
+
+ct = make_column_transformer(
+      (StandardScaler(),
+       numerical_columns),
+      (OneHotEncoder(handle_unknown="ignore"),
+       categorical_columns))
+
+model = make_pipeline(ct, SimpleImputer(), Ridge())
+```
+## Build a predictive pipeline with `tabular_pipeline` {auto-animate="true" .smaller}
+```{python}
+#| echo: true
+import skrub
+from sklearn.linear_model import Ridge
+model = skrub.tabular_pipeline(Ridge())
+```
+
+![](images/skrub-tabular-pipeline-linear-model.png){fig-align="center"}
+
+## 
+![](images/drakeno.png){fig-align="center"}
+
+## We now have a pipeline! {.smaller}
+
+1. Gather some data
+    - `skrub.datasets`, or user data
+2. Explore the data
+    - `skrub.TableReport`
+3. Pre-process the data 
+    - `skrub.TableVectorizer`, `Cleaner`, `DatetimeEncoder` ... 
+4. Perform feature engineering
+    - `skrub.TableVectorizer`, `TextEncoder`, `StringEncoder `...
+5. Build a scikit-learn pipeline
+    - `tabular_pipeline`, `sklearn.pipeline.make_pipeline` ... 
+6. ???
+7. Profit 📈 
+
+
+# What if this is not enough?? 
+
+## What if...
+
+- Your data is spread over multiple tables? 
+- You want to avoid data leakage? 
+- You want to tune more than just the hyperparameters of your model? 
+- You want to guarantee that your pipeline is replayed exactly on new data? 
+
+## `skrub` DataOps
+When a normal pipe is not enough...
+
+::: {.fragment style="font-size:2em;"}
+... the `skrub` DataOps come to the rescue 🚒
+:::
+
+
+## DataOps...
+- Extend the `scikit-learn` machinery to complex multi-table operations, and take care of data leakage
+- Track all operations with a computational graph (a *Data Ops plan*)
+- Allow tuning any operation in the data plan
+- Can be persisted and shared easily 
+
+## DataOps, Plans, `learner`s: oh my!  
+- A `DataOp` (singular) wraps a single operation, and can be combined and concatenated with other `DataOps`. 
+
+- The **Data Ops** Plan is a collective name for the directed computational graph
+that tracks a sequence and combination of `DataOps`. 
+
+- The plan can be exported as a standalone object called `learner`. The `learner` 
+works like a scikit-learn estimator that takes a dictionary of values rather 
+than just `X` and `y`. 
+
+
+## How do DataOps work, though?  {.smaller}
+DataOps **wrap** around *user operations*, where user operations are:
+
+- any dataframe operation (e.g., merge, group by, aggregate etc.)
+- scikit-learn estimators (a Random Forest, RidgeCV etc.)
+- custom user code (load data from a path, fetch from an URL etc.)
+
+::: {.fragment}
+
+::: {.callout-important}
+DataOps _record_ user operations, so that they can later be _replayed_ in the same
+order and with the same arguments on unseen data. 
+:::
+::: 
+
+
+## Starting with the `DataOps`
+
+```{python}
+#| echo: true
+import skrub
+data = skrub.datasets.fetch_credit_fraud()
+
+baskets = skrub.var("baskets", data.baskets).skb.subsample()
+X = baskets[["ID"]].skb.mark_as_X()
+y = baskets["fraud_flag"].skb.mark_as_y()
+
+products = skrub.var("products", data.products) # add a new variable
+```
+
+:::{.incremental}
+- `X`, `y`, `products` represent inputs to the pipeline.
+- `skrub` splits `X` and `y` when training. 
+:::
+
+##  Building a full data plan
+```{python}
+#| echo: true
+from skrub import selectors as s
+
+vectorizer = skrub.TableVectorizer(high_cardinality=skrub.StringEncoder(), n_jobs=-1)
+vectorized_products = products.skb.apply(vectorizer, cols=s.all() - "basket_ID")
+```
+
+##  Building a full data plan {auto-animate="true"}
+```{python}
+#| echo: true
+aggregated_products = vectorized_products.groupby("basket_ID").agg("mean").reset_index()
+features = X.merge(aggregated_products, left_on="ID", right_on="basket_ID")
+features = features.drop(columns=["ID", "basket_ID"])
+```
+
+##  Building a full data plan {auto-animate="true"}
+```{python}
+#| echo: true
+from sklearn.ensemble import ExtraTreesClassifier  
+predictions = features.skb.apply(ExtraTreesClassifier(n_jobs=-1), y=y)
+```
+
+## Inspecting the data plan
+```{.python}
+predictions.skb.full_report()
+```
+<br/>
+
+<a href="dataop_report/index.html" target="_blank">report</a>
+
+## Exporting the plan in a `learner` {.smaller}
+The data plan can be exported as a `learner`:
+```{python}
+#| echo: true
+# anywhere
+learner = predictions.skb.make_learner(fitted=True)
+```
+
+::: {.fragment}
+Then, the `learner` can be pickled ...
+
+```{python}
+import pickle 
+
+learner_bytes = pickle.dumps(learner)
+```
+
+```{.python}
+import pickle
+
+with open("learner.bin", "wb") as fp:
+    pickle.dump(learner, fp)
+```
+:::
+
+::: {.fragment}
+
+... and loaded
+
+```{python}
+loaded_learner = pickle.loads(learner_bytes)
+```
+
+```{.python}
+with open("learner.bin", "rb") as fp:
+    loaded_learner = pickle.load(fp)
+```
+</br>
+```{python}
+#| echo: true
+data = skrub.datasets.fetch_credit_fraud(split="test")
+new_baskets = data.baskets
+new_products = data.products
+loaded_learner.predict({"baskets": new_baskets, "products": new_products})
+```
+:::
+
+
+
+## Hyperparameter tuning in a Data Plan 
+`skrub` implements four `choose_*` functions:
+
+- `choose_from`: select from the given list of options
+- `choose_int`: select an integer within a range
+- `choose_float`: select a float within a range
+- `choose_bool`: select a bool 
+- `optional`: chooses between a value or DataOp and no op
+
+
+## Hyperparameter tuning in a Data Plan  {auto-animate="true"}
+It's possible to nest these functions to create complex grids:
+```python
+X.skb.apply(
+    skrub.choose_from(
+        {
+            "PCA": PCA(n_components=skrub.choose_int(10, 30)),
+            "SelectKBest": SelectKBest(k=skrub.choose_int(10, 30))
+        }, name="dim_reduction"
+    )
+)
+```
+
+## Tuning in `scikit-learn` can be complex {.smaller auto-animate="true"}
+
+```{.python}
+pipe = Pipeline([("dim_reduction", PCA()), ("regressor", Ridge())])
+grid = [
+    {
+        "dim_reduction": [PCA()],
+        "dim_reduction__n_components": [10, 20, 30],
+        "regressor": [Ridge()],
+        "regressor__alpha": loguniform(0.1, 10.0),
+    },
+    {
+        "dim_reduction": [SelectKBest()],
+        "dim_reduction__k": [10, 20, 30],
+        "regressor": [Ridge()],
+        "regressor__alpha": loguniform(0.1, 10.0),
+    },
+    {
+        "dim_reduction": [PCA()],
+        "dim_reduction__n_components": [10, 20, 30],
+        "regressor": [RandomForestClassifier()],
+        "regressor__n_estimators": loguniform(20, 200),
+    },
+    {
+        "dim_reduction": [SelectKBest()],
+        "dim_reduction__k": [10, 20, 30],
+        "regressor": [RandomForestClassifier()],
+        "regressor__n_estimators": loguniform(20, 200),
+    },
+]
+model = RandomizedSearchCV(pipe, grid)
+```
+## Tuning with `DataOps` is simple! {.smaller} 
+
+```python
+dim_reduction = X.skb.apply(
+    skrub.choose_from(
+        {
+            "PCA": PCA(n_components=skrub.choose_int(10, 30)),
+            "SelectKBest": SelectKBest(k=skrub.choose_int(10, 30))
+        }, name="dim_reduction"
+    )
+)
+regressor = dim_reduction.skb.apply(
+    skrub.choose_from(
+        {
+            "Ridge": Ridge(alpha=skrub.choose_float(0.1, 10.0, log=True)),
+            "RandomForest": RandomForestClassifier(
+                n_estimators=skrub.choose_int(20, 200, log=True)
+            )
+        }, name="regressor"
+    )
+)
+search = regressor.skb.make_randomized_search(scoring="roc_auc", fitted=True)
+```
+## Run hyperparameter search
+```{.python}
+# fit the search 
+search = regressor.skb.make_randomized_search(scoring="roc_auc", fitted=True)
+
+# save the best learner
+best_learner = search.best_learner_
+```
+
+## Tuningwith `DataOps` is not limited to estimators
+::: {.panel-tabset}
+### Pandas
+```{python}
+import pandas as pd
+import skrub
+```
+```{python}
+#| echo: true
+df = pd.DataFrame(
+    {"subject": ["math", "math", "art", "history"], "grade": [10, 8, 4, 6]}
+)
+
+df_do = skrub.var("grades", df)
+
+agg_grades = df_do.groupby("subject").agg(skrub.choose_from(["count", "mean"]))
+agg_grades.skb.describe_param_grid()
+```
+
+### Polars
+```{python}
+import polars as pl
+import skrub
+```
+
+```{python}
+#| echo: true
+df = pl.DataFrame(
+    {"subject": ["math", "math", "art", "history"], "grade": [10, 8, 4, 6]}
+)
+
+df_do = skrub.var("grades", df)
+
+agg_grades = df_do.group_by("subject").agg(
+    skrub.choose_from([pl.mean("grade"), pl.count("grade")])
+)
+agg_grades.skb.describe_param_grid()
+```
+
+:::
+
+## Observe the impact of the hyperparameters {auto-animate="true" .smaller} 
+
+```{.python}
+search = pred.skb.get_randomized_search(fitted=True)
+search.plot_parallel_coord()
+```
+```{python}
+from plotly.io import read_json
+
+fig = read_json("parallel_coordinates_hgbr.json")
+fig.update_layout(margin=dict(l=200))
+```
+
+
+[source](https://skrub-data.org/EuroSciPy2025/content/notebooks/single_horizon_prediction.html)
+
+## More information about the Data Ops 
+- Skrub [example gallery](https://skrub-data.org/stable/auto_examples/data_ops/index.html)
+- [Tutorial](https://github.com/skrub-data/EuroSciPy2025) on timeseries 
+forecasting at Euroscipy 2025
+- Skrub [User guide](https://skrub-data.org/stable/documentation.html)
+
+# Wrapping up
+
+## {auto-animate="true"}
+![](images/powerpuff_girls_1.png)
+
+## {auto-animate="true"}
+![](images/powerpuff_girls_2.png)
+
+##  Getting involved
+::: {.nonincremental}
+- [Skrub website](https://skrub-data.org/stable/) (QR code below!)
+- [Skrub materials website](https://skrub-data.org/skrub-materials/index.html)
+- [Git repository](https://github.com/skrub-data/skrub/)
+- [Discord server](https://discord.gg/ABaPnm7fDC)
+- [Bluesky](https://bsky.app/profile/skrub-data.bsky.social)
+- [LinkedIn](https://www.linkedin.com/company/skrub-data/)
+:::
+
+## Sprint on friday! 
+
+## tl;dw
+`skrub` provides
+
+::: {.nonincremental}
+- interactive data exploration
+- automated pre-processing of pandas and polars dataframes
+- powerful feature engineering
+- DataOps, plans, hyperparameter tuning, (almost) no leakage 
+:::

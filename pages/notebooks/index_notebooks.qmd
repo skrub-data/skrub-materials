@@ -1,6 +1,7 @@
 ---
-title: "Skrub notebooks"
+title: "Skrub tutorials and long-form posts"
 ---
 
 - <a href="skrub-intro/skrub-intro.py" target="_blank">An introductory notebook for skrub</a>
 - <a href="categorical-encoders/categorical-encoders.ipynb" target="_blank">Comparing different categorical encoders.</a>
+- <a href="https://github.com/skrub-data/EuroSciPy2025" target="_blank">EuroSciPy 2025 Tutorial</a>
