@@ -7,12 +7,12 @@
 <script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.32">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-c8ad9e5dbd60b7b70b38521ab19b7da4.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.7.34">
 
   <meta name="author" content="Riccardo Cappuzzo">
   <meta name="dcterms.date" content="2025-07-09">
-  <title>Skrub learning materials – Skrub</title>
+  <title>Skrub learning materials – Probabl Sprint - July 2025</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -199,7 +199,7 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Skrub</h1>
+  <h1 class="title">Probabl Sprint - July 2025</h1>
   <p class="subtitle">Machine Learning with Dataframes</p>
 
 <div class="quarto-title-authors">
@@ -274,16 +274,8 @@ Riccardo Cappuzzo
 </section>
 <section id="exploring-the-data-1" class="slide level2 smaller" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Exploring the data</h2>
-<div id="7c19e500" class="cell" data-execution_count="1">
-<div class="cell-output cell-output-display">
-<div>
-<figure>
-<p><img data-src="slides_files/figure-revealjs/cell-2-output-1.png" width="825" height="579"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
+
+<img data-src="slides_files/figure-revealjs/cell-2-output-1.png" class="r-stretch"></section>
 <section id="exploring-the-data-with-skrub" class="slide level2 smaller" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Exploring the data with <code>skrub</code></h2>
 <div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb2-1" class="hljs-ln-code"><a></a><span class="im">from</span> skrub <span class="im">import</span> TableReport</span>
@@ -301,7 +293,7 @@ Riccardo Cappuzzo
 </section>
 <section id="data-cleaning-with-pandas" class="slide level2 smaller" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Data cleaning with Pandas</h2>
-<div id="b704c4e0" class="cell" data-execution_count="2">
+<div id="097a5809" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb3-1" class="hljs-ln-code"><a></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb3-2" class="hljs-ln-code"><a></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb3-3" class="hljs-ln-code"><a></a></span>
@@ -385,7 +377,7 @@ Riccardo Cappuzzo
 </section>
 <section id="data-cleaning-with-pandas-1" class="slide level2 smaller" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Data cleaning with Pandas</h2>
-<div id="eb1f2280" class="cell" data-execution_count="3">
+<div id="e17d33eb" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb4-1" class="hljs-ln-code"><a></a><span class="co"># Parse the datetime strings with a specific format</span></span>
 <span id="cb4-2" class="hljs-ln-code"><a></a>df[<span class="st">'Date'</span>] <span class="op">=</span> pd.to_datetime(df[<span class="st">'Date'</span>], <span class="bu">format</span><span class="op">=</span><span class="st">'</span><span class="sc">%d</span><span class="st">/%m/%Y'</span>)</span>
 <span id="cb4-3" class="hljs-ln-code"><a></a></span>
@@ -457,7 +449,7 @@ Riccardo Cappuzzo
 </section>
 <section id="lightweight-data-cleaning-cleaner" class="slide level2 smaller" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Lightweight data cleaning: <code>Cleaner</code></h2>
-<div id="d61cf677" class="cell" data-execution_count="4">
+<div id="a8952f4a" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb5-1" class="hljs-ln-code"><a></a><span class="im">from</span> skrub <span class="im">import</span> Cleaner</span>
 <span id="cb5-2" class="hljs-ln-code"><a></a>cleaner <span class="op">=</span> Cleaner(drop_if_constant<span class="op">=</span><span class="va">True</span>, datetime_format<span class="op">=</span><span class="st">'</span><span class="sc">%d</span><span class="st">/%m/%Y'</span>)</span>
 <span id="cb5-3" class="hljs-ln-code"><a></a>df_cleaned <span class="op">=</span> cleaner.fit_transform(df)</span>
@@ -515,7 +507,7 @@ Riccardo Cappuzzo
 </section>
 <section id="encoding-datetime-features-with-pandas" class="slide level2 smaller">
 <h2>Encoding datetime features with Pandas</h2>
-<div id="28fbda18" class="cell" data-execution_count="5">
+<div id="708d7916" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb6-2"><a></a>data <span class="op">=</span> {</span>
 <span id="cb6-3"><a></a>    <span class="st">'date'</span>: [<span class="st">'2023-01-01 12:34:56'</span>, <span class="st">'2023-02-15 08:45:23'</span>, <span class="st">'2023-03-20 18:12:45'</span>],</span>
@@ -536,7 +528,7 @@ Riccardo Cappuzzo
 </section>
 <section id="encoding-datetime-features-with-pandas-1" class="slide level2 smaller">
 <h2>Encoding datetime features with Pandas</h2>
-<div id="d134fa52" class="cell" data-execution_count="6">
+<div id="fe2943d1" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a></a>df_expanded[<span class="st">'hour_sin'</span>] <span class="op">=</span> np.sin(<span class="dv">2</span> <span class="op">*</span> np.pi <span class="op">*</span> df_expanded[<span class="st">'hour'</span>] <span class="op">/</span> <span class="dv">24</span>)</span>
 <span id="cb7-2"><a></a>df_expanded[<span class="st">'hour_cos'</span>] <span class="op">=</span> np.cos(<span class="dv">2</span> <span class="op">*</span> np.pi <span class="op">*</span> df_expanded[<span class="st">'hour'</span>] <span class="op">/</span> <span class="dv">24</span>)</span>
 <span id="cb7-3"><a></a></span>
@@ -569,7 +561,7 @@ DataFrame with expanded datetime columns:
 </section>
 <section id="encoding-datetime-features-skrub.datetimeencoder" class="slide level2 smaller" data-auto-animate="true" data-visibility="uncounted">
 <h2 data-id="quarto-animate-title">Encoding datetime features <code>skrub.DatetimeEncoder</code></h2>
-<div id="bc260384" class="cell" data-execution_count="7">
+<div id="3ff21743" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb9-1" class="hljs-ln-code"><a></a><span class="im">from</span> skrub <span class="im">import</span> DatetimeEncoder, ToDatetime</span>
 <span id="cb9-2" class="hljs-ln-code"><a></a></span>
 <span id="cb9-3" class="hljs-ln-code"><a></a>de <span class="op">=</span> DatetimeEncoder(periodic_encoding<span class="op">=</span><span class="st">"circular"</span>)</span>
@@ -638,7 +630,7 @@ DataFrame with expanded datetime columns:
 </section>
 <section id="build-a-predictive-pipeline-with-tabular_learner" class="slide level2 smaller" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Build a predictive pipeline with <code>tabular_learner</code></h2>
-<div id="86e44236" class="cell" data-execution_count="8">
+<div id="e58fca38" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb14-1" class="hljs-ln-code"><a></a><span class="im">import</span> skrub</span>
 <span id="cb14-2" class="hljs-ln-code"><a></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> Ridge</span>
 <span id="cb14-3" class="hljs-ln-code"><a></a>model <span class="op">=</span> skrub.tabular_learner(Ridge())</span>
@@ -824,9 +816,7 @@ clickable and can be expanded/collapsed.
 /* Toggleable content - dropdown */
 
 #sk-container-id-1 div.sk-toggleable__content {
-  max-height: 0;
-  max-width: 0;
-  overflow: hidden;
+  display: none;
   text-align: left;
   /* unfitted */
   background-color: var(--sklearn-color-unfitted-level-0);
@@ -852,9 +842,9 @@ clickable and can be expanded/collapsed.
 
 #sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {
   /* Expand drop-down */
-  max-height: 200px;
-  max-width: 100%;
-  overflow: auto;
+  display: block;
+  width: 100%;
+  overflow: visible;
 }
 
 #sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
@@ -1059,17 +1049,475 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-3);
 }
+
+.estimator-table summary {
+    padding: .5rem;
+    font-family: monospace;
+    cursor: pointer;
+}
+
+.estimator-table details[open] {
+    padding-left: 0.1rem;
+    padding-right: 0.1rem;
+    padding-bottom: 0.3rem;
+}
+
+.estimator-table .parameters-table {
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.estimator-table .parameters-table tr:nth-child(odd) {
+    background-color: #fff;
+}
+
+.estimator-table .parameters-table tr:nth-child(even) {
+    background-color: #f6f6f6;
+}
+
+.estimator-table .parameters-table tr:hover {
+    background-color: #e0e0e0;
+}
+
+.estimator-table table td {
+    border: 1px solid rgba(106, 105, 104, 0.232);
+}
+
+.user-set td {
+    color:rgb(255, 94, 0);
+    text-align: left;
+}
+
+.user-set td.value pre {
+    color:rgb(255, 94, 0) !important;
+    background-color: transparent !important;
+}
+
+.default td {
+    color: black;
+    text-align: left;
+}
+
+.user-set td i,
+.default td i {
+    color: black;
+}
+
+.copy-paste-icon {
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0NDggNTEyIj48IS0tIUZvbnQgQXdlc29tZSBGcmVlIDYuNy4yIGJ5IEBmb250YXdlc29tZSAtIGh0dHBzOi8vZm9udGF3ZXNvbWUuY29tIExpY2Vuc2UgLSBodHRwczovL2ZvbnRhd2Vzb21lLmNvbS9saWNlbnNlL2ZyZWUgQ29weXJpZ2h0IDIwMjUgRm9udGljb25zLCBJbmMuLS0+PHBhdGggZD0iTTIwOCAwTDMzMi4xIDBjMTIuNyAwIDI0LjkgNS4xIDMzLjkgMTQuMWw2Ny45IDY3LjljOSA5IDE0LjEgMjEuMiAxNC4xIDMzLjlMNDQ4IDMzNmMwIDI2LjUtMjEuNSA0OC00OCA0OGwtMTkyIDBjLTI2LjUgMC00OC0yMS41LTQ4LTQ4bDAtMjg4YzAtMjYuNSAyMS41LTQ4IDQ4LTQ4ek00OCAxMjhsODAgMCAwIDY0LTY0IDAgMCAyNTYgMTkyIDAgMC0zMiA2NCAwIDAgNDhjMCAyNi41LTIxLjUgNDgtNDggNDhMNDggNTEyYy0yNi41IDAtNDgtMjEuNS00OC00OEwwIDE3NmMwLTI2LjUgMjEuNS00OCA0OC00OHoiLz48L3N2Zz4=);
+    background-repeat: no-repeat;
+    background-size: 14px 14px;
+    background-position: 0;
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+}
 </style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>Pipeline(steps=[('tablevectorizer',
                  TableVectorizer(datetime=DatetimeEncoder(periodic_encoding='spline'))),
                 ('simpleimputer', SimpleImputer(add_indicator=True)),
-                ('standardscaler', StandardScaler()), ('ridge', Ridge())])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox"><label for="sk-estimator-id-1" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>Pipeline</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.6/modules/generated/sklearn.pipeline.Pipeline.html">?<span>Documentation for Pipeline</span></a><span class="sk-estimator-doc-link ">i<span>Not fitted</span></span></div></label><div class="sk-toggleable__content "><pre>Pipeline(steps=[('tablevectorizer',
-                 TableVectorizer(datetime=DatetimeEncoder(periodic_encoding='spline'))),
-                ('simpleimputer', SimpleImputer(add_indicator=True)),
-                ('standardscaler', StandardScaler()), ('ridge', Ridge())])</pre></div> </div></div><div class="sk-serial"><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox"><label for="sk-estimator-id-2" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>tablevectorizer: TableVectorizer</div></div></label><div class="sk-toggleable__content "><pre>TableVectorizer(datetime=DatetimeEncoder(periodic_encoding='spline'))</pre></div> </div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><label>numeric</label></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-3" type="checkbox"><label for="sk-estimator-id-3" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>PassThrough</div></div></label><div class="sk-toggleable__content "><pre>PassThrough()</pre></div> </div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><label>datetime</label></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-4" type="checkbox"><label for="sk-estimator-id-4" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>DatetimeEncoder</div></div></label><div class="sk-toggleable__content "><pre>DatetimeEncoder(periodic_encoding='spline')</pre></div> </div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><label>low_cardinality</label></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-5" type="checkbox"><label for="sk-estimator-id-5" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>OneHotEncoder</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.6/modules/generated/sklearn.preprocessing.OneHotEncoder.html">?<span>Documentation for OneHotEncoder</span></a></div></label><div class="sk-toggleable__content "><pre>OneHotEncoder(drop='if_binary', dtype='float32', handle_unknown='ignore',
-              sparse_output=False)</pre></div> </div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><label>high_cardinality</label></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-6" type="checkbox"><label for="sk-estimator-id-6" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>StringEncoder</div></div></label><div class="sk-toggleable__content "><pre>StringEncoder()</pre></div> </div></div></div></div></div></div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-7" type="checkbox"><label for="sk-estimator-id-7" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>SimpleImputer</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.6/modules/generated/sklearn.impute.SimpleImputer.html">?<span>Documentation for SimpleImputer</span></a></div></label><div class="sk-toggleable__content "><pre>SimpleImputer(add_indicator=True)</pre></div> </div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-8" type="checkbox"><label for="sk-estimator-id-8" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>StandardScaler</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.6/modules/generated/sklearn.preprocessing.StandardScaler.html">?<span>Documentation for StandardScaler</span></a></div></label><div class="sk-toggleable__content "><pre>StandardScaler()</pre></div> </div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-9" type="checkbox"><label for="sk-estimator-id-9" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>Ridge</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.6/modules/generated/sklearn.linear_model.Ridge.html">?<span>Documentation for Ridge</span></a></div></label><div class="sk-toggleable__content "><pre>Ridge()</pre></div> </div></div></div></div></div></div>
+                ('standardscaler', StandardScaler()), ('ridge', Ridge())])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox"><label for="sk-estimator-id-1" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>Pipeline</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.7/modules/generated/sklearn.pipeline.Pipeline.html">?<span>Documentation for Pipeline</span></a><span class="sk-estimator-doc-link ">i<span>Not fitted</span></span></div></label><div class="sk-toggleable__content " data-param-prefix="">
+        <div class="estimator-table">
+            <details>
+                <summary>Parameters</summary>
+                
+<table class="parameters-table caption-top" data-quarto-postprocess="true">
+<tbody>
+<tr class="user-set odd">
+<td><em></em></td>
+<td class="param">steps&nbsp;</td>
+<td class="value">[('tablevectorizer', ...), ('simpleimputer', ...), ...]</td>
+</tr>
+<tr class="default even">
+<td><em></em></td>
+<td class="param">transform_input&nbsp;</td>
+<td class="value">None</td>
+</tr>
+<tr class="default odd">
+<td><em></em></td>
+<td class="param">memory&nbsp;</td>
+<td class="value">None</td>
+</tr>
+<tr class="default even">
+<td><em></em></td>
+<td class="param">verbose&nbsp;</td>
+<td class="value">False</td>
+</tr>
+</tbody>
+</table>
+
+            </details>
+        </div>
+    </div></div></div><div class="sk-serial"><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox"><label for="sk-estimator-id-2" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>tablevectorizer: TableVectorizer</div></div></label><div class="sk-toggleable__content " data-param-prefix="tablevectorizer__">
+        <div class="estimator-table">
+            <details>
+                <summary>Parameters</summary>
+                
+<table class="parameters-table caption-top" data-quarto-postprocess="true">
+<tbody>
+<tr class="default odd">
+<td><em></em></td>
+<td class="param">cardinality_threshold&nbsp;</td>
+<td class="value">40</td>
+</tr>
+<tr class="user-set even">
+<td><em></em></td>
+<td class="param">low_cardinality&nbsp;</td>
+<td class="value">OneHotEncoder..._output=False)</td>
+</tr>
+<tr class="user-set odd">
+<td><em></em></td>
+<td class="param">high_cardinality&nbsp;</td>
+<td class="value">StringEncoder()</td>
+</tr>
+<tr class="user-set even">
+<td><em></em></td>
+<td class="param">numeric&nbsp;</td>
+<td class="value">PassThrough()</td>
+</tr>
+<tr class="user-set odd">
+<td><em></em></td>
+<td class="param">datetime&nbsp;</td>
+<td class="value">DatetimeEncod...ding='spline')</td>
+</tr>
+<tr class="default even">
+<td><em></em></td>
+<td class="param">specific_transformers&nbsp;</td>
+<td class="value">()</td>
+</tr>
+<tr class="default odd">
+<td><em></em></td>
+<td class="param">drop_null_fraction&nbsp;</td>
+<td class="value">1.0</td>
+</tr>
+<tr class="default even">
+<td><em></em></td>
+<td class="param">drop_if_constant&nbsp;</td>
+<td class="value">False</td>
+</tr>
+<tr class="default odd">
+<td><em></em></td>
+<td class="param">drop_if_unique&nbsp;</td>
+<td class="value">False</td>
+</tr>
+<tr class="default even">
+<td><em></em></td>
+<td class="param">datetime_format&nbsp;</td>
+<td class="value">None</td>
+</tr>
+<tr class="default odd">
+<td><em></em></td>
+<td class="param">n_jobs&nbsp;</td>
+<td class="value">None</td>
+</tr>
+</tbody>
+</table>
+
+            </details>
+        </div>
+    </div></div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><label>datetime</label></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-4" type="checkbox"><label for="sk-estimator-id-4" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>DatetimeEncoder</div></div></label><div class="sk-toggleable__content " data-param-prefix="tablevectorizer__datetime__">
+        <div class="estimator-table">
+            <details>
+                <summary>Parameters</summary>
+                
+<table class="parameters-table caption-top" data-quarto-postprocess="true">
+<tbody>
+<tr class="default odd">
+<td><em></em></td>
+<td class="param">resolution&nbsp;</td>
+<td class="value">'hour'</td>
+</tr>
+<tr class="default even">
+<td><em></em></td>
+<td class="param">add_weekday&nbsp;</td>
+<td class="value">False</td>
+</tr>
+<tr class="default odd">
+<td><em></em></td>
+<td class="param">add_total_seconds&nbsp;</td>
+<td class="value">True</td>
+</tr>
+<tr class="default even">
+<td><em></em></td>
+<td class="param">add_day_of_year&nbsp;</td>
+<td class="value">False</td>
+</tr>
+<tr class="user-set odd">
+<td><em></em></td>
+<td class="param">periodic_encoding&nbsp;</td>
+<td class="value">'spline'</td>
+</tr>
+</tbody>
+</table>
+
+            </details>
+        </div>
+    </div></div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><label>low_cardinality</label></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-5" type="checkbox"><label for="sk-estimator-id-5" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>OneHotEncoder</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.7/modules/generated/sklearn.preprocessing.OneHotEncoder.html">?<span>Documentation for OneHotEncoder</span></a></div></label><div class="sk-toggleable__content " data-param-prefix="tablevectorizer__low_cardinality__">
+        <div class="estimator-table">
+            <details>
+                <summary>Parameters</summary>
+                
+<table class="parameters-table caption-top" data-quarto-postprocess="true">
+<tbody>
+<tr class="default odd">
+<td><em></em></td>
+<td class="param">categories&nbsp;</td>
+<td class="value">'auto'</td>
+</tr>
+<tr class="user-set even">
+<td><em></em></td>
+<td class="param">drop&nbsp;</td>
+<td class="value">'if_binary'</td>
+</tr>
+<tr class="user-set odd">
+<td><em></em></td>
+<td class="param">sparse_output&nbsp;</td>
+<td class="value">False</td>
+</tr>
+<tr class="user-set even">
+<td><em></em></td>
+<td class="param">dtype&nbsp;</td>
+<td class="value">'float32'</td>
+</tr>
+<tr class="user-set odd">
+<td><em></em></td>
+<td class="param">handle_unknown&nbsp;</td>
+<td class="value">'ignore'</td>
+</tr>
+<tr class="default even">
+<td><em></em></td>
+<td class="param">min_frequency&nbsp;</td>
+<td class="value">None</td>
+</tr>
+<tr class="default odd">
+<td><em></em></td>
+<td class="param">max_categories&nbsp;</td>
+<td class="value">None</td>
+</tr>
+<tr class="default even">
+<td><em></em></td>
+<td class="param">feature_name_combiner&nbsp;</td>
+<td class="value">'concat'</td>
+</tr>
+</tbody>
+</table>
+
+            </details>
+        </div>
+    </div></div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><label>high_cardinality</label></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-6" type="checkbox"><label for="sk-estimator-id-6" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>StringEncoder</div></div></label><div class="sk-toggleable__content " data-param-prefix="tablevectorizer__high_cardinality__">
+        <div class="estimator-table">
+            <details>
+                <summary>Parameters</summary>
+                
+<table class="parameters-table caption-top" data-quarto-postprocess="true">
+<tbody>
+<tr class="default odd">
+<td><em></em></td>
+<td class="param">n_components&nbsp;</td>
+<td class="value">30</td>
+</tr>
+<tr class="default even">
+<td><em></em></td>
+<td class="param">vectorizer&nbsp;</td>
+<td class="value">'tfidf'</td>
+</tr>
+<tr class="default odd">
+<td><em></em></td>
+<td class="param">ngram_range&nbsp;</td>
+<td class="value">(3, ...)</td>
+</tr>
+<tr class="default even">
+<td><em></em></td>
+<td class="param">analyzer&nbsp;</td>
+<td class="value">'char_wb'</td>
+</tr>
+<tr class="default odd">
+<td><em></em></td>
+<td class="param">stop_words&nbsp;</td>
+<td class="value">None</td>
+</tr>
+<tr class="default even">
+<td><em></em></td>
+<td class="param">random_state&nbsp;</td>
+<td class="value">None</td>
+</tr>
+</tbody>
+</table>
+
+            </details>
+        </div>
+    </div></div></div></div></div></div></div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-7" type="checkbox"><label for="sk-estimator-id-7" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>SimpleImputer</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.7/modules/generated/sklearn.impute.SimpleImputer.html">?<span>Documentation for SimpleImputer</span></a></div></label><div class="sk-toggleable__content " data-param-prefix="simpleimputer__">
+        <div class="estimator-table">
+            <details>
+                <summary>Parameters</summary>
+                
+<table class="parameters-table caption-top" data-quarto-postprocess="true">
+<tbody>
+<tr class="default odd">
+<td><em></em></td>
+<td class="param">missing_values&nbsp;</td>
+<td class="value">nan</td>
+</tr>
+<tr class="default even">
+<td><em></em></td>
+<td class="param">strategy&nbsp;</td>
+<td class="value">'mean'</td>
+</tr>
+<tr class="default odd">
+<td><em></em></td>
+<td class="param">fill_value&nbsp;</td>
+<td class="value">None</td>
+</tr>
+<tr class="default even">
+<td><em></em></td>
+<td class="param">copy&nbsp;</td>
+<td class="value">True</td>
+</tr>
+<tr class="user-set odd">
+<td><em></em></td>
+<td class="param">add_indicator&nbsp;</td>
+<td class="value">True</td>
+</tr>
+<tr class="default even">
+<td><em></em></td>
+<td class="param">keep_empty_features&nbsp;</td>
+<td class="value">False</td>
+</tr>
+</tbody>
+</table>
+
+            </details>
+        </div>
+    </div></div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-8" type="checkbox"><label for="sk-estimator-id-8" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>StandardScaler</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.7/modules/generated/sklearn.preprocessing.StandardScaler.html">?<span>Documentation for StandardScaler</span></a></div></label><div class="sk-toggleable__content " data-param-prefix="standardscaler__">
+        <div class="estimator-table">
+            <details>
+                <summary>Parameters</summary>
+                
+<table class="parameters-table caption-top" data-quarto-postprocess="true">
+<tbody>
+<tr class="default odd">
+<td><em></em></td>
+<td class="param">copy&nbsp;</td>
+<td class="value">True</td>
+</tr>
+<tr class="default even">
+<td><em></em></td>
+<td class="param">with_mean&nbsp;</td>
+<td class="value">True</td>
+</tr>
+<tr class="default odd">
+<td><em></em></td>
+<td class="param">with_std&nbsp;</td>
+<td class="value">True</td>
+</tr>
+</tbody>
+</table>
+
+            </details>
+        </div>
+    </div></div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-9" type="checkbox"><label for="sk-estimator-id-9" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>Ridge</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.7/modules/generated/sklearn.linear_model.Ridge.html">?<span>Documentation for Ridge</span></a></div></label><div class="sk-toggleable__content " data-param-prefix="ridge__">
+        <div class="estimator-table">
+            <details>
+                <summary>Parameters</summary>
+                
+<table class="parameters-table caption-top" data-quarto-postprocess="true">
+<tbody>
+<tr class="default odd">
+<td><em></em></td>
+<td class="param">alpha&nbsp;</td>
+<td class="value">1.0</td>
+</tr>
+<tr class="default even">
+<td><em></em></td>
+<td class="param">fit_intercept&nbsp;</td>
+<td class="value">True</td>
+</tr>
+<tr class="default odd">
+<td><em></em></td>
+<td class="param">copy_X&nbsp;</td>
+<td class="value">True</td>
+</tr>
+<tr class="default even">
+<td><em></em></td>
+<td class="param">max_iter&nbsp;</td>
+<td class="value">None</td>
+</tr>
+<tr class="default odd">
+<td><em></em></td>
+<td class="param">tol&nbsp;</td>
+<td class="value">0.0001</td>
+</tr>
+<tr class="default even">
+<td><em></em></td>
+<td class="param">solver&nbsp;</td>
+<td class="value">'auto'</td>
+</tr>
+<tr class="default odd">
+<td><em></em></td>
+<td class="param">positive&nbsp;</td>
+<td class="value">False</td>
+</tr>
+<tr class="default even">
+<td><em></em></td>
+<td class="param">random_state&nbsp;</td>
+<td class="value">None</td>
+</tr>
+</tbody>
+</table>
+
+            </details>
+        </div>
+    </div></div></div></div></div></section></section></div><div class="quarto-auto-generated-content" style="display: none;">
+<p><img src="images/skrub.svg" class="slide-logo"></p>
+<div class="footer footer-default">
+
 </div>
-</div>
-</section>
+</div></div><script>function copyToClipboard(text, element) {
+    // Get the parameter prefix from the closest toggleable content
+    const toggleableContent = element.closest('.sk-toggleable__content');
+    const paramPrefix = toggleableContent ? toggleableContent.dataset.paramPrefix : '';
+    const fullParamName = paramPrefix ? `${paramPrefix}${text}` : text;
+
+    const originalStyle = element.style;
+    const computedStyle = window.getComputedStyle(element);
+    const originalWidth = computedStyle.width;
+    const originalHTML = element.innerHTML.replace('Copied!', '');
+
+    navigator.clipboard.writeText(fullParamName)
+        .then(() => {
+            element.style.width = originalWidth;
+            element.style.color = 'green';
+            element.innerHTML = "Copied!";
+
+            setTimeout(() => {
+                element.innerHTML = originalHTML;
+                element.style = originalStyle;
+            }, 2000);
+        })
+        .catch(err => {
+            console.error('Failed to copy:', err);
+            element.style.color = 'red';
+            element.innerHTML = "Failed!";
+            setTimeout(() => {
+                element.innerHTML = originalHTML;
+                element.style = originalStyle;
+            }, 2000);
+        });
+    return false;
+}
+
+document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
+    const toggleableContent = element.closest('.sk-toggleable__content');
+    const paramPrefix = toggleableContent ? toggleableContent.dataset.paramPrefix : '';
+    const paramName = element.parentElement.nextElementSibling.textContent.trim();
+    const fullParamName = paramPrefix ? `${paramPrefix}${paramName}` : paramName;
+
+    element.setAttribute('title', fullParamName);
+});
+</script>
+
+
+
 <section id="section" class="slide level2">
 <h2></h2>
 
@@ -1100,7 +1548,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <li class="fragment">???</li>
 <li class="fragment">Profit 📈</li>
 </ol>
-</section></section>
+</section>
 <section>
 <section id="what-if-we-had-a-better-pipeline" class="title-slide slide level1 center">
 <h1>What if we had a <em>better</em> pipeline?</h1>
@@ -1181,7 +1629,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </section>
 <section id="starting-with-the-dataops" class="slide level2">
 <h2>Starting with the <code>DataOps</code></h2>
-<div id="a2b38298" class="cell" data-execution_count="9">
+<div id="a6b4a9b0" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a></a>data <span class="op">=</span> skrub.datasets.fetch_credit_fraud()</span>
 <span id="cb15-2"><a></a></span>
 <span id="cb15-3"><a></a>baskets <span class="op">=</span> skrub.var(<span class="st">"baskets"</span>, data.baskets)</span>
@@ -1346,13 +1794,8 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 
 
 </section></section>
-    </div>
-  <div class="quarto-auto-generated-content" style="display: none;">
-<p><img src="images/skrub.svg" class="slide-logo"></p>
-<div class="footer footer-default">
-
-</div>
-</div></div>
+    
+  
 
   <script>window.backupDefine = window.define; window.define = undefined;</script>
   <script src="../../../site_libs/revealjs/dist/reveal.js"></script>

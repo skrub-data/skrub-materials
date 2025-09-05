@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.7.34">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Skrub slides and talks – Skrub learning materials</title>
+<title>Skrub talks – Skrub learning materials</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -31,16 +31,18 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
 <link href="../../images/skrub.svg" rel="icon" type="image/svg+xml">
+<script src="../../site_libs/quarto-listing/list.min.js"></script>
+<script src="../../site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c8ad9e5dbd60b7b70b38521ab19b7da4.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-f34b020340502f3057e3d90ee89ebd1a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-63ed81e4b7024dfd846e609cdb8e6b0f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -68,7 +70,65 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script>
 
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-talks .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-date','listing-title','listing-author','listing-subtitle','listing-image','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      
+      searchColumns: ["listing-date","listing-title","listing-author","listing-subtitle","listing-image","listing-description"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-talks'] = new List('listing-talks', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../../styles.css">
 </head>
@@ -99,12 +159,8 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Notebooks</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="https://skrub-data.org/stable/reference/index.html"> 
-<span class="menu-text">API docs</span></a>
-  </li>  
-  <li class="nav-item">
     <a class="nav-link" href="https://skrub-data.org/stable/auto_examples/index.html"> 
-<span class="menu-text">Skrub Examples</span></a>
+<span class="menu-text">Skrub Examples Gallery</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../pages/listings.html"> 
@@ -126,8 +182,9 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#introductory-talks" id="toc-introductory-talks" class="nav-link active" data-scroll-target="#introductory-talks">Introductory talks</a></li>
+  <li><a href="#additional-material" id="toc-additional-material" class="nav-link active" data-scroll-target="#additional-material">Additional material</a></li>
   <li><a href="#future-developments" id="toc-future-developments" class="nav-link" data-scroll-target="#future-developments">Future developments</a></li>
+  <li><a href="#all-talks" id="toc-all-talks" class="nav-link" data-scroll-target="#all-talks">All talks</a></li>
   </ul>
 </nav>
     </div>
@@ -136,7 +193,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Skrub slides and talks</h1>
+<h1 class="title">Skrub talks</h1>
 </div>
 
 
@@ -153,29 +210,234 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>This page is used to track all the publicly available material about Skrub.</p>
-<section id="introductory-talks" class="level3">
-<h3 class="anchored" data-anchor-id="introductory-talks">Introductory talks</h3>
+<p>This page is used to track all the talks about skrub, together with some useful additional material.</p>
+<section id="additional-material" class="level3">
+<h3 class="anchored" data-anchor-id="additional-material">Additional material</h3>
 <ul>
-<li><a href="../../pages/slides/skrub-intro/skrub-intro.html" target="_blank">🤝 Introduction to Skrub and main features</a> - Skrub Workshop, January 2025</li>
-<li><a href="../../pages/slides/soda-kickoff/slides.html" target="_blank"> Skrub, Machine learning with dataframes</a> - SODA Kickoff, June 2025<br>
-</li>
 <li><a href="https://skrub-data.org/skrub-reports/examples/" target="_blank">📑 Examples of <code>TableReport</code></a></li>
 </ul>
 </section>
 <section id="future-developments" class="level3">
 <h3 class="anchored" data-anchor-id="future-developments">Future developments</h3>
+<p>These talks may become obsolete as we release new features.</p>
 <ul>
-<li><a href="../../pages/slides/expressions/expressions.html" target="_blank">🌠 Skrub recipe and expressions</a> - Skrub Workshop, January 2025</li>
+<li><a href="../../pages/slides/expressions/expressions.html" target="_blank">🌠 Skrub recipe and expressions</a> - Skrub Workshop, January 2025 (<strong>Feature renamed to Data Ops and released in Skrub 0.6.0</strong>)</li>
 <li><a href="https://docs.google.com/presentation/d/1pIUHmqpSDi8GyRCJ_4pXUfPKEXeLoql-YxpVDK97Cxc/edit?usp=sharing" target="_blank">⌚ Timeseries and KKBox</a> - Skrub Workshop, January 2025</li>
 <li><a href="../../pages/slides/discover/discover.html" target="_blank">🔎 The Discover object</a> - Skrub Workshop, January 2025</li>
 <li><a href="../../pages/slides/skrub-retrieve-merge-predict/skrub-retrieve-merge-predict.html" target="_blank">🎓 A Skrub use case in Academia</a> - Skrub Workshop, January 2025</li>
 </ul>
+</section>
+<section id="all-talks" class="level2">
+<h2 class="anchored" data-anchor-id="all-talks">All talks</h2>
+<div id="slides">
+
+</div>
+
 
 
 </section>
 
-</main> <!-- /main -->
+<div class="quarto-listing quarto-listing-container-default" id="listing-talks">
+<div class="list quarto-listing-default">
+<div class="quarto-post image-right" data-index="0" data-listing-date-sort="1759276800000" data-listing-file-modified-sort="1757080468103" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="14" data-listing-word-count-sort="2776">
+<div class="thumbnail"><a href="../../pages/slides/pydata-2025/slides.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../../pages/slides/pydata-2025/slides.html" class="no-external">Skrub</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../../pages/slides/pydata-2025/slides.html" class="no-external">Machine learning with dataframes</a>
+</div>
+<div class="delink listing-description"><a href="../../pages/slides/pydata-2025/slides.html" class="no-external">
+
+</a></div>
+</div>
+<div class="metadata">
+<a href="../../pages/slides/pydata-2025/slides.html" class="no-external">
+<div class="listing-date">
+Oct 1, 2025
+</div>
+<div class="listing-author">
+Riccardo Cappuzzo, Jérôme Dockès, Guillaume Lemaître
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="1" data-listing-date-sort="1752019200000" data-listing-file-modified-sort="1757080468040" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="9" data-listing-word-count-sort="1717">
+<div class="thumbnail"><a href="../../pages/slides/probabl-sprint-july-2025/slides.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../../pages/slides/probabl-sprint-july-2025/slides.html" class="no-external">Probabl Sprint - July 2025</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../../pages/slides/probabl-sprint-july-2025/slides.html" class="no-external">Machine Learning with Dataframes</a>
+</div>
+<div class="delink listing-description"><a href="../../pages/slides/probabl-sprint-july-2025/slides.html" class="no-external">
+
+</a></div>
+</div>
+<div class="metadata">
+<a href="../../pages/slides/probabl-sprint-july-2025/slides.html" class="no-external">
+<div class="listing-date">
+Jul 9, 2025
+</div>
+<div class="listing-author">
+Riccardo Cappuzzo
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="2" data-listing-date-sort="1748908800000" data-listing-file-modified-sort="1757080468254" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7" data-listing-word-count-sort="1308">
+<div class="thumbnail"><a href="../../pages/slides/soda-kickoff/slides.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../../pages/slides/soda-kickoff/slides.html" class="no-external">SODA Kickoff 2025</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../../pages/slides/soda-kickoff/slides.html" class="no-external">SODA Kickoff 2025 - Machine Learning with Dataframes</a>
+</div>
+<div class="delink listing-description"><a href="../../pages/slides/soda-kickoff/slides.html" class="no-external">
+
+</a></div>
+</div>
+<div class="metadata">
+<a href="../../pages/slides/soda-kickoff/slides.html" class="no-external">
+<div class="listing-date">
+Jun 3, 2025
+</div>
+<div class="listing-author">
+Riccardo Cappuzzo
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="3" data-listing-date-sort="1738108800000" data-listing-file-modified-sort="1757080467940" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="202">
+<div class="thumbnail"><a href="../../pages/slides/discover/discover.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../../pages/slides/discover/discover.html" class="no-external">Discover object</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../../pages/slides/discover/discover.html" class="no-external"></a>
+</div>
+<div class="delink listing-description"><a href="../../pages/slides/discover/discover.html" class="no-external">
+
+</a></div>
+</div>
+<div class="metadata">
+<a href="../../pages/slides/discover/discover.html" class="no-external">
+<div class="listing-date">
+Jan 29, 2025
+</div>
+<div class="listing-author">
+Riccardo Cappuzzo
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="4" data-listing-date-sort="1738108800000" data-listing-file-modified-sort="1757080467954" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="744">
+<div class="thumbnail"><a href="../../pages/slides/expressions/expressions.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../../pages/slides/expressions/expressions.html" class="no-external">Skrub expressions</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../../pages/slides/expressions/expressions.html" class="no-external"></a>
+</div>
+<div class="delink listing-description"><a href="../../pages/slides/expressions/expressions.html" class="no-external">
+
+</a></div>
+</div>
+<div class="metadata">
+<a href="../../pages/slides/expressions/expressions.html" class="no-external">
+<div class="listing-date">
+Jan 29, 2025
+</div>
+<div class="listing-author">
+Jérôme Dockès
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="5" data-listing-date-sort="1738108800000" data-listing-file-modified-sort="1757080468152" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1502">
+<div class="thumbnail"><a href="../../pages/slides/skrub-intro/skrub-intro.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../../pages/slides/skrub-intro/skrub-intro.html" class="no-external">Skrub workshop - Introducing Skrub</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../../pages/slides/skrub-intro/skrub-intro.html" class="no-external">Less wrangling, more machine learning</a>
+</div>
+<div class="delink listing-description"><a href="../../pages/slides/skrub-intro/skrub-intro.html" class="no-external">
+
+</a></div>
+</div>
+<div class="metadata">
+<a href="../../pages/slides/skrub-intro/skrub-intro.html" class="no-external">
+<div class="listing-date">
+Jan 29, 2025
+</div>
+<div class="listing-author">
+Riccardo Cappuzzo, Jérôme Dockès, Vincent Maladiere
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="6" data-listing-date-sort="1738108800000" data-listing-file-modified-sort="1757080468185" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="999">
+<div class="thumbnail"><a href="../../pages/slides/skrub-retrieve-merge-predict/skrub-retrieve-merge-predict.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../../pages/slides/skrub-retrieve-merge-predict/skrub-retrieve-merge-predict.html" class="no-external">A Skrub use case in academia</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../../pages/slides/skrub-retrieve-merge-predict/skrub-retrieve-merge-predict.html" class="no-external"></a>
+</div>
+<div class="delink listing-description"><a href="../../pages/slides/skrub-retrieve-merge-predict/skrub-retrieve-merge-predict.html" class="no-external">
+<p>In this talk, we discuss how skrub could be used in a research project in academia.</p>
+</a></div>
+</div>
+<div class="metadata">
+<a href="../../pages/slides/skrub-retrieve-merge-predict/skrub-retrieve-merge-predict.html" class="no-external">
+<div class="listing-date">
+Jan 29, 2025
+</div>
+<div class="listing-author">
+Riccardo Cappuzzo
+</div>
+</a>
+</div>
+</div>
+</div>
+<div class="listing-no-matching d-none">No matching items</div>
+</div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
