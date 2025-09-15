@@ -7,8 +7,8 @@
 <script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-c8ad9e5dbd60b7b70b38521ab19b7da4.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.34">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.24">
 
   <meta name="author" content="Riccardo Cappuzzo">
   <meta name="dcterms.date" content="2025-01-29">
@@ -97,7 +97,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../../../site_libs/revealjs/dist/theme/quarto-2c1b5f745a11cfad616ebade4a4a7d24.css">
+  <link rel="stylesheet" href="../../../site_libs/revealjs/dist/theme/quarto-0fde88a82f0356838740f155f1088782.css">
   <link href="../../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -244,16 +244,16 @@ Riccardo Cappuzzo
 </section>
 <section id="mock-up-of-the-code" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Mock-up of the code</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb1-1" class="hljs-ln-code"><a></a><span class="im">from</span> skrub <span class="im">import</span> Discover</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb1-1" class="hljs-ln-code"><a></a><span class="im">from</span> skrub <span class="im">import</span> Discover</span>
 <span id="cb1-2" class="hljs-ln-code"><a></a></span>
 <span id="cb1-3" class="hljs-ln-code"><a></a>path_to_tables <span class="op">=</span> <span class="st">"./many_tables/"</span></span>
 <span id="cb1-4" class="hljs-ln-code"><a></a>discover <span class="op">=</span> Discover(path_to_tables)</span>
 <span id="cb1-5" class="hljs-ln-code"><a></a></span>
-<span id="cb1-6" class="hljs-ln-code"><a></a>dataframe_stats <span class="op">=</span> discover.fit_transform() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-6" class="hljs-ln-code"><a></a>dataframe_stats <span class="op">=</span> discover.fit_transform() </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="mock-up-of-the-code-1" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Mock-up of the code</h2>
-<div class="sourceCode" id="cb2" data-code-line-numbers="2,5,9"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb2-1" class="hljs-ln-code"><a></a><span class="im">from</span> skrub <span class="im">import</span> Discover</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-code-line-numbers="2,5,9"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb2-1" class="hljs-ln-code"><a></a><span class="im">from</span> skrub <span class="im">import</span> Discover</span>
 <span id="cb2-2" class="hljs-ln-code"><a></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb2-3" class="hljs-ln-code"><a></a></span>
 <span id="cb2-4" class="hljs-ln-code"><a></a>path_to_tables <span class="op">=</span> <span class="st">"./many_tables/"</span></span>
@@ -261,11 +261,11 @@ Riccardo Cappuzzo
 <span id="cb2-6" class="hljs-ln-code"><a></a></span>
 <span id="cb2-7" class="hljs-ln-code"><a></a>discover <span class="op">=</span> Discover(path_to_tables)</span>
 <span id="cb2-8" class="hljs-ln-code"><a></a></span>
-<span id="cb2-9" class="hljs-ln-code"><a></a>ranking_by_column <span class="op">=</span> discover.fit_transform(query_table)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-9" class="hljs-ln-code"><a></a>ranking_by_column <span class="op">=</span> discover.fit_transform(query_table)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="mock-up-of-the-code-2" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Mock-up of the code</h2>
-<div class="sourceCode" id="cb3" data-code-line-numbers="1,11,12"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb3-1" class="hljs-ln-code"><a></a><span class="im">from</span> skrub <span class="im">import</span> Discover, MultiAggJoiner</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" data-code-line-numbers="1,11,12"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb3-1" class="hljs-ln-code"><a></a><span class="im">from</span> skrub <span class="im">import</span> Discover, MultiAggJoiner</span>
 <span id="cb3-2" class="hljs-ln-code"><a></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb3-3" class="hljs-ln-code"><a></a></span>
 <span id="cb3-4" class="hljs-ln-code"><a></a>path_to_tables <span class="op">=</span> <span class="st">"./many_tables/"</span></span>
@@ -276,7 +276,7 @@ Riccardo Cappuzzo
 <span id="cb3-9" class="hljs-ln-code"><a></a>ranking_by_column <span class="op">=</span> discover.fit_transform(query_table)</span>
 <span id="cb3-10" class="hljs-ln-code"><a></a></span>
 <span id="cb3-11" class="hljs-ln-code"><a></a>joiner <span class="op">=</span> MultiAggJoiner(ranking_by_column)</span>
-<span id="cb3-12" class="hljs-ln-code"><a></a>joined_table <span class="op">=</span> joiner.fit_transform(query_table)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-12" class="hljs-ln-code"><a></a>joined_table <span class="op">=</span> joiner.fit_transform(query_table)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="interface-with-the-data" class="slide level2">
 <h2>Interface with the data</h2>
@@ -478,7 +478,7 @@ Riccardo Cappuzzo
         margin: 0.1,
 
         math: {
-          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
           config: 'TeX-AMS_HTML-full',
           tex2jax: {
             inlineMath: [['\\(','\\)']],
@@ -552,13 +552,14 @@ Riccardo Cappuzzo
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-            const codeEl = trigger.previousElementSibling.cloneNode(true);
-            for (const childEl of codeEl.children) {
-              if (isCodeAnnotation(childEl)) {
-                childEl.remove();
-              }
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
             }
-            return codeEl.innerText;
+          }
+          return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy
