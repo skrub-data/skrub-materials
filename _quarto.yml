@@ -2,6 +2,7 @@ project:
   type: website
   # render:
   #   - "!src/"
+  resources: ["resources/"]
 
 website:
   title: "Skrub learning materials"
