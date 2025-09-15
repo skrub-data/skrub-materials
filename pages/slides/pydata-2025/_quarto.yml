@@ -1,0 +1,4 @@
+project:
+  resources:
+    - dataop_report/
+    - parallel_coordinates_hgbr.json
