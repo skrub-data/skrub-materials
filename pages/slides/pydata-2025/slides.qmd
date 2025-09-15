@@ -15,10 +15,11 @@ format:
         theme: simple
         logo: images/skrub.svg
         css: style.css
-        footer: "https://skrub-data.org"
+        footer: "https://skrub-data.org/pydata-2025/"
 incremental: false
 params: 
     version: "base"
+canonical-url: "https://skrub-data.org/pydata-2025/"
 ---
 
 
@@ -48,9 +49,13 @@ Inspect all the steps of your pipeline:
 ## A teaser for later... {auto-animate="true"} 
 Explore your hyperparameter search space
 ```{python}
+import os
 from plotly.io import read_json
 
-fig = read_json("parallel_coordinates_hgbr.json")
+project_root = os.environ.get("QUARTO_PROJECT_DIR", ".")
+json_path = os.path.join(project_root, "resources", "parallel_coordinates_hgbr.json")
+
+fig = read_json(json_path)
 fig.update_layout(margin=dict(l=200))
 ```
 
