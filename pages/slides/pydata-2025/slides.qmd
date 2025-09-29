@@ -59,8 +59,8 @@ fig.update_layout(margin=dict(l=200))
 ```
 
 ## skrub compatibility
-- skrub is fully compatible with pandas and polars
-- skrub transformers are fully compatible with scikit-learn
+- Skrub is fully compatible with pandas and polars
+- Skrub transformers are fully compatible with scikit-learn
 
 ## An example pipeline
 1. Gather some data
@@ -158,7 +158,7 @@ plt.show()
 from skrub import TableReport
 TableReport(employee_salaries)
 ```
-[Preview](https://skrub-data.org/skrub-reports/examples/employee_salaries.html){preview-link="true"}
+[TableReport Preview](https://skrub-data.org/skrub-reports/examples/employee_salaries.html){preview-link="true"}
 
 
 ::: {.fragment}
@@ -186,14 +186,14 @@ Main features:
 #| echo: true
 import pandas as pd
 import numpy as np
+
 data = {
-    'Constant int': [1, 1, 1],  # Single unique value
-    'B': [2, 3, 2],  # Multiple unique values
-    'Constant str': ['x', 'x', 'x'],  # Single unique value
-    'D': [4, 5, 6],  # Multiple unique values
-    'All nan': [np.nan, np.nan, np.nan],  # All missing values 
-    'All empty': ['', '', ''],  # All empty strings
-    'Date': ['01/01/2023', '02/01/2023', '03/01/2023'],
+    "Int": [2, 3, 2],  # Multiple unique values
+    "Const str": ["x", "x", "x"],  # Single unique value
+    "Str": ["foo", "bar", "baz"],  # Multiple unique values
+    "All nan": [np.nan, np.nan, np.nan],  # All missing values
+    "All empty": ["", "", ""],  # All empty strings
+    "Date": ["01 Jan 2023", "02 Jan 2023", "03 Jan 2023"],
 }
 
 df_pd = pd.DataFrame(data)
@@ -206,13 +206,12 @@ display(df_pd)
 import polars as pl
 import numpy as np
 data = {
-    'Constant int': [1, 1, 1],  # Single unique value
-    'B': [2, 3, 2],  # Multiple unique values
-    'Constant str': ['x', 'x', 'x'],  # Single unique value
-    'D': [4, 5, 6],  # Multiple unique values
-    'All nan': [np.nan, np.nan, np.nan],  # All missing values 
-    'All empty': ['', '', ''],  # All empty strings
-    'Date': ['01/01/2023', '02/01/2023', '03/01/2023'],
+    "Int": [2, 3, 2],  # Multiple unique values
+    "Const str": ["x", "x", "x"],  # Single unique value
+    "Str": ["foo", "bar", "baz"],  # Multiple unique values
+    "All nan": [np.nan, np.nan, np.nan],  # All missing values
+    "All empty": ["", "", ""],  # All empty strings
+    "Date": ["01 Jan 2023", "02 Jan 2023", "03 Jan 2023"],
 }
 
 df_pl = pl.DataFrame(data)
@@ -229,7 +228,7 @@ display(df_pl)
 ```{python}
 #| echo: true
 # Parse the datetime strings with a specific format
-df_pd['Date'] = pd.to_datetime(df_pd['Date'], format='%d/%m/%Y')
+df_pd['Date'] = pd.to_datetime(df_pd['Date'], format='%d %b %Y')
 
 # Drop columns with only a single unique value
 df_pd_cleaned = df_pd.loc[:, df_pd.nunique(dropna=True) > 1]
@@ -252,7 +251,7 @@ df_pd_cleaned = drop_empty_columns(df_pd_cleaned)
 #| echo: true 
 # Parse the datetime strings with a specific format
 df_pl = df_pl.with_columns([
-    pl.col("Date").str.strptime(pl.Date, "%d/%m/%Y", strict=False).alias("Date")
+    pl.col("Date").str.strptime(pl.Date, "%d %b %Y", strict=False).alias("Date")
 ])
 
 # Drop columns with only a single unique value
@@ -295,7 +294,7 @@ df_pl_cleaned = drop_empty_columns(df_pl_cleaned)
 ```{python}
 #| echo: true
 from skrub import Cleaner
-cleaner = Cleaner(drop_if_constant=True, datetime_format='%d/%m/%Y')
+cleaner = Cleaner(drop_if_constant=True, datetime_format='%d %b %Y')
 df_cleaned = cleaner.fit_transform(df_pd)
 display(df_cleaned)
 ```
@@ -304,59 +303,11 @@ display(df_cleaned)
 ```{python}
 #| echo: true
 from skrub import Cleaner
-cleaner = Cleaner(drop_if_constant=True, datetime_format='%d/%m/%Y')
+cleaner = Cleaner(drop_if_constant=True, datetime_format='%d %b %Y')
 df_cleaned = cleaner.fit_transform(df_pl)
 display(df_cleaned)
 ```
 
-:::
-
-## Comparison
-
-:::{.panel-tabset}
-### Pandas
-::: {.columns}
-::: {.column}
-```{python}
-from skrub import Cleaner
-cleaner = Cleaner(drop_if_constant=True, datetime_format='%d/%m/%Y')
-df_cleaned = cleaner.fit_transform(df_pd)
-```
-```{python}
-#|echo: true
-print(df_pd_cleaned)
-```  
-:::
-::: {.column}
-```{python}
-#|echo: true
-print(df_cleaned)
-```  
-:::
-::: 
-
-### Polars
-::: {.columns}
-::: {.column}
-```{python}
-#|echo: true
-print(df_pl_cleaned)
-```  
-:::
-::: {.column}
-```{python}
-from skrub import Cleaner
-cleaner = Cleaner(drop_if_constant=True, datetime_format='%d/%m/%Y')
-df_cleaned = cleaner.fit_transform(df_pl)
-```
-
-```{python}
-#|echo: true
-print(df_cleaned)
-```  
-:::
-::: 
-<!-- end columns -->
 :::
 
 ## Encoding datetime features with pandas/polars {.smaller}
@@ -405,41 +356,7 @@ df_pl = df_pl.with_columns(
 
 :::
 
-## Adding periodic features with pandas/polars{.smaller}
-:::{.panel-tabset}
-
-### Pandas
-```{python}
-import pandas as pd
-data = {
-    'date': ['2023-01-01 12:34:56', '2023-02-15 08:45:23', '2023-03-20 18:12:45'],
-    'value': [10, 20, 30]
-}
-```
-```{python}
-#| echo: true
-df_pd['hour_sin'] = np.sin(2 * np.pi * df_pd['hour'] / 24)
-df_pd['hour_cos'] = np.cos(2 * np.pi * df_pd['hour'] / 24)
-
-df_pd['month_sin'] = np.sin(2 * np.pi * df_pd['month'] / 12)
-df_pd['month_cos'] = np.cos(2 * np.pi * df_pd['month'] / 12)
-```
-
-### Polars
-```{python}
-#| echo: true
-df_pl = df_pl.with_columns(
-    hour_sin = np.sin(2 * np.pi * pl.col("hour") / 24),
-    hour_cos = np.cos(2 * np.pi * pl.col("hour") / 24),
-    
-    month_sin = np.sin(2 * np.pi * pl.col("month") / 12),
-    month_cos = np.cos(2 * np.pi * pl.col("month") / 12),
-)
-```
-
-:::
-
-## Encoding datetime features `skrub.DatetimeEncoder` {auto-animate="true" visibility="uncounted" .smaller}
+## Encoding datetime features with `skrub.DatetimeEncoder` {auto-animate="true" visibility="uncounted" .smaller}
 ```{python}
 import polars as pl
 data = {
@@ -453,7 +370,8 @@ df = pl.DataFrame(data)
 from skrub import DatetimeEncoder, ToDatetime
 
 X_date = ToDatetime().fit_transform(df["date"])
-de = DatetimeEncoder(periodic_encoding="circular")
+de = DatetimeEncoder(resolution="second")
+# de = DatetimeEncoder(periodic_encoding="spline")
 X_enc = de.fit_transform(X_date)
 print(X_enc)
 ```
@@ -594,12 +512,14 @@ _ = axs[1].annotate(
 
 
 ## Encoding categorical (string/text) features
-Categorical features have a "cardinality": the number of unique values
+Categorical features have a "**cardinality**": the number of unique values
 
 ::: {.incremental}
-- Low cardinality features: `OneHotEncoder`
-- High cardinality features (>40 unique values): `skrub.StringEncoder`
-- Textual features: `skrub.TextEncoder` and pretrained models from HuggingFace Hub
+
+- Low cardinality: `OneHotEncoder`
+- High cardinality (>40 unique values): `skrub.StringEncoder`
+- Text: `skrub.TextEncoder` and pretrained models from HuggingFace Hub
+
 :::
 
 ## Encoding _all the features_: `TableVectorizer` { auto-animate="true"}
@@ -607,53 +527,21 @@ Categorical features have a "cardinality": the number of unique values
 ```{.python}
 from skrub import TableVectorizer, TextEncoder
 
-text = TextEncoder()
-table_vec = TableVectorizer(high_cardinality=text)
+table_vec = TableVectorizer()
 df_encoded = table_vec.fit_transform(df)
 
 ```
+
+::: {.fragment}
+- Apply the `Cleaner` to all columns
+- Split columns by dtype and # of unique values
+- Encode each column separately
+:::
 
 ## Encoding _all the features_: `TableVectorizer` {.smaller auto-animate="true"}
 
 ![](images/skrub-table-vectorizer.png)
 
-
-## Fine-grained column transformations with `ApplyToCols` {.smaller auto-animate="true"}
-
-```{python}
-#| echo: true
-import pandas as pd
-from sklearn.compose import make_column_selector as selector
-from sklearn.compose import make_column_transformer
-from sklearn.preprocessing import StandardScaler, OneHotEncoder
-
-df = pd.DataFrame({"text": ["foo", "bar", "baz"], "number": [1, 2, 3]})
-
-categorical_columns = selector(dtype_include=object)(df)
-numerical_columns = selector(dtype_exclude=object)(df)
-
-ct = make_column_transformer(
-      (StandardScaler(),
-       numerical_columns),
-      (OneHotEncoder(handle_unknown="ignore"),
-       categorical_columns))
-transformed = ct.fit_transform(df)
-transformed
-```
-
-## Fine-grained column transformations with `ApplyToCols` {.smaller auto-animate="true"}
-```{python}
-#| echo: true
-import skrub.selectors as s
-from sklearn.pipeline import make_pipeline
-from skrub import ApplyToCols
-
-numeric = ApplyToCols(StandardScaler(), cols=s.numeric())
-string = ApplyToCols(OneHotEncoder(sparse_output=False), cols=s.string())
-
-transformed = make_pipeline(numeric, string).fit_transform(df)
-transformed
-```
 
 ## Build a predictive pipeline {auto-animate="true"}
 ```{.python}
@@ -662,18 +550,7 @@ model = Ridge()
 ```
 
 ## Build a predictive pipeline {auto-animate="true" visibility="uncounted"}
-```{.python code-line-numbers="3-6"}
-from sklearn.linear_model import Ridge
-from sklearn.pipeline import make_pipeline
-from sklearn.preprocessing import StandardScaler
-from sklearn.impute import SimpleImputer
-
-model = make_pipeline(StandardScaler(), SimpleImputer(), Ridge())
-```
-
-
-## Build a predictive pipeline {auto-animate="true" visibility="uncounted"}
-```{.python code-line-numbers="3,5,6-17|"}
+```{.python}
 from sklearn.linear_model import Ridge
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
@@ -709,13 +586,13 @@ model = skrub.tabular_pipeline(Ridge())
 
 1. Gather some data
 2. Explore the data
-    - `skrub.TableReport`
+    - `TableReport`
 3. Pre-process the data 
     - `Cleaner`, `ToDatetime` ... 
 4. Perform feature engineering
-    - `skrub.TableVectorizer`,`SquashingScaler`, `TextEncoder`, `StringEncoder `...
+    - `TableVectorizer`,`SquashingScaler`, `TextEncoder`, `StringEncoder `...
 5. Build a scikit-learn pipeline
-    - `tabular_pipeline`, `sklearn.pipeline.make_pipeline` ... 
+    - `tabular_pipeline` ...
 6. ???
 7. Profit 📈 
 
@@ -740,10 +617,14 @@ When a normal pipe is not enough...
 
 
 ## DataOps...
+::: {.incremental}
 - Extend the `scikit-learn` machinery to complex multi-table operations, and take care of data leakage
 - Track all operations with a computational graph (a *Data Ops plan*)
-- Allow tuning any operation in the data plan
+- Are transparent and give direct access to the underlying object
+- Allow tuning any operation in the Data Ops plan
+- Guarantee that all operations are reproducible
 - Can be persisted and shared easily 
+:::
 
 ## How do DataOps work, though?  {.smaller}
 DataOps **wrap** around *user operations*, where user operations are:
@@ -760,19 +641,10 @@ order and with the same arguments on unseen data.
 :::
 ::: 
 
-## DataOps, Plans, `learner`s: oh my!  
-- A `DataOp` (singular) wraps a single operation, and can be combined and concatenated with other `DataOps`. 
-
-- The **Data Ops** Plan is a collective name for the directed computational graph
-that tracks a sequence and combination of `DataOps`. 
-
-- The plan can be exported as a standalone object called `learner`. The `learner` 
-works like a scikit-learn estimator that takes a dictionary of values rather 
-than just `X` and `y`. 
 
 ## Starting with the `DataOps`
 
-```{python code-line-numbers=5,6|8-}
+```{python}
 #| echo: true
 import skrub
 data = skrub.datasets.fetch_credit_fraud()
@@ -784,34 +656,36 @@ X = baskets[["ID"]].skb.mark_as_X()
 y = baskets["fraud_flag"].skb.mark_as_y()
 ```
 
-:::{.incremental}
-- `X`, `y`, `products` represent inputs to the pipeline.
-- `skrub` splits `X` and `y` when training. 
-:::
+- `baskets` and `products` represent inputs to the pipeline.
+- Skrub tracks `X` and `y` so that training and test splits are never mixed. 
 
-##  Building a full data plan
-```{python}
-#| echo: true
+## Applying a transformer {auto-animate="true"}
+```{python code-line-numbers="10-18|"}
+# | echo: true
 from skrub import selectors as s
 
 vectorizer = skrub.TableVectorizer(
     high_cardinality=skrub.StringEncoder()
 )
-vectorized_products = products.skb.apply(vectorizer, cols=s.all() - "basket_ID")
+vectorized_products = products.skb.apply(
+    vectorizer, cols=s.all() - "basket_ID"
+)
 ```
 
-##  Building a full data plan {auto-animate="true"}
+##  Executing dataframe operations {auto-animate="true"}
 ```{python}
 #| echo: true
 aggregated_products = vectorized_products.groupby(
     "basket_ID"
 ).agg("mean").reset_index()
 
-features = X.merge(aggregated_products, left_on="ID", right_on="basket_ID")
+features = X.merge(
+    aggregated_products, left_on="ID", right_on="basket_ID"
+)
 features = features.drop(columns=["ID", "basket_ID"])
 ```
 
-##  Building a full data plan {auto-animate="true"}
+##  Applying a ML model {auto-animate="true"}
 ```{python}
 #| echo: true
 from sklearn.ensemble import ExtraTreesClassifier  
@@ -820,7 +694,7 @@ predictions = features.skb.apply(
 )
 ```
 
-## Inspecting the data plan
+## Inspecting the Data Ops plan
 ```{.python}
 predictions.skb.full_report()
 ```
@@ -832,15 +706,25 @@ Each node:
 
 - Shows a preview of the data resulting from the operation
 - Reports the location in the code where the code is defined
-- Shows the run time of the node (in the next release)
+- Shows the run time of the node 
+
+The plan is exported as HTML + JS (no need for kernels).
 
 ## Exporting the plan in a `learner` {.smaller}
-The data plan can be exported as a `learner`:
+The **Learner** is a stand-alone object that works like
+a scikit-learn estimator that takes a dictionary as input rather
+than just `X` and `y`. 
+
+
+::: {.fragment}
+
 ```{python}
 #| echo: true
-# anywhere
 learner = predictions.skb.make_learner(fitted=True)
 ```
+
+:::
+
 
 ::: {.fragment}
 Then, the `learner` can be pickled ...
@@ -857,36 +741,36 @@ import pickle
 with open("learner.bin", "wb") as fp:
     pickle.dump(learner, fp)
 ```
-:::
-
-::: {.fragment}
-
-... loaded ...
-
 ```{python}
 loaded_learner = pickle.loads(learner_bytes)
 ```
 
-```{.python}
-with open("learner.bin", "rb") as fp:
-    loaded_learner = pickle.load(fp)
-```
 :::
 
 ::: {.fragment}
-... and applied to new data:
-```{python}
-#| echo: true
+... loaded and applied to new data:
+
+```{.python}
+with open("learner.bin", "rb") as fp:
+    loaded_learner = pickle.load(fp)
 data = skrub.datasets.fetch_credit_fraud(split="test")
 new_baskets = data.baskets
 new_products = data.products
 loaded_learner.predict({"baskets": new_baskets, "products": new_products})
 ```
+```{python}
+data = skrub.datasets.fetch_credit_fraud(split="test")
+new_baskets = data.baskets
+new_products = data.products
+loaded_learner.predict(
+    {"baskets": new_baskets, "products": new_products}
+)
+```
 :::
 
 
 ## Hyperparameter tuning in a Data Plan 
-`skrub` implements four `choose_*` functions:
+Skrub implements four `choose_*` functions:
 
 - `choose_from`: select from the given list of options
 - `choose_int`: select an integer within a range
@@ -925,7 +809,6 @@ grid = [
         "regressor__n_estimators": loguniform(20, 200),
     },
 ]
-model = RandomizedSearchCV(pipe, grid)
 ```
 ## Tuning with `DataOps` is simple! {.smaller} 
 
@@ -948,7 +831,15 @@ regressor = dim_reduction.skb.apply(
         }, name="regressor"
     )
 )
-search = regressor.skb.make_randomized_search(scoring="roc_auc", fitted=True)
+```
+
+## Run hyperparameter search
+```{.python}
+# fit the search 
+search = regressor.skb.make_randomized_search(scoring="roc_auc", fitted=True, cv=5)
+
+# save the best learner
+best_learner = search.best_learner_
 ```
 
 ## Tuning with `DataOps` is not limited to estimators
@@ -992,17 +883,7 @@ agg_grades.skb.describe_param_grid()
 
 :::
 
-## Run hyperparameter search
-```{.python}
-# fit the search 
-search = regressor.skb.make_randomized_search(scoring="roc_auc", fitted=True, cv=5)
-
-# save the best learner
-best_learner = search.best_learner_
-```
-
-## Observe the impact of the hyperparameters {auto-animate="true" .smaller} 
-Data Ops provide a built-in parallel coordinate plot. 
+## A parallel coordinate plot to explore hyperparameters{auto-animate="true" .smaller} 
 
 ```{.python}
 search = pred.skb.get_randomized_search(fitted=True)
@@ -1024,11 +905,11 @@ fig.update_layout(margin=dict(l=200))
 
 ## More information about the Data Ops 
 - Skrub [example gallery](https://skrub-data.org/stable/auto_examples/data_ops/index.html)
+- Skrub [user guide](https://skrub-data.org/stable/documentation.html)
 - [Tutorial](https://github.com/skrub-data/EuroSciPy2025) on timeseries 
 forecasting at Euroscipy 2025
-- Skrub [User guide](https://skrub-data.org/stable/documentation.html)
-- A [Kaggle notebook](https://www.kaggle.com/code/ryye107/titanic-challenge-with-the-skrub-data-ops) 
-on addressing the Titanic survival challenge with Data Ops
+- [Kaggle notebook](https://www.kaggle.com/code/ryye107/titanic-challenge-with-the-skrub-data-ops) 
+on the Titanic survival challenge
 
 # Wrapping up
 
@@ -1053,15 +934,58 @@ Follow skrub on:
 
 Star skrub on GitHub, or contribute directly: 
 
-- [Git repository](https://github.com/skrub-data/skrub/)
+- [GitHub repository](https://github.com/skrub-data/skrub/)
 :::
 
-## tl;dw
-`skrub` provides
+## Sprint on Thursday!!!
+
+
+## We're hiring!!
+Come talk to me or go to the P16 booth 
+
+## tl;dw: skrub
 
 ::: {.nonincremental}
-- interactive data exploration
-- automated pre-processing of pandas and polars dataframes
-- powerful feature engineering
+- interactive data exploration: `TableReport`
+- automated pre-processing of pandas and polars dataframes: `Cleaner`
+- powerful feature engineering: `TableVectorizer`, `tabular_pipeline`
+- column- and dataframe-level operations: `ApplyToCols`, selectors
 - DataOps, plans, hyperparameter tuning, (almost) no leakage 
 :::
+
+## Fine-grained column transformations with `ApplyToCols` {.smaller auto-animate="true" visibility="uncounted"}
+
+```{python}
+#| echo: true
+import pandas as pd
+from sklearn.compose import make_column_selector as selector
+from sklearn.compose import make_column_transformer
+from sklearn.preprocessing import StandardScaler, OneHotEncoder
+
+df = pd.DataFrame({"text": ["foo", "bar", "baz"], "number": [1, 2, 3]})
+
+categorical_columns = selector(dtype_include=object)(df)
+numerical_columns = selector(dtype_exclude=object)(df)
+
+ct = make_column_transformer(
+      (StandardScaler(),
+       numerical_columns),
+      (OneHotEncoder(handle_unknown="ignore"),
+       categorical_columns))
+transformed = ct.fit_transform(df)
+transformed
+```
+
+## Fine-grained column transformations with `ApplyToCols` {.smaller auto-animate="true" visibility="uncounted"}
+```{python}
+#| echo: true
+import skrub.selectors as s
+from sklearn.pipeline import make_pipeline
+from skrub import ApplyToCols
+
+numeric = ApplyToCols(StandardScaler(), cols=s.numeric())
+string = ApplyToCols(OneHotEncoder(sparse_output=False), cols=s.string())
+
+transformed = make_pipeline(numeric, string).fit_transform(df)
+transformed
+```
