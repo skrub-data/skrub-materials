@@ -1,8 +1,7 @@
 [
   {
-    "listing": "/pages/listings.html",
+    "listing": "/pages/slides/index_slides.html",
     "items": [
-      "/pages/notebooks/categorical-encoders/categorical-encoders.html",
       "/pages/slides/pydata-2025/slides.html",
       "/pages/slides/talk-edf/slides.html",
       "/pages/slides/probabl-sprint-july-2025/slides.html",
@@ -14,8 +13,9 @@
     ]
   },
   {
-    "listing": "/pages/slides/index_slides.html",
+    "listing": "/pages/listings.html",
     "items": [
+      "/pages/notebooks/categorical-encoders/categorical-encoders.html",
       "/pages/slides/pydata-2025/slides.html",
       "/pages/slides/talk-edf/slides.html",
       "/pages/slides/probabl-sprint-july-2025/slides.html",
