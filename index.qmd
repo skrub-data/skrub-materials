@@ -9,6 +9,10 @@ title: "Skrub learning materials index"
 <!-- Place this tag where you want the button to render. -->
 <a class="github-button" href="https://github.com/skrub-data/skrub" data-color-scheme="no-preference: light; light: light; dark: dark;" data-size="large" data-show-count="true" aria-label="Star skrub-data/skrub on GitHub">Star</a>
 
+::: {.callout-note}
+**PyData 2025 Slides:**  
+Find the slides for the PyData 2025 talk [here](pages/slides/pydata-2025/slides.qmd).
+:::
 
 This is the [Skrub](https://skrub-data.org/stable/) learning materials website: 
 this is where you'll be able to find all the material that is used to teach and 
