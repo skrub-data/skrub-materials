@@ -1,8 +1,8 @@
 ---
-title: "Skrub"
+title: "PyData Paris 2025"
 title-block-banner: true
 date: 2025-10-01
-subtitle: "Machine learning with dataframes"
+subtitle: "Skrub - Machine learning with dataframes"
 author: "Riccardo Cappuzzo, Jérôme Dockès, Guillaume Lemaître"
 institute: "Inria P16, probabl."
 format: 
@@ -799,13 +799,13 @@ grid = [
     {
         "dim_reduction": [PCA()],
         "dim_reduction__n_components": [10, 20, 30],
-        "regressor": [RandomForestClassifier()],
+        "regressor": [RandomForestRegressor()],
         "regressor__n_estimators": loguniform(20, 200),
     },
     {
         "dim_reduction": [SelectKBest()],
         "dim_reduction__k": [10, 20, 30],
-        "regressor": [RandomForestClassifier()],
+        "regressor": [RandomForestRegressor()],
         "regressor__n_estimators": loguniform(20, 200),
     },
 ]
@@ -825,7 +825,7 @@ regressor = dim_reduction.skb.apply(
     skrub.choose_from(
         {
             "Ridge": Ridge(alpha=skrub.choose_float(0.1, 10.0, log=True)),
-            "RandomForest": RandomForestClassifier(
+            "RandomForest": RandomForestRegressor(
                 n_estimators=skrub.choose_int(20, 200, log=True)
             )
         }, name="regressor"
