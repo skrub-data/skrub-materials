@@ -893,7 +893,7 @@ Link to these slides
 
 :::
 ::: {.column}
-GitHub project tracking the issues
+GitHub project
 ![](images/qr-code-github-project.png)
 
 :::
