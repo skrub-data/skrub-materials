@@ -1,0 +1,1698 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<link href="../../../images/skrub.svg" rel="icon" type="image/svg+xml">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.25">
+
+  <meta name="author" content="Riccardo Cappuzzo">
+  <meta name="dcterms.date" content="2025-10-29">
+  <title>Skrub learning materials – Women in Machine Learning &amp; Data Science</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../../../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../../../site_libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="../../../site_libs/revealjs/dist/theme/quarto-0fde88a82f0356838740f155f1088782.css">
+  <link rel="stylesheet" href="style.css">
+  <link href="../../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../../../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+  
+  <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Women in Machine Learning &amp; Data Science</h1>
+  <p class="subtitle">Skrub - machine learning with dataframes</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Riccardo Cappuzzo 
+</div>
+        <p class="quarto-title-affiliation">
+            Probabl
+          </p>
+    </div>
+</div>
+
+  <p class="date">2025-10-29</p>
+</section>
+<section id="whoami" class="slide level2">
+<h2><code>whoami</code></h2>
+<ul>
+<li class="fragment"><p>I am a research engineer at Inria as part of the P16 project, and I am the lead developer of skrub <img data-src="images/inria.png" width="250"></p></li>
+<li class="fragment"><p>I’m Italian, but I don’t drink coffee, wine, and I like pizza with fries <img data-src="images/raora.png" width="50"></p></li>
+<li class="fragment"><p>I did my PhD in Côte d’Azur, but I moved to Paris because it was too sunny and I don’t like the sea <img data-src="images/nice.jpg" width="250"></p></li>
+</ul>
+</section>
+<section id="who-are-you" class="slide level2">
+<h2>Who are you?</h2>
+<ul>
+<li class="fragment"><p>Who is familiar with Pandas or Polars?</p></li>
+<li class="fragment"><p>Who has worked with scikit-learn?</p></li>
+<li class="fragment"><p>Who has already made contributions in open source?</p></li>
+<li class="fragment"><p>Who has heard of skrub before today?</p></li>
+</ul>
+</section>
+<section id="roadmap-for-the-presentation" class="slide level2">
+<h2>Roadmap for the presentation</h2>
+<ul>
+<li>What is skrub</li>
+<li>Contributing to skrub: subjects</li>
+<li>Contributing to skrub: setting up the environment</li>
+</ul>
+<p>QR code for the presentation at the end!</p>
+</section>
+<section>
+<section id="what-is-skrub" class="title-slide slide level1 center">
+<h1>What is skrub?</h1>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Tip</strong></p>
+</div>
+<div class="callout-content">
+<p>Skrub is a Python library that sits between data stored in dataframes and machine learning with scikit-learn.</p>
+</div>
+</div>
+</div>
+<p>Skrub eases machine learning with dataframes.</p>
+</section>
+<section id="section" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title"></h2>
+
+<img data-src="images/powerpuff_girls_1.png" class="r-stretch"></section>
+<section id="section-1" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title"></h2>
+
+<img data-src="images/powerpuff_girls_2.png" class="r-stretch"></section>
+<section id="skrub-compatibility" class="slide level2">
+<h2>Skrub compatibility</h2>
+<ul>
+<li>Skrub is mostly written in Python, but it inlcudes some Javascript</li>
+<li>Skrub is fully compatible with pandas and polars
+<ul>
+<li>Any feature needs to be supported by both libraries</li>
+</ul></li>
+<li>Skrub transformers are fully compatible with scikit-learn
+<ul>
+<li>Transformers need to satisfy some requirements</li>
+</ul></li>
+</ul>
+</section>
+<section id="first-an-example-pipeline" class="slide level2">
+<h2>First, an example pipeline</h2>
+<ol type="1">
+<li>Gather some data</li>
+<li>Explore the data</li>
+<li>Preprocess the data</li>
+<li>Perform feature engineering</li>
+<li>Build a scikit-learn pipeline</li>
+<li>???</li>
+<li>Profit?</li>
+</ol>
+</section>
+<section id="section-2" class="slide level2">
+<h2></h2>
+
+<img data-src="images/here-we-go-again.png" class="r-stretch"></section>
+<section id="skrub.tablereport" class="slide level2 smaller" data-auto-animate="true">
+<h2 data-id="quarto-animate-title"><code>skrub.TableReport</code></h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb1-1" class="hljs-ln-code"><a></a><span class="im">from</span> skrub <span class="im">import</span> TableReport</span>
+<span id="cb1-2" class="hljs-ln-code"><a></a>TableReport(employee_salaries)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><a href="https://skrub-data.org/skrub-reports/examples/employee_salaries.html" data-preview-link="true">TableReport Preview</a></p>
+<div class="fragment">
+<p>Main features:</p>
+<ul>
+<li>Obtain high-level statistics about the data</li>
+<li>Explore the distribution of values and find outliers</li>
+<li>Discover highly correlated columns</li>
+<li>Export and share the report as an <code>html</code> file</li>
+</ul>
+</div>
+</section>
+<section id="skrub.tablereport-1" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title"><code>skrub.TableReport</code></h2>
+<ul>
+<li>The report uses uses Jinjia templates and Javascript for interactivity</li>
+<li>The backend is in Python</li>
+<li>Space is limited, need to maximize information density.</li>
+<li>Light &gt; feature-rich (no plotly)</li>
+</ul>
+</section>
+<section id="data-cleaning-with-pandaspolars-setup" class="slide level2 smaller" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Data cleaning with pandas/polars: setup</h2>
+<div class="panel-tabset">
+<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Pandas</a></li><li><a href="#tabset-1-2">Polars</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1">
+<div id="91bcd9d0" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb2-2"><a></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-3"><a></a></span>
+<span id="cb2-4"><a></a>data <span class="op">=</span> {</span>
+<span id="cb2-5"><a></a>    <span class="st">"Int"</span>: [<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">2</span>],  <span class="co"># Multiple unique values</span></span>
+<span id="cb2-6"><a></a>    <span class="st">"Const str"</span>: [<span class="st">"x"</span>, <span class="st">"x"</span>, <span class="st">"x"</span>],  <span class="co"># Single unique value</span></span>
+<span id="cb2-7"><a></a>    <span class="st">"Str"</span>: [<span class="st">"foo"</span>, <span class="st">"bar"</span>, <span class="st">"baz"</span>],  <span class="co"># Multiple unique values</span></span>
+<span id="cb2-8"><a></a>    <span class="st">"All nan"</span>: [np.nan, np.nan, np.nan],  <span class="co"># All missing values</span></span>
+<span id="cb2-9"><a></a>    <span class="st">"All empty"</span>: [<span class="st">""</span>, <span class="st">""</span>, <span class="st">""</span>],  <span class="co"># All empty strings</span></span>
+<span id="cb2-10"><a></a>    <span class="st">"Date"</span>: [<span class="st">"01 Jan 2023"</span>, <span class="st">"02 Jan 2023"</span>, <span class="st">"03 Jan 2023"</span>],</span>
+<span id="cb2-11"><a></a>}</span>
+<span id="cb2-12"><a></a></span>
+<span id="cb2-13"><a></a>df_pd <span class="op">=</span> pd.DataFrame(data)</span>
+<span id="cb2-14"><a></a>display(df_pd)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+
+<table class="dataframe caption-top" data-border="1">
+<thead>
+<tr class="header" style="text-align: right;">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Int</th>
+<th data-quarto-table-cell-role="th">Const str</th>
+<th data-quarto-table-cell-role="th">Str</th>
+<th data-quarto-table-cell-role="th">All nan</th>
+<th data-quarto-table-cell-role="th">All empty</th>
+<th data-quarto-table-cell-role="th">Date</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>2</td>
+<td>x</td>
+<td>foo</td>
+<td>NaN</td>
+<td></td>
+<td>01 Jan 2023</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>3</td>
+<td>x</td>
+<td>bar</td>
+<td>NaN</td>
+<td></td>
+<td>02 Jan 2023</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>2</td>
+<td>x</td>
+<td>baz</td>
+<td>NaN</td>
+<td></td>
+<td>03 Jan 2023</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-1-2">
+<div id="b6ef3d7c" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a></a><span class="im">import</span> polars <span class="im">as</span> pl</span>
+<span id="cb3-2"><a></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-3"><a></a>data <span class="op">=</span> {</span>
+<span id="cb3-4"><a></a>    <span class="st">"Int"</span>: [<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">2</span>],  <span class="co"># Multiple unique values</span></span>
+<span id="cb3-5"><a></a>    <span class="st">"Const str"</span>: [<span class="st">"x"</span>, <span class="st">"x"</span>, <span class="st">"x"</span>],  <span class="co"># Single unique value</span></span>
+<span id="cb3-6"><a></a>    <span class="st">"Str"</span>: [<span class="st">"foo"</span>, <span class="st">"bar"</span>, <span class="st">"baz"</span>],  <span class="co"># Multiple unique values</span></span>
+<span id="cb3-7"><a></a>    <span class="st">"All nan"</span>: [np.nan, np.nan, np.nan],  <span class="co"># All missing values</span></span>
+<span id="cb3-8"><a></a>    <span class="st">"All empty"</span>: [<span class="st">""</span>, <span class="st">""</span>, <span class="st">""</span>],  <span class="co"># All empty strings</span></span>
+<span id="cb3-9"><a></a>    <span class="st">"Date"</span>: [<span class="st">"01 Jan 2023"</span>, <span class="st">"02 Jan 2023"</span>, <span class="st">"03 Jan 2023"</span>],</span>
+<span id="cb3-10"><a></a>}</span>
+<span id="cb3-11"><a></a></span>
+<span id="cb3-12"><a></a>df_pl <span class="op">=</span> pl.DataFrame(data)</span>
+<span id="cb3-13"><a></a>display(df_pl)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (3, 6)</small>
+<table class="dataframe caption-top" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Int</th>
+<th data-quarto-table-cell-role="th">Const str</th>
+<th data-quarto-table-cell-role="th">Str</th>
+<th data-quarto-table-cell-role="th">All nan</th>
+<th data-quarto-table-cell-role="th">All empty</th>
+<th data-quarto-table-cell-role="th">Date</th>
+</tr>
+<tr class="even">
+<td>i64</td>
+<td>str</td>
+<td>str</td>
+<td>f64</td>
+<td>str</td>
+<td>str</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>2</td>
+<td>"x"</td>
+<td>"foo"</td>
+<td>NaN</td>
+<td>""</td>
+<td>"01 Jan 2023"</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>"x"</td>
+<td>"bar"</td>
+<td>NaN</td>
+<td>""</td>
+<td>"02 Jan 2023"</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>"x"</td>
+<td>"baz"</td>
+<td>NaN</td>
+<td>""</td>
+<td>"03 Jan 2023"</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="nulls-datetimes-constant-columns-with-pandaspolars" class="slide level2 smaller" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Nulls, datetimes, constant columns with pandas/polars</h2>
+<div class="panel-tabset">
+<ul id="tabset-2" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-2-1">Pandas</a></li><li><a href="#tabset-2-2">Polars</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1">
+<div id="1893d8ee" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a></a><span class="co"># Parse the datetime strings with a specific format</span></span>
+<span id="cb4-2"><a></a>df_pd[<span class="st">'Date'</span>] <span class="op">=</span> pd.to_datetime(df_pd[<span class="st">'Date'</span>], <span class="bu">format</span><span class="op">=</span><span class="st">'</span><span class="sc">%d</span><span class="st"> %b %Y'</span>)</span>
+<span id="cb4-3"><a></a></span>
+<span id="cb4-4"><a></a><span class="co"># Drop columns with only a single unique value</span></span>
+<span id="cb4-5"><a></a>df_pd_cleaned <span class="op">=</span> df_pd.loc[:, df_pd.nunique(dropna<span class="op">=</span><span class="va">True</span>) <span class="op">&gt;</span> <span class="dv">1</span>]</span>
+<span id="cb4-6"><a></a></span>
+<span id="cb4-7"><a></a><span class="co"># Function to drop columns with only missing values or empty strings</span></span>
+<span id="cb4-8"><a></a><span class="kw">def</span> drop_empty_columns(df):</span>
+<span id="cb4-9"><a></a>    <span class="co"># Drop columns with only missing values</span></span>
+<span id="cb4-10"><a></a>    df_cleaned <span class="op">=</span> df.dropna(axis<span class="op">=</span><span class="dv">1</span>, how<span class="op">=</span><span class="st">'all'</span>)</span>
+<span id="cb4-11"><a></a>    <span class="co"># Drop columns with only empty strings</span></span>
+<span id="cb4-12"><a></a>    empty_string_cols <span class="op">=</span> df_cleaned.columns[df_cleaned.eq(<span class="st">''</span>).<span class="bu">all</span>()]</span>
+<span id="cb4-13"><a></a>    df_cleaned <span class="op">=</span> df_cleaned.drop(columns<span class="op">=</span>empty_string_cols)</span>
+<span id="cb4-14"><a></a>    <span class="cf">return</span> df_cleaned</span>
+<span id="cb4-15"><a></a></span>
+<span id="cb4-16"><a></a><span class="co"># Apply the function to the DataFrame</span></span>
+<span id="cb4-17"><a></a>df_pd_cleaned <span class="op">=</span> drop_empty_columns(df_pd_cleaned)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div id="tabset-2-2">
+<div id="71de6cfb" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a></a><span class="co"># Parse the datetime strings with a specific format</span></span>
+<span id="cb5-2"><a></a>df_pl <span class="op">=</span> df_pl.with_columns([</span>
+<span id="cb5-3"><a></a>    pl.col(<span class="st">"Date"</span>).<span class="bu">str</span>.strptime(pl.Date, <span class="st">"</span><span class="sc">%d</span><span class="st"> %b %Y"</span>, strict<span class="op">=</span><span class="va">False</span>).alias(<span class="st">"Date"</span>)</span>
+<span id="cb5-4"><a></a>])</span>
+<span id="cb5-5"><a></a></span>
+<span id="cb5-6"><a></a><span class="co"># Drop columns with only a single unique value</span></span>
+<span id="cb5-7"><a></a>df_pl_cleaned <span class="op">=</span> df_pl.select([</span>
+<span id="cb5-8"><a></a>    col <span class="cf">for</span> col <span class="kw">in</span> df_pl.columns <span class="cf">if</span> df_pl[col].n_unique() <span class="op">&gt;</span> <span class="dv">1</span></span>
+<span id="cb5-9"><a></a>])</span>
+<span id="cb5-10"><a></a></span>
+<span id="cb5-11"><a></a><span class="co"># Import selectors for dtype selection</span></span>
+<span id="cb5-12"><a></a><span class="im">import</span> polars.selectors <span class="im">as</span> cs</span>
+<span id="cb5-13"><a></a></span>
+<span id="cb5-14"><a></a><span class="co"># Drop columns with only missing values or only empty strings</span></span>
+<span id="cb5-15"><a></a><span class="kw">def</span> drop_empty_columns(df):</span>
+<span id="cb5-16"><a></a>    all_nan <span class="op">=</span> df.select(</span>
+<span id="cb5-17"><a></a>        [</span>
+<span id="cb5-18"><a></a>            col <span class="cf">for</span> col <span class="kw">in</span> df.select(cs.numeric()).columns <span class="cf">if</span> </span>
+<span id="cb5-19"><a></a>            df [col].is_nan().<span class="bu">all</span>()</span>
+<span id="cb5-20"><a></a>        ]</span>
+<span id="cb5-21"><a></a>    ).columns</span>
+<span id="cb5-22"><a></a>    </span>
+<span id="cb5-23"><a></a>    all_empty <span class="op">=</span> df.select(</span>
+<span id="cb5-24"><a></a>        [</span>
+<span id="cb5-25"><a></a>            col <span class="cf">for</span> col <span class="kw">in</span> df.select(cs.string()).columns <span class="cf">if</span> </span>
+<span id="cb5-26"><a></a>            (df[col].<span class="bu">str</span>.strip_chars().<span class="bu">str</span>.len_chars()<span class="op">==</span><span class="dv">0</span>).<span class="bu">all</span>()</span>
+<span id="cb5-27"><a></a>        ]</span>
+<span id="cb5-28"><a></a>    ).columns</span>
+<span id="cb5-29"><a></a></span>
+<span id="cb5-30"><a></a>    to_drop <span class="op">=</span> all_nan <span class="op">+</span> all_empty</span>
+<span id="cb5-31"><a></a></span>
+<span id="cb5-32"><a></a>    <span class="cf">return</span> df.drop(to_drop)</span>
+<span id="cb5-33"><a></a></span>
+<span id="cb5-34"><a></a>df_pl_cleaned <span class="op">=</span> drop_empty_columns(df_pl_cleaned)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="skrub.cleaner" class="slide level2 smaller" data-auto-animate="true">
+<h2 data-id="quarto-animate-title"><code>skrub.Cleaner</code></h2>
+<div class="panel-tabset">
+<ul id="tabset-3" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-3-1">Pandas</a></li><li><a href="#tabset-3-2">Polars</a></li></ul>
+<div class="tab-content">
+<div id="tabset-3-1">
+<div id="d2366714" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a></a><span class="im">from</span> skrub <span class="im">import</span> Cleaner</span>
+<span id="cb6-2"><a></a>cleaner <span class="op">=</span> Cleaner(drop_if_constant<span class="op">=</span><span class="va">True</span>, datetime_format<span class="op">=</span><span class="st">'</span><span class="sc">%d</span><span class="st"> %b %Y'</span>)</span>
+<span id="cb6-3"><a></a>df_cleaned <span class="op">=</span> cleaner.fit_transform(df_pd)</span>
+<span id="cb6-4"><a></a>display(df_cleaned)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+
+<table class="dataframe caption-top" data-border="1">
+<thead>
+<tr class="header" style="text-align: right;">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Int</th>
+<th data-quarto-table-cell-role="th">Str</th>
+<th data-quarto-table-cell-role="th">Date</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>2</td>
+<td>foo</td>
+<td>2023-01-01</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>3</td>
+<td>bar</td>
+<td>2023-01-02</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>2</td>
+<td>baz</td>
+<td>2023-01-03</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-3-2">
+<div id="7ce89058" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a></a><span class="im">from</span> skrub <span class="im">import</span> Cleaner</span>
+<span id="cb7-2"><a></a>cleaner <span class="op">=</span> Cleaner(drop_if_constant<span class="op">=</span><span class="va">True</span>, datetime_format<span class="op">=</span><span class="st">'</span><span class="sc">%d</span><span class="st"> %b %Y'</span>)</span>
+<span id="cb7-3"><a></a>df_cleaned <span class="op">=</span> cleaner.fit_transform(df_pl)</span>
+<span id="cb7-4"><a></a>display(df_cleaned)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (3, 3)</small>
+<table class="dataframe caption-top" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Int</th>
+<th data-quarto-table-cell-role="th">Str</th>
+<th data-quarto-table-cell-role="th">Date</th>
+</tr>
+<tr class="even">
+<td>i64</td>
+<td>str</td>
+<td>date</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>2</td>
+<td>"foo"</td>
+<td>2023-01-01</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>"bar"</td>
+<td>2023-01-02</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>"baz"</td>
+<td>2023-01-03</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="skrub.cleaner-1" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title"><code>skrub.Cleaner</code></h2>
+<ul>
+<li>The actual transformations are performed in part by <code>skrub.DropUninformative</code>.</li>
+<li>New criteria for selecting columns should go in <code>DropUninformative</code>.</li>
+</ul>
+</section>
+<section id="skrub.datetimeencoder" class="slide level2 smaller" data-auto-animate="true" data-visibility="uncounted">
+<h2 data-id="quarto-animate-title"><code>skrub.DatetimeEncoder</code></h2>
+<div id="51ae971a" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb8-1" class="hljs-ln-code"><a></a><span class="im">from</span> skrub <span class="im">import</span> DatetimeEncoder, ToDatetime</span>
+<span id="cb8-2" class="hljs-ln-code"><a></a></span>
+<span id="cb8-3" class="hljs-ln-code"><a></a>X_date <span class="op">=</span> ToDatetime().fit_transform(df[<span class="st">"date"</span>])</span>
+<span id="cb8-4" class="hljs-ln-code"><a></a>de <span class="op">=</span> DatetimeEncoder(resolution<span class="op">=</span><span class="st">"second"</span>)</span>
+<span id="cb8-5" class="hljs-ln-code"><a></a><span class="co"># de = DatetimeEncoder(periodic_encoding="spline")</span></span>
+<span id="cb8-6" class="hljs-ln-code"><a></a>X_enc <span class="op">=</span> de.fit_transform(X_date)</span>
+<span id="cb8-7" class="hljs-ln-code"><a></a><span class="bu">print</span>(X_enc)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>shape: (3, 7)
+┌───────────┬────────────┬──────────┬───────────┬─────────────┬─────────────┬────────────────────┐
+│ date_year ┆ date_month ┆ date_day ┆ date_hour ┆ date_minute ┆ date_second ┆ date_total_seconds │
+│ ---       ┆ ---        ┆ ---      ┆ ---       ┆ ---         ┆ ---         ┆ ---                │
+│ f32       ┆ f32        ┆ f32      ┆ f32       ┆ f32         ┆ f32         ┆ f32                │
+╞═══════════╪════════════╪══════════╪═══════════╪═════════════╪═════════════╪════════════════════╡
+│ 2023.0    ┆ 1.0        ┆ 1.0      ┆ 12.0      ┆ 34.0        ┆ 56.0        ┆ 1.6726e9           │
+│ 2023.0    ┆ 2.0        ┆ 15.0     ┆ 8.0       ┆ 45.0        ┆ 23.0        ┆ 1.6765e9           │
+│ 2023.0    ┆ 3.0        ┆ 20.0     ┆ 18.0      ┆ 12.0        ┆ 45.0        ┆ 1.6793e9           │
+└───────────┴────────────┴──────────┴───────────┴─────────────┴─────────────┴────────────────────┘</code></pre>
+</div>
+</div>
+</section>
+<section id="encoding-categorical-stringtext-features" class="slide level2">
+<h2>Encoding categorical (string/text) features</h2>
+<p>Categorical features have a “<strong>cardinality</strong>”: the number of unique values</p>
+<ul>
+<li class="fragment">Low cardinality: <code>OneHotEncoder</code></li>
+<li class="fragment">High cardinality (&gt;40 unique values): <code>skrub.StringEncoder</code></li>
+<li class="fragment">Text: <code>skrub.TextEncoder</code> and pretrained models from HuggingFace Hub</li>
+</ul>
+</section>
+<section id="encoding-all-the-features-tablevectorizer" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Encoding <em>all the features</em>: <code>TableVectorizer</code></h2>
+<div id="28d04a0a" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb10-1" class="hljs-ln-code"><a></a><span class="im">from</span> skrub <span class="im">import</span> TableVectorizer</span>
+<span id="cb10-2" class="hljs-ln-code"><a></a></span>
+<span id="cb10-3" class="hljs-ln-code"><a></a>table_vec <span class="op">=</span> TableVectorizer()</span>
+<span id="cb10-4" class="hljs-ln-code"><a></a>df_encoded <span class="op">=</span> table_vec.fit_transform(df)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="fragment">
+<ul>
+<li>Apply the <code>Cleaner</code> to all columns</li>
+<li>Split columns by dtype and # of unique values</li>
+<li>Encode each column separately</li>
+</ul>
+</div>
+</section>
+<section id="encoding-all-the-features-tablevectorizer-1" class="slide level2 smaller" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Encoding <em>all the features</em>: <code>TableVectorizer</code></h2>
+
+<img data-src="images/skrub-table-vectorizer.png" class="r-stretch"></section>
+<section id="build-a-predictive-pipeline-with-tabular_pipeline" class="slide level2 smaller" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Build a predictive pipeline with <code>tabular_pipeline</code></h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb11-1" class="hljs-ln-code"><a></a><span class="im">import</span> skrub</span>
+<span id="cb11-2" class="hljs-ln-code"><a></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> Ridge</span>
+<span id="cb11-3" class="hljs-ln-code"><a></a>model <span class="op">=</span> skrub.tabular_pipeline(Ridge())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+<img data-src="images/skrub-tabular-pipeline-linear-model.png" class="quarto-figure quarto-figure-center r-stretch"></section></section>
+<section>
+<section id="advanced-skrub-data-ops" class="title-slide slide level1 center">
+<h1>Advanced skrub: Data Ops</h1>
+
+</section>
+<section id="dataops" class="slide level2">
+<h2>DataOps…</h2>
+<ul>
+<li class="fragment">Extend the <code>scikit-learn</code> machinery to complex multi-table operations, and take care of data leakage</li>
+<li class="fragment">Track all operations with a computational graph (a <em>Data Ops plan</em>)</li>
+<li class="fragment">Are transparent and give direct access to the underlying object</li>
+<li class="fragment">Allow tuning any operation in the Data Ops plan</li>
+<li class="fragment">Guarantee that all operations are reproducible</li>
+<li class="fragment">Can be persisted and shared easily</li>
+</ul>
+</section>
+<section id="how-do-dataops-work-though" class="slide level2 smaller">
+<h2>How do DataOps work, though?</h2>
+<p>DataOps <strong>wrap</strong> around <em>user operations</em>, where user operations are:</p>
+<ul>
+<li>any dataframe operation (e.g., merge, group by, aggregate etc.)</li>
+<li>scikit-learn estimators (a Random Forest, RidgeCV etc.)</li>
+<li>custom user code (load data from a path, fetch from an URL etc.)</li>
+</ul>
+<div class="fragment">
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Important</strong></p>
+</div>
+<div class="callout-content">
+<p>DataOps <em>record</em> user operations, so that they can later be <em>replayed</em> in the same order and with the same arguments on unseen data.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="starting-with-the-dataops" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Starting with the <code>DataOps</code></h2>
+<div id="c8013814" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb12-1" class="hljs-ln-code"><a></a><span class="im">import</span> skrub</span>
+<span id="cb12-2" class="hljs-ln-code"><a></a>data <span class="op">=</span> skrub.datasets.fetch_credit_fraud()</span>
+<span id="cb12-3" class="hljs-ln-code"><a></a></span>
+<span id="cb12-4" class="hljs-ln-code"><a></a>baskets <span class="op">=</span> skrub.var(<span class="st">"baskets"</span>, data.baskets)</span>
+<span id="cb12-5" class="hljs-ln-code"><a></a>products <span class="op">=</span> skrub.var(<span class="st">"products"</span>, data.products) <span class="co"># add a new variable</span></span>
+<span id="cb12-6" class="hljs-ln-code"><a></a></span>
+<span id="cb12-7" class="hljs-ln-code"><a></a>X <span class="op">=</span> baskets[[<span class="st">"ID"</span>]].skb.mark_as_X()</span>
+<span id="cb12-8" class="hljs-ln-code"><a></a>y <span class="op">=</span> baskets[<span class="st">"fraud_flag"</span>].skb.mark_as_y()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li><code>baskets</code> and <code>products</code> represent inputs to the pipeline.</li>
+<li>Skrub tracks <code>X</code> and <code>y</code> so that training and test splits are never mixed.</li>
+</ul>
+</section>
+<section id="applying-a-transformer" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Applying a transformer</h2>
+<div id="40015a0b" class="cell" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb13-1" class="hljs-ln-code"><a></a><span class="im">from</span> skrub <span class="im">import</span> selectors <span class="im">as</span> s</span>
+<span id="cb13-2" class="hljs-ln-code"><a></a></span>
+<span id="cb13-3" class="hljs-ln-code"><a></a>vectorizer <span class="op">=</span> skrub.TableVectorizer(</span>
+<span id="cb13-4" class="hljs-ln-code"><a></a>    high_cardinality<span class="op">=</span>skrub.StringEncoder()</span>
+<span id="cb13-5" class="hljs-ln-code"><a></a>)</span>
+<span id="cb13-6" class="hljs-ln-code"><a></a>vectorized_products <span class="op">=</span> products.skb.<span class="bu">apply</span>(</span>
+<span id="cb13-7" class="hljs-ln-code"><a></a>    vectorizer, cols<span class="op">=</span>s.<span class="bu">all</span>() <span class="op">-</span> <span class="st">"basket_ID"</span></span>
+<span id="cb13-8" class="hljs-ln-code"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="executing-dataframe-operations" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Executing dataframe operations</h2>
+<div id="9c815f34" class="cell" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb14-1" class="hljs-ln-code"><a></a>aggregated_products <span class="op">=</span> vectorized_products.groupby(</span>
+<span id="cb14-2" class="hljs-ln-code"><a></a>    <span class="st">"basket_ID"</span></span>
+<span id="cb14-3" class="hljs-ln-code"><a></a>).agg(<span class="st">"mean"</span>).reset_index()</span>
+<span id="cb14-4" class="hljs-ln-code"><a></a></span>
+<span id="cb14-5" class="hljs-ln-code"><a></a>features <span class="op">=</span> X.merge(</span>
+<span id="cb14-6" class="hljs-ln-code"><a></a>    aggregated_products, left_on<span class="op">=</span><span class="st">"ID"</span>, right_on<span class="op">=</span><span class="st">"basket_ID"</span></span>
+<span id="cb14-7" class="hljs-ln-code"><a></a>)</span>
+<span id="cb14-8" class="hljs-ln-code"><a></a>features <span class="op">=</span> features.drop(columns<span class="op">=</span>[<span class="st">"ID"</span>, <span class="st">"basket_ID"</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="applying-a-ml-model" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Applying a ML model</h2>
+<div id="3d018c11" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb15-1" class="hljs-ln-code"><a></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> ExtraTreesClassifier  </span>
+<span id="cb15-2" class="hljs-ln-code"><a></a>predictions <span class="op">=</span> features.skb.<span class="bu">apply</span>(</span>
+<span id="cb15-3" class="hljs-ln-code"><a></a>    ExtraTreesClassifier(n_jobs<span class="op">=-</span><span class="dv">1</span>), y<span class="op">=</span>y</span>
+<span id="cb15-4" class="hljs-ln-code"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="inspecting-the-data-ops-plan" class="slide level2">
+<h2>Inspecting the Data Ops plan</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a></a>predictions.skb.full_report()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><br></p>
+<p><a href="dataop_report/index.html" target="_blank">Execution report</a></p>
+<p>Each node:</p>
+<ul>
+<li>Shows a preview of the data resulting from the operation</li>
+<li>Reports the location in the code where the code is defined</li>
+<li>Shows the run time of the node</li>
+</ul>
+</section>
+<section id="exporting-the-plan-in-a-learner" class="slide level2 smaller">
+<h2>Exporting the plan in a <code>learner</code></h2>
+<p>The <strong>Learner</strong> is a stand-alone object that works like a scikit-learn estimator that takes a dictionary as input rather than just <code>X</code> and <code>y</code>.</p>
+<div class="fragment">
+<div id="0c9c3445" class="cell" data-execution_count="14">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a></a>learner <span class="op">=</span> predictions.skb.make_learner(fitted<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="fragment">
+<p>Then, the <code>learner</code> can be pickled …</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a></a><span class="im">import</span> pickle</span>
+<span id="cb18-2"><a></a></span>
+<span id="cb18-3"><a></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"learner.bin"</span>, <span class="st">"wb"</span>) <span class="im">as</span> fp:</span>
+<span id="cb18-4"><a></a>    pickle.dump(learner, fp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="fragment">
+<p>… loaded and applied to new data:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"learner.bin"</span>, <span class="st">"rb"</span>) <span class="im">as</span> fp:</span>
+<span id="cb19-2"><a></a>    loaded_learner <span class="op">=</span> pickle.load(fp)</span>
+<span id="cb19-3"><a></a>data <span class="op">=</span> skrub.datasets.fetch_credit_fraud(split<span class="op">=</span><span class="st">"test"</span>)</span>
+<span id="cb19-4"><a></a>new_baskets <span class="op">=</span> data.baskets</span>
+<span id="cb19-5"><a></a>new_products <span class="op">=</span> data.products</span>
+<span id="cb19-6"><a></a>loaded_learner.predict({<span class="st">"baskets"</span>: new_baskets, <span class="st">"products"</span>: new_products})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="fb91affc" class="cell" data-execution_count="17">
+<div class="cell-output cell-output-display" data-execution_count="17">
+<pre><code>array([0, 0, 0, ..., 0, 0, 0], shape=(31549,))</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="hyperparameter-tuning-in-a-data-ops-plan" class="slide level2">
+<h2>Hyperparameter tuning in a Data Ops plan</h2>
+<ul>
+<li><code>choose_from</code>: select from the given list of options</li>
+<li><code>choose_int</code>: select an integer within a range</li>
+<li><code>choose_float</code>: select a float within a range</li>
+<li><code>choose_bool</code>: select a bool</li>
+<li><code>optional</code>: chooses whether to execute the given operation</li>
+</ul>
+</section>
+<section id="tuning-in-scikit-learn-can-be-complex" class="slide level2 smaller" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Tuning in <code>scikit-learn</code> can be complex</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb21-1" class="hljs-ln-code"><a></a>pipe <span class="op">=</span> Pipeline([(<span class="st">"dim_reduction"</span>, PCA()), (<span class="st">"regressor"</span>, Ridge())])</span>
+<span id="cb21-2" class="hljs-ln-code"><a></a>grid <span class="op">=</span> [</span>
+<span id="cb21-3" class="hljs-ln-code"><a></a>    {</span>
+<span id="cb21-4" class="hljs-ln-code"><a></a>        <span class="st">"dim_reduction"</span>: [PCA()],</span>
+<span id="cb21-5" class="hljs-ln-code"><a></a>        <span class="st">"dim_reduction__n_components"</span>: [<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>],</span>
+<span id="cb21-6" class="hljs-ln-code"><a></a>        <span class="st">"regressor"</span>: [Ridge()],</span>
+<span id="cb21-7" class="hljs-ln-code"><a></a>        <span class="st">"regressor__alpha"</span>: loguniform(<span class="fl">0.1</span>, <span class="fl">10.0</span>),</span>
+<span id="cb21-8" class="hljs-ln-code"><a></a>    },</span>
+<span id="cb21-9" class="hljs-ln-code"><a></a>    {</span>
+<span id="cb21-10" class="hljs-ln-code"><a></a>        <span class="st">"dim_reduction"</span>: [SelectKBest()],</span>
+<span id="cb21-11" class="hljs-ln-code"><a></a>        <span class="st">"dim_reduction__k"</span>: [<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>],</span>
+<span id="cb21-12" class="hljs-ln-code"><a></a>        <span class="st">"regressor"</span>: [Ridge()],</span>
+<span id="cb21-13" class="hljs-ln-code"><a></a>        <span class="st">"regressor__alpha"</span>: loguniform(<span class="fl">0.1</span>, <span class="fl">10.0</span>),</span>
+<span id="cb21-14" class="hljs-ln-code"><a></a>    },</span>
+<span id="cb21-15" class="hljs-ln-code"><a></a>    {</span>
+<span id="cb21-16" class="hljs-ln-code"><a></a>        <span class="st">"dim_reduction"</span>: [PCA()],</span>
+<span id="cb21-17" class="hljs-ln-code"><a></a>        <span class="st">"dim_reduction__n_components"</span>: [<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>],</span>
+<span id="cb21-18" class="hljs-ln-code"><a></a>        <span class="st">"regressor"</span>: [RandomForestRegressor()],</span>
+<span id="cb21-19" class="hljs-ln-code"><a></a>        <span class="st">"regressor__n_estimators"</span>: loguniform(<span class="dv">20</span>, <span class="dv">200</span>),</span>
+<span id="cb21-20" class="hljs-ln-code"><a></a>    },</span>
+<span id="cb21-21" class="hljs-ln-code"><a></a>    {</span>
+<span id="cb21-22" class="hljs-ln-code"><a></a>        <span class="st">"dim_reduction"</span>: [SelectKBest()],</span>
+<span id="cb21-23" class="hljs-ln-code"><a></a>        <span class="st">"dim_reduction__k"</span>: [<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>],</span>
+<span id="cb21-24" class="hljs-ln-code"><a></a>        <span class="st">"regressor"</span>: [RandomForestRegressor()],</span>
+<span id="cb21-25" class="hljs-ln-code"><a></a>        <span class="st">"regressor__n_estimators"</span>: loguniform(<span class="dv">20</span>, <span class="dv">200</span>),</span>
+<span id="cb21-26" class="hljs-ln-code"><a></a>    },</span>
+<span id="cb21-27" class="hljs-ln-code"><a></a>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="tuning-with-data-ops-is-simple" class="slide level2 smaller">
+<h2>Tuning with Data Ops is simple!</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a></a>dim_reduction <span class="op">=</span> X.skb.<span class="bu">apply</span>(</span>
+<span id="cb22-2"><a></a>    skrub.choose_from(</span>
+<span id="cb22-3"><a></a>        {</span>
+<span id="cb22-4"><a></a>            <span class="st">"PCA"</span>: PCA(n_components<span class="op">=</span>skrub.choose_int(<span class="dv">10</span>, <span class="dv">30</span>)),</span>
+<span id="cb22-5"><a></a>            <span class="st">"SelectKBest"</span>: SelectKBest(k<span class="op">=</span>skrub.choose_int(<span class="dv">10</span>, <span class="dv">30</span>))</span>
+<span id="cb22-6"><a></a>        }, name<span class="op">=</span><span class="st">"dim_reduction"</span></span>
+<span id="cb22-7"><a></a>    )</span>
+<span id="cb22-8"><a></a>)</span>
+<span id="cb22-9"><a></a>regressor <span class="op">=</span> dim_reduction.skb.<span class="bu">apply</span>(</span>
+<span id="cb22-10"><a></a>    skrub.choose_from(</span>
+<span id="cb22-11"><a></a>        {</span>
+<span id="cb22-12"><a></a>            <span class="st">"Ridge"</span>: Ridge(alpha<span class="op">=</span>skrub.choose_float(<span class="fl">0.1</span>, <span class="fl">10.0</span>, log<span class="op">=</span><span class="va">True</span>)),</span>
+<span id="cb22-13"><a></a>            <span class="st">"RandomForest"</span>: RandomForestRegressor(</span>
+<span id="cb22-14"><a></a>                n_estimators<span class="op">=</span>skrub.choose_int(<span class="dv">20</span>, <span class="dv">200</span>, log<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb22-15"><a></a>            )</span>
+<span id="cb22-16"><a></a>        }, name<span class="op">=</span><span class="st">"regressor"</span></span>
+<span id="cb22-17"><a></a>    )</span>
+<span id="cb22-18"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="exploring-the-hyperparameters" class="slide level2 smaller" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Exploring the hyperparameters</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb23-1" class="hljs-ln-code"><a></a>search <span class="op">=</span> pred.skb.get_randomized_search(fitted<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb23-2" class="hljs-ln-code"><a></a>search.plot_parallel_coord()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="84719be8" class="cell" data-execution_count="18">
+<div class="cell-output cell-output-display">
+        <script type="text/javascript">
+        window.PlotlyConfig = {MathJaxConfig: 'local'};
+        if (window.MathJax && window.MathJax.Hub && window.MathJax.Hub.Config) {window.MathJax.Hub.Config({SVG: {font: "STIX-Web"}});}
+        </script>
+        <script type="module">import "https://cdn.plot.ly/plotly-3.0.1.min"</script>
+        
+</div>
+<div class="cell-output cell-output-display">
+<div>            <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_SVG"></script><script type="text/javascript">if (window.MathJax && window.MathJax.Hub && window.MathJax.Hub.Config) {window.MathJax.Hub.Config({SVG: {font: "STIX-Web"}});}</script>                <script type="text/javascript">window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+        <script charset="utf-8" src="https://cdn.plot.ly/plotly-3.0.1.min.js"></script>                <div id="0da6e5ad-7a35-4b90-bb7b-f03dbdf60f36" class="plotly-graph-div" style="height:525px; width:100%;"></div>            <script type="text/javascript">                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("0da6e5ad-7a35-4b90-bb7b-f03dbdf60f36")) {                    Plotly.newPlot(                        "0da6e5ad-7a35-4b90-bb7b-f03dbdf60f36",                        [{"dimensions":[{"label":"dropped_cols","ticktext":["calendar","cloud_cover","future_1h","future_24h","holiday","load","moisture","non_paris_weather","none","rolling_load","temperature","weather"],"tickvals":[0,1,2,3,4,5,6,7,8,9,10,11],"values":{"dtype":"f8","bdata":"9SBQ3oRj\u002fz8rnn7ndzUYQNtGaVDP8yFAZoy1v8wBGEBsc74XSvshQBlPymzb\u002f\u002f8\u002fdLIFBFm98D\u002f+d7YYeOwfQB4DzZDN6x9An+lEdUwYGEBBAcApS9YfQBhGsr7h5SFAQ0fqDJD5G0B0XIMwoM0XQKlPmJXA7BtA3huIHSDfF0AK5YPm6\u002fkhQIM9d8bDDCBAwkivGX0IHECwTkEtAf4bQDPLy9iY4R9AXnEkfx9U\u002fz812XEXk9oXQLO39FeN6Q9AqXn7jYvhF0AAZnlGQ94bQLzSULmwzA9AimR+HG0hEECWaS9ePU\u002f\u002fP1LugEcZ+yFAQ10LpzY1EEAVzDw6+eQXQKoh0X5WByBAW4To1LdeAEAgwy5O1ywAQE35p8489CNAP1uKh4LkI0CVKraOLOojQLMBakymEiJANj59x0UUAECsWPyTC\u002foPQBVCrJgbESRAwk0V0fT3G0AeS8SUYQQkQAAAAAAAACZAq7k08v35I0AZZGCQNPglQEbfwUEIDBhA0Yto3x7kJUB9aEdyuFMIQLZ8tPXgFyRAdPzdnLvqH0AAAAAAAAAmQBTzd+uxtQdAT4oi39KqB0Cexlth0yEQQAAAAAAAACZA9souND7lJUCxrGpxP\u002fQPQHt4G069VwhAJopx+zUYCECIDv9rDvofQEgBTJPi5SNA2HG2zn\u002fpJUD7X+vdXcQPQAAAAAAAACZAtY\u002f6a0onFECNsVOJDM4TQPiK9lLa7iVAmuQct1vV\u002fz+I3QT3mFUIQCspliBv\u002fBNAAAAAAAAAAAD2Fv4hilqlP2QmhqjMn6c\u002fhH4\u002f2wD+oD9o3YJ5GxJ7PyzmqMOD6h9AlLfpvUnHoj+EMxee0uYTQGkJKxH98h9AHdNKsH4QEEAAAAAAAAAAAHUby3y35iVAeh4I7fsJJEByqpKEbgIiQCGNPZJ5hKo\u002fUG4VUyygoT+51jKPheepP5qQp7v75yVAAAAAAAAAAAB3LwD5RMsTQFolIL3TNRhAJHWcCQvcG0AAAAAAAAAAACT6ikY8zx9A0hTsQbzeE0CKimbYivYPQNB0KXsAAyRAya0yBp0DFEA="}},{"label":"learning_rate","ticktext":["0.01","0.02","0.03","0.05","0.08","0.13","0.21","0.35","0.58","0.96"],"tickvals":[-4.539562789300175,-4.039792116878816,-3.5400214444574583,-3.0402507720361003,-2.540480099614742,-2.0407094271933834,-1.5409387547720255,-1.0411680823506675,-0.5413974099293091,-0.04162673750795066],"values":{"dtype":"f8","bdata":"S1JnLsuRAsB\u002f5os5eQ\u002f3v4LhYQL+D\u002fu\u002fzmryfj4U978Gx1VY7iMFwFuwytRJDQPAA7sMj8svBsAYkSzY2b4FwH76Q00UJ\u002fq\u002fTJSsWm43BMDLZKs\u002fx773vzUBP11G4++\u002fGYyOQJtI8r\u002fCJSbEKxUJwL\u002f9HCs0If+\u002f7vv8MPvc7b9X1+JNErn9vwL8CNrMofa\u002fCy82g08aAMCQD8u6mkoCwK7nRv+Guvy\u002fmpadITY2CcDQkBcTz\u002fTYv+uIwyMnfQDAyod36\u002fXF8L\u002fa4BcFWjLmv45OAMvDvv2\u002fR\u002fTPBCVo+L\u002f4NpOx5h7dv+mztxhtn\u002fW\u002fbd4rAvc3\u002fb9m0Izyo6bmv+oC9RMDvPG\u002fecBYi+L2AsDjPNvDQanmv0nDLGPs0QTAwf7C19tBAcBwxmPi\u002fLQCwJvcYv4C5wHAkkmZjqXbAcD8og9Tx\u002fsMwL2z38YEZgjAuCK0ZsyXDcC+Gi8IG54IwMFaQdES2PG\u002fv0jptCDRCcBNgTGhtfQDwGO7X5PceQvAHKOfCvCNCcAOun47GZH\u002fv0XBLkUTwuW\u002f6nWNRlCjDcAlfPrhXqjav5mJEbyw\u002fvm\u002f6oEuWUZf9L8esb4B\u002fgjhv7zQ\u002fMErd+q\u002fZn09Y+Xz5r8Mk\u002frBXwwNwDL9mvQWvwXAcuTA5lWG5b\u002fuUj6DOn2rvy5sB2xj9NO\u002f4TBTTUrDCcCiMddvHrcIwOs\u002fuar6VwrAP9WuOk3M8b89++fFZ94JwBRvn57WFhDAJn9NGee2C8B8iyo4lp+3v1VGZkqUcwfAm1FQHceCBcDLyibIWD4DwLl5Zf0pvAjALwl8qN8yDcA9x9+wNHUNwG+uopD8DxDA2VQtN5+RDcAtxaOs8kYNwAiZArVHfBDApCtUJDQ9EcAYpp2C9jfjv8NcOqb8RxDAEeCwmqTBEMAHtmaKgmQRwEbv3uPwhdi\u002fBXWjg52I1b+5fVNWD6HIvyAMVfSNoxHA4L+zQ\u002fT2EMCicGzOi84NwALa2PjAHQ\u002fAR+CMaTu1DsABvniIGVClv5ryDmdV+g\u002fAGyaFGmE4DsCo8ucCSlsRwC272CWDKBLA2Xwx6XjcEcA="}},{"label":"loss","ticktext":["gamma","poisson","squared_error"],"tickvals":[0,1,2],"values":{"dtype":"f8","bdata":"KUe9p3ER8D\u002f7mi7eYcvvP6hYaGJVHvA\u002fIMNAiCDa7z8AAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAHBfyHLrHvA\u002fAAAAAAAAAEA9+BiTj+X\u002fPwAAAAAAAABA\u002fzDIW9IY8D8w3EaqWrrvPw+qwWKlEPA\u002fbtepITDZ7z\u002fmDk0JpBbwP3wTF1jJ7f8\u002fmIiMiRX97z\u002fs9w40AOf\u002fP2TDkV7p4+8\u002fx81hxb2z7z8AAAAAAAAAAAAAAAAAAAAAxYHPe3Hk\u002fz8xcDmh9rrvPwAAAAAAAABAyKaECf8K8D9NacfRQ3Z9PwAAAAAAAAAAePLh51hAeT\u002fmQk3gMd7\u002fP+mbrvT0VXk\u002fEOYhuA0f8D8AAAAAAAAAACLJZ8F+BvA\u002fUvddOAkW8D+s7uYroO3\u002fP66HBcXsSv8+1Pcg1u0e8D9OfFenmwvwPwAAAAAAAABA6VxssSsL8D98YobAGcfvP4B10RZnuH0\u002fAAAAAAAAAAAAAAAAAAAAAFrDScpj9XU\u002fAAAAAAAAAEAAAAAAAAAAQAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQN021oO\u002f+\u002f8\u002fN7YgfoAf8D8idEbUZALwPwAAAAAAAAAAFaAZfkkG8D8AAAAAAAAAALbqoTnJ9O8\u002fc62EwvEOgT9WkFds\u002fvT\u002fPyRAuiCuwu8\u002flOTYMQ0E8D8g+0bEsP7\u002fPydG9kok\u002fv8\u002fbkXatdj+\u002fz8SExKjp5F4PzAFlLroB\u002fA\u002fDMSlbl\u002fugD+pZOqbK8HvP+9lrLU78O8\u002f4kLxvO\u002ff7z8AAAAAAAAAQOVKi7OG+\u002f8\u002f\u002fGWcUQMZ8D+QyrwdS6x4P1QP0m9ZIvA\u002fAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAEAh0RHmcN\u002f\u002fPzKoQaTA8v8\u002fAAAAAAAAAADyWUbTa1+AP6qokBn9zO8\u002fYJGuZOMS8D9EC5TvWPT\u002fP3AR7Tvm1\u002f8\u002fEWhPIZX\u002f\u002fz8AAAAAAAAAQAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQJ6uI4EWAfA\u002fJ2qgfUG+7z8AAAAAAAAAABXG2sK46\u002f8\u002fAAAAAAAAAAA="}},{"label":"max_leaf_nodes","ticktext":["3","5","8","14","23","39","64","108","179","299"],"tickvals":[1.0986122886681098,1.6094379124341003,2.0794415416798357,2.6390573296152584,3.1354942159291497,3.6635616461296463,4.1588830833596715,4.68213122712422,5.187385805840755,5.700443573390687],"values":{"dtype":"f8","bdata":"Y9JS9XyXD0Cygcq4HXkEQKxomH9OAQNADllMpXg0D0BCm+Cuow0QQD4jgg5+jRBA+YN\u002fZohKC0DTNrYd1iQRQO\u002fbihe0zABAv5P\u002fC7g5BUAUzdHzK8EBQDgugVk6zQBAWm8vGqxGDEDpx4KCwmURQE1ZYma62RNAgT+vp6paCUBGldAYOtUUQL3EesFSdQBAMP3RjCLfFECRIj40jNsUQM7cwutmsxZAsFBYfybdCEBRU2GoJgn9P8BkfBerggRAtKOihNVzFEDyGpt5MXANQHZp7lnBcwFAHILxO8K+AEALA6166pPxPxrk4GFu1fE\u002fg5Lta+\u002fK\u002fD+nN7BM5nkSQHR\u002fqzdqyPE\u002fDzIKQu8a9j8hoIEUQc0WQHRbWVl4cxFA8zzjDPWqAEBctUJf1g8RQJ5knwURy\u002fE\u002f3UPP+g2U8T9HjgOK4W8QQOXw1Rv1iA5Aar6Fg32WDkBccURA3ZoUQF6nXb7ZjQFAH9Zk2zQ5FkB9umlbtnMUQJppUu0ETQJABd6ucwiwEkDqAfTbzhwUQIRF7EjfkQhAwgbS2cyDEED1YeEmx54BQDBElB+0MxRAvhK6K4fTA0A+HpyCGKMSQOft1jVjIw1AG7k3hu2KDkC7Dwp5oUoHQMQHJDHdafk\u002fhv2S9ZelE0Cmf\u002fnqhbwRQJMishhgyg9AwOxqFb+5+T86IRvv+q3xP+Kl+NA35vk\u002fqRpXJCoOBUBvlabRj28JQOPfFET0Ig9A47tQWO5G9j9HzAB1ZKoLQIf4X\u002fmRj\u002fk\u002fXssFJceOFEDjXQXfJbcJQBLuvhY8qwZA9Nn\u002f1BkjE0CpgD8\u002fSFIJQA1EJjylA\u002f8\u002fvCrm5UDTCEBUwfPJMJQFQNMyuzzHYAhATNCrnXy2FUAEd4tPzg8MQICMcQPrxwBAgGfNVs5lEEClDUT5gwQUQIdBX0RHBBBAmStgHc23FUAh6l1cHP4DQFAoV4EB0xBA3XRZs3CaD0DfCuJLO7j8P24EqIMiyfE\u002fCwOteuqT8T9HJ1hWHN8IQAsDrXrqk\u002fE\u002faMkHDS76+T\u002fSs8B32q8AQAsDrXrqk\u002fE\u002fZ5E9GPf0+T8="}},{"label":"score time","ticktext":["0.02","0.04","0.05","0.07","0.09","0.10","0.12","0.13","0.15","0.17"],"tickvals":[0.020562052726745605,0.036791695488823786,0.05302133825090197,0.06925098101298015,0.08548062377505833,0.10171026653713651,0.11793990929921469,0.13416955206129288,0.15039919482337105,0.16662883758544922],"values":{"dtype":"f8","bdata":"KHSZbd+bqj\u002fi7XOGSJujP939Qd1dI6U\u002fDLd4WSKGqj\u002fRGK5PdimrP1HIYIVC+6o\u002f229AkfbjqD8H\u002fuNpDVe6P52DiY+qC6A\u002feM4xGLSYqD+KMiFeOB+cP9i5ffqiu5g\u002fQYJETnPspT\u002fQO12+bN+xP974J38WaLE\u002f\u002fqnLMjpGnj8ojdobgA6+P0w4jGHlU6Q\u002f\u002fzmN4fCItz+4NdJXDIKuPwIyFsP818Q\u002f5V4HIrn6oj+JhVd4vbKjP89RI3t7lZw\u002f6yy8OdPxpD+48DkL3pymP2NpwqiUD6E\u002feQJR71d1qD9nUVySxmmYP1LrNpNDJJU\u002fMF6uU5nQnT9sqv5CUZGwPwAAAAA4DpU\u002fYekZO8qdmD8AAAAAGFTFP6rf3ERec6w\u002fWn2Z6oTXnj\u002fOfZ4DAWiwP9Jj0hkau7A\u002fPy7+dhpVmz\u002fujseoqICgPyElATSXeKo\u002fZQW9TsJYtz8WYfeFB4CxP6+3R6ZoX5s\u002fDZwnyKbFsj\u002fXe0WyQwasP8hUVPTBBqE\u002fGG3lbYqprj9oM7jANpWxP1vcC+Kxp6U\u002fuj9ohijWpj\u002fhpzV0FC+gP7gvm3fF57k\u002fvdH4LhKuoD+YQG8oSdaxP5ZaqGdhLa0\u002f1hmcFsCkpz+rC4duvrShPzkhygKz0qA\u002f\u002ff7h94HKrD8Y4k8XL4igP9iiOFlW1J8\u002fHyvtJXS\u002foT9h0hTYbd+hPyOhNPBsEZw\u002fkXORC\u002f1xpz8Wtd+YzZmvP\u002fbv+vD5Kac\u002fmrMf+f9Ynz9gi5GNIX2iPwfuvVcwKas\u002fWYp+B0hHwz+ZGAaBffGrP6Tj09p\u002ftKo\u002fnFHcBQnVwj8T+N08oemiP+ysMNOJZZs\u002fMwBza4KcpT+R+hyKKPiwPxHlWzHk3qM\u002fWxaqyJ\u002fGsz\u002f9oYcALWCpPx1JtFIi5qM\u002fFZmp6fWMrz\u002fAGV6suQatPw+FhL3ERKg\u002fE112ESw\u002fsD9tpKSzLj+hP7YMhT3FNbE\u002fgkg3L741rT9nJ6\u002fZXeqnP+AMDh4e9aY\u002fgMLaPV30nD+g\u002fIdA2levP8GKWPbM1ps\u002fKNkusxYYoz+HaV5gqEmgP+s\u002fz1eVyJ8\u002fJTwOwAGPnj8="}},{"label":"fit time","ticktext":["0","2","3","5","6","8","9","11","13","14"],"tickvals":[0.29789769649505615,1.8244676060146756,3.351037515534295,4.877607425053915,6.404177334573534,7.930747244093153,9.457317153612774,10.983887063132393,12.510456972652012,14.03702688217163],"values":{"dtype":"f8","bdata":"fDVbJZ9gA0AARO2QQxr+P3JqZpBXev8\u002fNBk0k58iEUDOGVaeJvMTQIbo22+2jAtAzM9whLBeCECK331u4gAcQMKhIvpWE\u002f0\u002fVE0zt\u002fkOAkCITFqz4dj7P8wQCfoVcPg\u002fPIhb63Z+CUAIopXTY\u002f0dQF2TAcoqEyBA\u002fCkjvpz+A0C+mZ0OYSUnQDzX4\u002f+Zlfo\u002fStSO8g8DJUDHWNUj924jQPVkGwMvmytAKxCBK7ae+T\u002f5mmCXjnL1P5DvmANytwFAWqbT6FgPGUBT2+YdGuMFQOciP3NlzgFAJifJJQoh+z\u002fe1C7LVlrqP5A8ipFqHvI\u002fxN+7LIZL+j+eEJBW63sOQE9+PQUfkPE\u002fLajIjKrN6T8rEUaYVXUXQCfCNFERghZAHe2\u002fXTy69z+5CWx1xDoXQO0sZ\u002fb4H\u002f4\u002fogJYl2lE5D9N0z41LWsUQIBy5nSjqBFAXSP\u002fo+fPFUCmw7bLff4lQI3gpl4p19Q\u002fRD+0qiZrJ0Cn3imuRLf\u002fP\u002fTGpr\u002fYvv4\u002fKeYkv3rqAUDpXFvZFb4XQDHHUTBwGQFAfiMXEGxvFUAAAACAwRDTP2NQSKTMtBZA3Qz651q39T\u002frQszkYy8QQKCaPj31EOc\u002fX1j9Ulru5j+DHj\u002fTCvkGQM17N87d+Os\u002fbIxg+iVEEUCsNVCTX6T5P9IKPdL1svg\u002fPllni9gb3j\u002fCHdI\u002fN5b2PwAAAIDBENM\u002frvrME\u002fdlAUDdzf+GXHgKQBtZliICJfI\u002fIZAyuqtw7z\u002f8iolBi5P3P8FScT8H4vw\u002fzk3CNaENKECB9a4YFZAGQChBVKo9IQRAh0mTaGM4IkBl9Nm1GakGQMOcL+j\u002fVfw\u002fgz882LniDEDpskCseBwHQKyYK++N+wpAAAAAMPUSLECSaloMDKQDQKKmuXG4EdY\u002f6GBgqJ\u002f6EUB\u002ffFur+cMjQDvxO0U1VgZAs14Odvl+E0DqZF2NYBn8P9zP0+OT8\u002fg\u002fDh0cnaoDEkD\u002fYMQkWCkAQHxlH4DAlPI\u002fm2uAh82I8j+embccDlX+P8qlZtGlA\u002fQ\u002f1NO8LC0eA0DH4KshUfn9PxM2AgBsn\u002fE\u002fuGI9ESd39z8="}},{"label":"score","ticktext":["0.61","0.65","0.69","0.73","0.77","0.81","0.85","0.90","0.94","0.98"],"tickvals":[0.605896937867263,0.6472125470696695,0.688528156272076,0.7298437654744825,0.771159374676889,0.8124749838792955,0.853790593081702,0.8951062022841085,0.936421811486515,0.9777374206889216],"values":{"dtype":"f8","bdata":"4uW9\u002fJ9J7z\u002fJEHNme0PvPxQ0R75SQ+8\u002fIn2DfEFD7z+ByXuvpULvP6Y8QspBQe8\u002fJo3EXig97z\u002fWot3IhTvvP6jAlrWSOO8\u002fMQqf1f427z8uYXAP+zTvP+r5tkW5LO8\u002fHj+QUKwr7z+PLpNewCnvPxtwvRlzJu8\u002f1Jty\u002fP4l7z9mMdBlIiLvP0bOdaiIIO8\u002fkENbCZQb7z+CA5HuBBnvPyIhq4VWEu8\u002fWJtRQzoP7z9ykR0NaPvuPwaU1nfV+u4\u002f6rjHNcH47j8m\u002f6eDIfLuP3qBp4Xs8O4\u002fVH4Aibvt7j9C3jAj5unuP0dTKXc20+4\u002fzJ0QqoHO7j+SyQsgdMvuP6rVQS2zyO4\u002fpDY46Z3H7j+3XuzNy8TuP8Ubo+Wqre4\u002f6DDJFhah7j9U6dgYJqDuPxhZIGwIl+4\u002fYKKbKUqT7j+8wi7oE43uPxkLsdXtiu4\u002fBvOQ1XCH7j9UKSHlp4PuP15pPPOjdu4\u002f3JDx1r1v7j\u002fLUBEGfW\u002fuP7mFs80Xb+4\u002fOBw8X6Np7j92c4OJkWnuP8txMJBoZO4\u002f5omc6P5b7j+UHEuQ+lTuPwv7cwzTU+4\u002frtjPgCVR7j98soMp0EvuP\u002fcHjU3kIu4\u002fhK04rpIi7j96fRl\u002fph\u002fuP2OKTeV1H+4\u002f8OMKun0N7j\u002f2T9KKWvLtP5bjJewwyu0\u002frsZan77G7T+8HB2nZ7DtP4T6QTXFqO0\u002f8i8NYTWU7T+Q1DELv0btP0iY5zR3Le0\u002fgOQSLgkn7T8eHuPuaiTtP9Lnj2g94Ow\u002fril6aWHU7D9U3rO09cjsP4zznPvFuuw\u002fHNqr3VOo7D+FJCFRuljsP4+SOvpzTew\u002fnTQoxHZB7D8CopyS3znsP\u002faH7pVjL+w\u002fguo6huUa7D8uUHkXqdfrPzwep0J2yus\u002f8Dxi5obH6z8ilsk9cn\u002frP0puKQRPN+s\u002fxONmVvwv6z8Mw+VCei7rP\u002fx8BFec\u002fOo\u002fRtSuMNm86j+PoB+1J7fqP9T2Ww3Jquo\u002foMCXbVek6j\u002fKDOw3eULqP7ZCOvAuDOo\u002f1TGzWiDT6T8u7TTc8GnpPwmpEIfuTuU\u002ftF2c+YFj4z8="}}],"labelangle":15,"labelside":"top","line":{"color":{"dtype":"f8","bdata":"4uW9\u002fJ9J7z\u002fJEHNme0PvPxQ0R75SQ+8\u002fIn2DfEFD7z+ByXuvpULvP6Y8QspBQe8\u002fJo3EXig97z\u002fWot3IhTvvP6jAlrWSOO8\u002fMQqf1f427z8uYXAP+zTvP+r5tkW5LO8\u002fHj+QUKwr7z+PLpNewCnvPxtwvRlzJu8\u002f1Jty\u002fP4l7z9mMdBlIiLvP0bOdaiIIO8\u002fkENbCZQb7z+CA5HuBBnvPyIhq4VWEu8\u002fWJtRQzoP7z9ykR0NaPvuPwaU1nfV+u4\u002f6rjHNcH47j8m\u002f6eDIfLuP3qBp4Xs8O4\u002fVH4Aibvt7j9C3jAj5unuP0dTKXc20+4\u002fzJ0QqoHO7j+SyQsgdMvuP6rVQS2zyO4\u002fpDY46Z3H7j+3XuzNy8TuP8Ubo+Wqre4\u002f6DDJFhah7j9U6dgYJqDuPxhZIGwIl+4\u002fYKKbKUqT7j+8wi7oE43uPxkLsdXtiu4\u002fBvOQ1XCH7j9UKSHlp4PuP15pPPOjdu4\u002f3JDx1r1v7j\u002fLUBEGfW\u002fuP7mFs80Xb+4\u002fOBw8X6Np7j92c4OJkWnuP8txMJBoZO4\u002f5omc6P5b7j+UHEuQ+lTuPwv7cwzTU+4\u002frtjPgCVR7j98soMp0EvuP\u002fcHjU3kIu4\u002fhK04rpIi7j96fRl\u002fph\u002fuP2OKTeV1H+4\u002f8OMKun0N7j\u002f2T9KKWvLtP5bjJewwyu0\u002frsZan77G7T+8HB2nZ7DtP4T6QTXFqO0\u002f8i8NYTWU7T+Q1DELv0btP0iY5zR3Le0\u002fgOQSLgkn7T8eHuPuaiTtP9Lnj2g94Ow\u002fril6aWHU7D9U3rO09cjsP4zznPvFuuw\u002fHNqr3VOo7D+FJCFRuljsP4+SOvpzTew\u002fnTQoxHZB7D8CopyS3znsP\u002faH7pVjL+w\u002fguo6huUa7D8uUHkXqdfrPzwep0J2yus\u002f8Dxi5obH6z8ilsk9cn\u002frP0puKQRPN+s\u002fxONmVvwv6z8Mw+VCei7rP\u002fx8BFec\u002fOo\u002fRtSuMNm86j+PoB+1J7fqP9T2Ww3Jquo\u002foMCXbVek6j\u002fKDOw3eULqP7ZCOvAuDOo\u002f1TGzWiDT6T8u7TTc8GnpPwmpEIfuTuU\u002ftF2c+YFj4z8="},"colorbar":{"title":{"text":"score"}},"colorscale":[[0.0,"rgb(0,0,255)"],[1.0,"rgb(255,0,0)"]],"showscale":true},"type":"parcoords"}],                        {"font":{"size":18},"margin":{"l":200},"template":{"data":{"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"choropleth":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"choropleth"}],"contourcarpet":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"contourcarpet"}],"contour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"contour"}],"heatmap":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"heatmap"}],"histogram2dcontour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2dcontour"}],"histogram2d":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2d"}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"mesh3d":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"mesh3d"}],"parcoords":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"parcoords"}],"pie":[{"automargin":true,"type":"pie"}],"scatter3d":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatter3d"}],"scattercarpet":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattercarpet"}],"scattergeo":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergeo"}],"scattergl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergl"}],"scattermapbox":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattermapbox"}],"scattermap":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattermap"}],"scatterpolargl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolargl"}],"scatterpolar":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolar"}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"scatterternary":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterternary"}],"surface":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"surface"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}]},"layout":{"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"autotypenumbers":"strict","coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]],"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]},"colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"geo":{"bgcolor":"white","lakecolor":"white","landcolor":"#E5ECF6","showlakes":true,"showland":true,"subunitcolor":"white"},"hoverlabel":{"align":"left"},"hovermode":"closest","mapbox":{"style":"light"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"bgcolor":"#E5ECF6","radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","gridwidth":2,"linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white"},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","gridwidth":2,"linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white"},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","gridwidth":2,"linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white"}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"ternary":{"aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"bgcolor":"#E5ECF6","caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"title":{"x":0.05},"xaxis":{"automargin":true,"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","zerolinewidth":2},"yaxis":{"automargin":true,"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","zerolinewidth":2}}}},                        {"responsive": true}                    ).then(function(){
+                            
+var gd = document.getElementById('0da6e5ad-7a35-4b90-bb7b-f03dbdf60f36');
+var x = new MutationObserver(function (mutations, observer) {{
+        var display = window.getComputedStyle(gd).display;
+        if (!display || display === 'none') {{
+            console.log([gd, 'removed!']);
+            Plotly.purge(gd);
+            observer.disconnect();
+        }}
+}});
+
+// Listen for the removal of the full notebook cells
+var notebookContainer = gd.closest('#notebook-container');
+if (notebookContainer) {{
+    x.observe(notebookContainer, {childList: true});
+}}
+
+// Listen for the clearing of the current output cell
+var outputEl = gd.closest('.output');
+if (outputEl) {{
+    x.observe(outputEl, {childList: true});
+}}
+
+                        })                };            </script>        </div>
+</div>
+</div>
+</section></section>
+<section>
+<section id="resources-and-contacts" class="title-slide slide level1 center">
+<h1>Resources and contacts</h1>
+
+</section>
+<section id="examples-and-guides" class="slide level2">
+<h2>Examples and guides</h2>
+<ul>
+<li>Skrub <a href="https://skrub-data.org/stable/auto_examples/data_ops/index.html">example gallery</a></li>
+<li>Skrub <a href="https://skrub-data.org/stable/documentation.html">user guide</a></li>
+<li><a href="https://github.com/skrub-data/EuroSciPy2025">Tutorial</a> on timeseries forecasting at Euroscipy 2025</li>
+<li><a href="https://www.kaggle.com/code/ryye107/titanic-challenge-with-the-skrub-data-ops">Kaggle notebook</a> on the Titanic survival challenge</li>
+</ul>
+</section>
+<section id="getting-involved" class="slide level2 smaller">
+<h2>Getting involved</h2>
+<p>Do you want to learn more?</p>
+<ul>
+<li><a href="https://skrub-data.org/stable/">Skrub website</a></li>
+<li><a href="https://skrub-data.org/skrub-materials/index.html">Skrub materials website</a></li>
+<li><a href="https://discord.gg/ABaPnm7fDC">Discord server</a></li>
+</ul>
+<p>Follow skrub on:</p>
+<ul>
+<li><a href="https://bsky.app/profile/skrub-data.bsky.social">Bluesky</a></li>
+<li><a href="https://www.linkedin.com/company/skrub-data/">LinkedIn</a></li>
+</ul>
+<p>Star skrub on GitHub, or contribute directly:</p>
+<ul>
+<li><a href="https://github.com/skrub-data/skrub/">GitHub repository</a></li>
+</ul>
+</section></section>
+<section>
+<section id="contributing-to-skrub-open-issues" class="title-slide slide level1 center">
+<h1>Contributing to skrub: open issues</h1>
+<p><strong><a href="https://github.com/orgs/skrub-data/projects/9/">GitHub project</a></strong></p>
+</section>
+<section id="before-you-start-working-on-an-issue" class="slide level2">
+<h2>Before you start working on an issue</h2>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Important</strong></p>
+</div>
+<div class="callout-content">
+<p>Write a comment on the issue so we know you’re working on it.</p>
+</div>
+</div>
+</div>
+<p>We want to avoid having multiple people working on the same issue in separate PRs.</p>
+</section>
+<section id="legend" class="slide level2">
+<h2>Legend:</h2>
+<ul>
+<li>😴 : easy issue</li>
+<li>🍁 : some complexity</li>
+<li>👺 : hard problem</li>
+<li>🏃‍♀️ : quick to solve</li>
+<li>🛌 : likely will take a while</li>
+<li>🐈 : docs, need to deal with Sphinx</li>
+</ul>
+</section>
+<section id="tablereport" class="slide level2 smaller">
+<h2><code>TableReport</code></h2>
+<ul>
+<li><a href="https://github.com/skrub-data/skrub/issues/1175">#1175</a> - Better control over the <code>TableReport</code>’s progress display. 👺 🛌</li>
+<li><a href="https://github.com/skrub-data/skrub/issues/1523">#1523</a> - Fix the behavior of the <code>TableReport</code> when <code>max_plot_columns</code> is set to <code>None</code>. 🍁 🏃</li>
+<li><a href="https://github.com/skrub-data/skrub/issues/1178">#1178</a> - Shuffle the rows of the <code>TableReport</code> example in the home page. 😴 🏃</li>
+</ul>
+</section>
+<section id="new-transformers" class="slide level2 smaller">
+<h2>New transformers</h2>
+<ul>
+<li><a href="https://github.com/skrub-data/skrub/issues/1001">#1001</a> - Add a <code>DropSimilar</code> transformer. 👺 🛌</li>
+<li><a href="https://github.com/skrub-data/skrub/issues/710">#710</a> - Add holidays as features. 👺 🛌</li>
+<li><a href="https://github.com/skrub-data/skrub/issues/1677">#1677</a> - Make a public <code>ToFloat</code>.🍁 🛌</li>
+<li><a href="https://github.com/skrub-data/skrub/issues/1542">#1542</a> - Add a transformer that parses string columns that include units (kg, $ etc). 👺 🛌</li>
+<li><a href="https://github.com/skrub-data/skrub/issues/1430">#1430</a> - Extend <code>ToDatetime</code> so that it can take a list of datetime formats. 🍁 🛌</li>
+</ul>
+</section>
+<section id="bugfixes-and-maintenance" class="slide level2 smaller">
+<h2>Bugfixes and maintenance</h2>
+<ul>
+<li><a href="https://github.com/skrub-data/skrub/issues/1675">#1675</a> - Improve error message when the <code>TableReport</code> receives a lazy Polars dataframe. 😴 🏃</li>
+<li><a href="https://github.com/skrub-data/skrub/issues/1665">#1665</a> - Remove <code>black</code> from the project. 😴 🏃</li>
+<li><a href="https://github.com/skrub-data/skrub/issues/1490">#1490</a> - Cleaner fails when there is an empty polars column name. 👺 🏃</li>
+</ul>
+</section>
+<section id="documentation" class="slide level2 smaller">
+<h2>Documentation</h2>
+<ul>
+<li><a href="https://github.com/skrub-data/skrub/issues/1476">#1476</a> - DOC: add an example dedicated to showing the features of the <code>TableReport</code>. 🍁 🛌🐈</li>
+<li><a href="https://github.com/skrub-data/skrub/issues/991">#991</a> - Move the dev docs of the <code>TableReport</code> to the main documentation page. 🍁🐈</li>
+<li><a href="https://github.com/skrub-data/skrub/issues/1582">#1582</a> - Reorganize the “Development” section in the top bar. 👺 🛌🐈</li>
+<li><a href="https://github.com/skrub-data/skrub/issues/1425">#1425</a> - Shorten the note on the single-column transformer. 😴 🏃</li>
+<li><a href="https://github.com/skrub-data/skrub/issues/1660">#1660</a> - Add different doc versions to the switcher. 🍁🐈 🏃</li>
+<li><a href="https://github.com/skrub-data/skrub/issues/1616">#1616</a> - Change the numbering of examples. 😴🐈 🏃</li>
+</ul>
+</section>
+<section id="examples" class="slide level2 smaller">
+<h2>Examples</h2>
+<ul>
+<li><a href="https://github.com/skrub-data/skrub/issues/1629">#1629</a> - Add an example for the <code>DatetimeEncoder</code>. 👺 🛌🐈</li>
+<li><a href="https://github.com/skrub-data/skrub/issues/1234">#1234</a> - Shuffle the toxicity dataset in the example. 😴 🏃</li>
+<li>Any example you can come up with!</li>
+</ul>
+</section></section>
+<section>
+<section id="contributing-to-skrub-preparation" class="title-slide slide level1 center">
+<h1>Contributing to skrub: preparation</h1>
+<p>Instructions are also available in the Installation page of the webiste: <code>https://skrub-data.org/stable/install.html</code></p>
+</section>
+<section id="setting-up-the-repository" class="slide level2 smaller">
+<h2>Setting up the repository</h2>
+<p>First off, you need to fork the skrub repository: <code>https://github.com/skrub-data/skrub/fork</code></p>
+<p>Then, clone the repo on your local machine</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a></a><span class="fu">git</span> clone https://github.com/<span class="op">&lt;</span>YOUR_USERNAME<span class="op">&gt;</span>/skrub</span>
+<span id="cb24-2"><a></a><span class="bu">cd</span> skrub</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Add the <code>upstream</code> remote to pull the latest version of skrub:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a></a><span class="fu">git</span> remote add upstream https://github.com/skrub-data/skrub.git</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>You can check that the remote has been added with <code>git remote -v</code>.</p>
+</section>
+<section id="setting-up-the-environment" class="slide level2 smaller">
+<h2>Setting up the environment</h2>
+<p>Depends on the tools you use!</p>
+<p>From inside the skrub directory you just cloned:</p>
+<div class="panel-tabset">
+<ul id="tabset-4" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-4-1">venv</a></li><li><a href="#tabset-4-2">uv</a></li><li><a href="#tabset-4-3">conda</a></li><li><a href="#tabset-4-4">pixi</a></li></ul>
+<div class="tab-content">
+<div id="tabset-4-1">
+<ul>
+<li>Create the venv (in the current dir):</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a></a><span class="ex">python</span> <span class="at">-m</span> venv dev-skrub</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li>Activate the venv:</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a></a><span class="bu">source</span> dev-skrub/bin/activate</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li>Install skrub and dependencies:</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a></a><span class="ex">pip</span> install <span class="at">-e</span> <span class="st">".[dev]"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="tabset-4-2">
+<ul>
+<li>Create the venv (in the current dir):</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a></a><span class="ex">uv</span> venv dev-skrub </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li>Activate the venv:</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a></a><span class="bu">source</span> activate </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li>Install skrub and dev dependencies:</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><a></a><span class="ex">uv</span> pip install <span class="at">-e</span> <span class="st">".[dev]"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="tabset-4-3">
+<ul>
+<li>Create the conda environment:</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a></a><span class="ex">conda</span> create <span class="at">-n</span> dev-skrub</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li>Activate the enviornment</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb33-1"><a></a><span class="ex">conda</span> activate dev-skrub</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li>Install skrub and dependencies:</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb34-1"><a></a><span class="ex">pip</span> install <span class="at">-e</span> <span class="st">".[dev]"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="tabset-4-4">
+<ul>
+<li>Install pixi: <code>https://pixi.sh/latest/installation/</code></li>
+<li>Go to the skrub folder</li>
+<li>Install an environment:</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb35-1"><a></a><span class="ex">pixi</span> install dev</span>
+<span id="cb35-2"><a></a><span class="co"># activate dev from IDE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li>Run a command in a specific environment:</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb36-1"><a></a><span class="ex">pixi</span> run <span class="at">-e</span> ci-py309-min-deps COMMAND</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li>Spawn a shell with the given env:</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb37-1"><a></a><span class="ex">pixi</span> shell <span class="at">-e</span> ci-latest-optional-deps</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p>My recommendation: use pixi!</p>
+</div>
+</section>
+<section id="note-on-the-pixi.lock-file" class="slide level2">
+<h2>Note on the <code>pixi.lock</code> file</h2>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Important</strong></p>
+</div>
+<div class="callout-content">
+<p>If you use pixi, it may happen that the <code>pixi.lock</code> file will be updated as you run commands.</p>
+<p><strong>Revert</strong> changes to this file before adding files and pushing upstream.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="running-tests" class="slide level2 smaller">
+<h2>Running tests</h2>
+<div class="panel-tabset">
+<ul id="tabset-5" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-5-1">Using environments</a></li><li><a href="#tabset-5-2">With pixi</a></li></ul>
+<div class="tab-content">
+<div id="tabset-5-1">
+<p>From inside the root skrub folder, and after activating the environment</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb38-1"><a></a><span class="ex">pytest</span> <span class="at">--pyargs</span> skrub</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="tabset-5-2">
+<p>Run all tests (you will be prompted to choose an env):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb39"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb39-1"><a></a><span class="ex">pixi</span> run test</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Run tests in a specific env</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb40"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb40-1"><a></a><span class="ex">pixi</span> run <span class="at">-e</span> dev test</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+</section>
+<section id="running-tests-1" class="slide level2">
+<h2>Running tests</h2>
+<p>Tests are stored in <code>skrub/tests</code>, or in a <code>tests</code> subfolder.</p>
+<p>It is possible to run specific tests by providing a path. To test <code>TableVectorizer</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb41"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb41-1"><a></a><span class="ex">pytest</span> <span class="at">-vsl</span> skrub/tests/test_table_vectorizer.py </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>-vsl</code> prints out more information compared to the default.</p>
+</section>
+<section id="working-on-the-documentation" class="slide level2 smaller">
+<h2>Working on the documentation</h2>
+<p>Docs are written in RST and use the <a href="https://www.sphinx-doc.org/en/master/index.html">Sphinx library</a> for rendering, cross-references and everything else.</p>
+<div class="panel-tabset">
+<ul id="tabset-6" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-6-1">From environment</a></li><li><a href="#tabset-6-2">With pixi</a></li></ul>
+<div class="tab-content">
+<div id="tabset-6-1">
+<p>Build the doc from the <code>doc</code> folder using:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb42"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb42-1"><a></a><span class="co"># Build the full documentation, including examples</span></span>
+<span id="cb42-2"><a></a><span class="fu">make</span> html</span>
+<span id="cb42-3"><a></a></span>
+<span id="cb42-4"><a></a><span class="co"># Build documentation without running examples (faster)</span></span>
+<span id="cb42-5"><a></a><span class="fu">make</span> html-noplot</span>
+<span id="cb42-6"><a></a></span>
+<span id="cb42-7"><a></a><span class="co"># Clean previously built documentation</span></span>
+<span id="cb42-8"><a></a><span class="fu">make</span> clean</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="tabset-6-2">
+<p>From the skrub root folder (where <code>pyproject.toml</code> is):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb43"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb43-1"><a></a><span class="co"># Build the full documentation, including examples</span></span>
+<span id="cb43-2"><a></a><span class="ex">pixi</span> run build-doc</span>
+<span id="cb43-3"><a></a></span>
+<span id="cb43-4"><a></a><span class="co"># Build documentation without running examples (faster)</span></span>
+<span id="cb43-5"><a></a><span class="ex">pixi</span> run build-doc-quick</span>
+<span id="cb43-6"><a></a></span>
+<span id="cb43-7"><a></a><span class="co"># Clean previously built documentation</span></span>
+<span id="cb43-8"><a></a><span class="ex">pixi</span> run clean-doc</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+<p>After rendering the docs, open the <code>doc/_build/html/index.html</code> file with a browser.</p>
+</section>
+<section id="writing-an-example" class="slide level2">
+<h2>Writing an example</h2>
+<p>Full guide: <code>https://skrub-data.org/stable/tutorial_example.html</code></p>
+</section>
+<section id="opening-a-pr-and-contributing-upstream" class="slide level2 smaller">
+<h2>Opening a PR and contributing upstream</h2>
+<p>More detail is available on the main website: <code>https://skrub-data.org/stable/CONTRIBUTING.html</code></p>
+<p>Start by creating a branch:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb44"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb44-1"><a></a><span class="co"># fetch latest updates and start from the current head</span></span>
+<span id="cb44-2"><a></a><span class="fu">git</span> fetch upstream</span>
+<span id="cb44-3"><a></a><span class="fu">git</span> checkout <span class="at">-b</span> my-branch-name-eg-fix-issue-123</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Make some changes, then:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb45"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb45-1"><a></a><span class="fu">git</span> add ./the/file-i-changed</span>
+<span id="cb45-2"><a></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"my message"</span></span>
+<span id="cb45-3"><a></a><span class="fu">git</span> push <span class="at">--set-upstream</span> origin my-branch-name-eg-fix-issue-123</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>At this point, visit the GitHub PR page and open a PR from there: <code>https://github.com/skrub-data/skrub/pulls</code></p>
+</section>
+<section id="code-formatting-and-pre-commit" class="slide level2 smaller">
+<h2>Code formatting and <code>pre-commit</code></h2>
+<p>Formatting is enforced though pre-commit checks.</p>
+<div class="panel-tabset">
+<ul id="tabset-7" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-7-1">From environment</a></li></ul>
+<div class="tab-content">
+<div id="tabset-7-1">
+<ul>
+<li>Make sure <code>pre-commit</code> is installed in the environment and the folder</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb46"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb46-1"><a></a><span class="ex">pre-commit</span> install</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li>If missing, install it with <code>pip</code></li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb47"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb47-1"><a></a><span class="ex">pip</span> install pre-commit</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Then, add modified files and run pre-commit on them.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb48"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb48-1"><a></a><span class="fu">git</span> add YOUR_FILE</span>
+<span id="cb48-2"><a></a><span class="ex">pre-commit</span></span>
+<span id="cb48-3"><a></a><span class="co"># if the file has been formatted, add again</span></span>
+<span id="cb48-4"><a></a><span class="fu">git</span> add YOUR_FILE</span>
+<span id="cb48-5"><a></a><span class="co"># commit the changes</span></span>
+<span id="cb48-6"><a></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"MY COMMIT MESSAGE"</span></span>
+<span id="cb48-7"><a></a><span class="co"># pre-commit will run again automatically</span></span>
+<span id="cb48-8"><a></a><span class="co"># push the  commit</span></span>
+<span id="cb48-9"><a></a><span class="fu">git</span> push</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+<h3 id="pixi-1">Pixi</h3>
+<p>If you’re working entirely with pixi:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb49"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb49-1"><a></a><span class="fu">git</span> add YOUR_FILE</span>
+<span id="cb49-2"><a></a><span class="ex">pixi</span> run lint</span>
+<span id="cb49-3"><a></a><span class="co"># if the file has been formatted, add again</span></span>
+<span id="cb49-4"><a></a><span class="fu">git</span> add YOUR_FILE</span>
+<span id="cb49-5"><a></a><span class="co"># commit the changes</span></span>
+<span id="cb49-6"><a></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"MY COMMIT MESSAGE"</span></span>
+<span id="cb49-7"><a></a><span class="co"># pre-commit will run again automatically</span></span>
+<span id="cb49-8"><a></a><span class="co"># push the  commit</span></span>
+<span id="cb49-9"><a></a><span class="fu">git</span> push</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>:::</p>
+</section>
+<section id="where-to-find-this-presentation" class="slide level2">
+<h2>Where to find this presentation</h2>
+<div class="columns">
+<div class="column">
+<p>TODO: change this with the proper QR code <img data-src="images/qr-code-github-project.png"></p>
+</div><div class="column">
+<p>GitHub project tracking the issues <img data-src="images/qr-code-github-project.png"></p>
+</div></div>
+
+
+</section></section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<p><img src="images/skrub.svg" class="slide-logo"></p>
+<div class="footer footer-default">
+<p>https://skrub-data.org/skrub-materials/</p>
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="../../../site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="../../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="../../../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': true,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'slide',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp("https:\/\/skrub-data\.org\/skrub-materials\/");
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>

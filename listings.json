@@ -2,6 +2,7 @@
   {
     "listing": "/pages/slides/index_slides.html",
     "items": [
+      "/pages/slides/sprint-wimlds-2025/slides.html",
       "/pages/slides/p16-day-2025/slides.html",
       "/pages/slides/pydata-2025/slides.html",
       "/pages/slides/talk-edf/slides.html",
@@ -17,6 +18,7 @@
     "listing": "/pages/listings.html",
     "items": [
       "/pages/notebooks/categorical-encoders/categorical-encoders.html",
+      "/pages/slides/sprint-wimlds-2025/slides.html",
       "/pages/slides/p16-day-2025/slides.html",
       "/pages/slides/pydata-2025/slides.html",
       "/pages/slides/talk-edf/slides.html",
