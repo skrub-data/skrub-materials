@@ -866,8 +866,6 @@ git commit -m "MY COMMIT MESSAGE"
 # push the  commit
 git push
 ```
-:::
-
 
 ### Pixi
 If you're working entirely with pixi:
