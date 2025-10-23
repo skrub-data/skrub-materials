@@ -888,8 +888,8 @@ git push
 ::: {.columns}
 ::: {.column}
 
-TODO: change this with the proper QR code
-![](images/qr-code-github-project.png)
+Link to these slides
+![](images/qr-code-slides.png)
 
 :::
 ::: {.column}
