@@ -2,66 +2,70 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://skrub-data.org/skrub-materials/pages/notebooks/categorical-encoders/categorical-encoders.html</loc>
-    <lastmod>2025-10-23T12:47:35.261Z</lastmod>
+    <lastmod>2025-11-18T16:13:57.807Z</lastmod>
   </url>
   <url>
     <loc>https://skrub-data.org/skrub-materials/pages/notebooks/skrub-intro/skrub-intro.html</loc>
-    <lastmod>2025-10-23T12:47:35.270Z</lastmod>
+    <lastmod>2025-11-18T16:13:57.816Z</lastmod>
   </url>
   <url>
     <loc>https://skrub-data.org/skrub-materials/pages/slides/index_slides.html</loc>
-    <lastmod>2025-10-23T12:47:35.317Z</lastmod>
-  </url>
-  <url>
-    <loc>https://skrub-data.org/skrub-materials/pages/slides/sprint-wimlds-2025/slides.html</loc>
-    <lastmod>2025-10-23T12:47:35.697Z</lastmod>
-  </url>
-  <url>
-    <loc>https://skrub-data.org/skrub-materials/pages/slides/p16-day-2025/slides.html</loc>
-    <lastmod>2025-10-23T12:47:35.383Z</lastmod>
-  </url>
-  <url>
-    <loc>https://skrub-data.org/skrub-materials/pages/slides/skrub-retrieve-merge-predict/skrub-retrieve-merge-predict.html</loc>
-    <lastmod>2025-10-23T12:47:35.589Z</lastmod>
-  </url>
-  <url>
-    <loc>https://skrub-data.org/skrub-materials/pages/slides/soda-kickoff/slides.html</loc>
-    <lastmod>2025-10-23T12:47:35.657Z</lastmod>
-  </url>
-  <url>
-    <loc>https://skrub-data.org/skrub-materials/pages/slides/discover/discover.html</loc>
-    <lastmod>2025-10-23T12:47:35.272Z</lastmod>
-  </url>
-  <url>
-    <loc>https://skrub-data.org/skrub-materials/index.html</loc>
-    <lastmod>2025-10-23T12:47:35.256Z</lastmod>
-  </url>
-  <url>
-    <loc>https://skrub-data.org/skrub-materials/pages/slides/skrub-intro/skrub-intro.html</loc>
-    <lastmod>2025-10-23T12:47:35.555Z</lastmod>
-  </url>
-  <url>
-    <loc>https://skrub-data.org/skrub-materials/pages/slides/talk-edf/slides.html</loc>
-    <lastmod>2025-10-23T12:47:35.740Z</lastmod>
-  </url>
-  <url>
-    <loc>https://skrub-data.org/skrub-materials/pages/slides/expressions/expressions.html</loc>
-    <lastmod>2025-10-23T12:47:35.285Z</lastmod>
-  </url>
-  <url>
-    <loc>https://skrub-data.org/skrub-materials/pages/slides/pydata-2025/slides.html</loc>
-    <lastmod>2025-10-23T12:47:35.506Z</lastmod>
+    <lastmod>2025-11-18T16:13:57.863Z</lastmod>
   </url>
   <url>
     <loc>https://skrub-data.org/skrub-materials/pages/slides/probabl-sprint-july-2025/slides.html</loc>
-    <lastmod>2025-10-23T12:47:35.449Z</lastmod>
+    <lastmod>2025-11-18T16:13:57.986Z</lastmod>
+  </url>
+  <url>
+    <loc>https://skrub-data.org/skrub-materials/pages/slides/pydata-2025/slides.html</loc>
+    <lastmod>2025-11-18T16:13:58.044Z</lastmod>
+  </url>
+  <url>
+    <loc>https://skrub-data.org/skrub-materials/pages/slides/expressions/expressions.html</loc>
+    <lastmod>2025-11-18T16:13:57.831Z</lastmod>
+  </url>
+  <url>
+    <loc>https://skrub-data.org/skrub-materials/pages/slides/talk-edf/slides.html</loc>
+    <lastmod>2025-11-18T16:13:58.278Z</lastmod>
+  </url>
+  <url>
+    <loc>https://skrub-data.org/skrub-materials/pages/slides/skrub-intro/skrub-intro.html</loc>
+    <lastmod>2025-11-18T16:13:58.093Z</lastmod>
+  </url>
+  <url>
+    <loc>https://skrub-data.org/skrub-materials/index.html</loc>
+    <lastmod>2025-11-18T16:13:57.802Z</lastmod>
+  </url>
+  <url>
+    <loc>https://skrub-data.org/skrub-materials/pages/slides/discover/discover.html</loc>
+    <lastmod>2025-11-18T16:13:57.818Z</lastmod>
+  </url>
+  <url>
+    <loc>https://skrub-data.org/skrub-materials/pages/slides/soda-kickoff/slides.html</loc>
+    <lastmod>2025-11-18T16:13:58.195Z</lastmod>
+  </url>
+  <url>
+    <loc>https://skrub-data.org/skrub-materials/pages/slides/skrub-retrieve-merge-predict/skrub-retrieve-merge-predict.html</loc>
+    <lastmod>2025-11-18T16:13:58.126Z</lastmod>
+  </url>
+  <url>
+    <loc>https://skrub-data.org/skrub-materials/pages/slides/p16-day-2025/slides.html</loc>
+    <lastmod>2025-11-18T16:13:57.921Z</lastmod>
+  </url>
+  <url>
+    <loc>https://skrub-data.org/skrub-materials/pages/slides/sprint-wimlds-2025/slides.html</loc>
+    <lastmod>2025-11-18T16:13:58.235Z</lastmod>
+  </url>
+  <url>
+    <loc>https://skrub-data.org/skrub-materials/pages/slides/talk-framatome/slides.html</loc>
+    <lastmod>2025-11-18T16:13:58.310Z</lastmod>
   </url>
   <url>
     <loc>https://skrub-data.org/skrub-materials/pages/listings.html</loc>
-    <lastmod>2025-10-23T12:47:35.256Z</lastmod>
+    <lastmod>2025-11-18T16:13:57.802Z</lastmod>
   </url>
   <url>
     <loc>https://skrub-data.org/skrub-materials/pages/notebooks/index_notebooks.html</loc>
-    <lastmod>2025-10-23T12:47:35.261Z</lastmod>
+    <lastmod>2025-11-18T16:13:57.807Z</lastmod>
   </url>
 </urlset>
