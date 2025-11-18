@@ -1,0 +1,88 @@
+---
+title: "Skrub @ Framatome"
+title-block-banner: true
+date: 2025-11-18
+subtitle: "Machine learning with dataframes"
+author: "Riccardo Cappuzzo"
+institute: "Inria P16"
+format: 
+    revealjs:
+        slide-number: c/t
+        show-slide-number: all
+        preview-links: auto
+        embed-resources: false
+        transition: slide
+        theme: simple
+        logo: images/skrub.svg
+        css: style.css
+        footer: "https://skrub-data.org/skrub-materials/"
+incremental: false
+params: 
+    version: "base"
+---
+
+{{< include /includes/talk-sections/_introduction-serious.md >}}
+
+{{< include /includes/talk-sections/_productivity.md >}}
+
+{{< include /includes/talk-sections/_skrub_compatibility.md >}}
+
+{{< include /includes/talk-sections/_example_pipeline.md >}}
+
+{{< include /includes/preparation/_exploring_base.md >}}
+
+{{< include /includes/preparation/_table_report.md >}}
+
+{{< include /includes/preparation/_data_cleaning_base.md >}}
+
+{{< include /includes/preparation/_data_cleaning_skrub.md >}}
+
+{{< include /includes/encoders/_datetimes_base.md >}}
+
+<!-- {{< include /includes/encoders/_periodic_features_base.md >}} -->
+
+{{< include /includes/encoders/_datetimes_skrub.md >}}
+
+<!-- {{< include /includes/encoders/_periodic_features_skrub.md >}} -->
+
+{{< include /includes/encoders/_squashing_scaler.md >}}
+
+{{< include /includes/encoders/_categorical_encoders.md >}}
+
+{{< include /includes/encoders/_table_vectorizer.md >}}
+
+## Column transformations with `ApplyToCols` {.smaller auto-animate="true"}
+
+![](/images/ApplyToCols.png){fig-align="center"}
+
+{{< include /includes/encoders/_tabular_pipeline_short.md >}}
+
+{{< include /includes/talk-sections/_final_pipeline.md >}}
+
+
+# What if this is not enough? 
+
+
+{{< include /includes/data_ops/_what_if.md >}}
+
+{{< include /includes/data_ops/_data_ops_intro.md >}}
+
+{{< include /includes/data_ops/_data_ops_example.md >}}
+
+{{< include /includes/data_ops/_learner.md >}}
+
+{{< include /includes/data_ops/_full_report.md >}}
+
+{{< include /includes/data_ops/_hpo_short.md >}}
+
+{{< include /includes/data_ops/_parallel_coordinate_plot.md >}}
+
+{{< include /includes/data_ops/_references.md >}}
+
+# Wrapping up
+
+{{< include /includes/talk-sections/_powerpuff.md >}}
+
+{{< include /includes/talk-sections/_getting_involved.md >}}
+
+{{< include /includes/talk-sections/_tldw.md >}}
