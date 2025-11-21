@@ -1,0 +1,845 @@
+---
+title: "Skrub"
+title-block-banner: true
+date: 2025-11-21
+subtitle: "Machine learning with dataframes"
+author: "Riccardo Cappuzzo"
+institute: "Inria P16"
+format: 
+    revealjs:
+        slide-number: c/t
+        show-slide-number: all
+        preview-links: auto
+        embed-resources: false
+        transition: slide
+        theme: simple
+        logo: images/skrub.svg
+        css: style.css
+        footer: "https://skrub-data.org/skrub-materials/"
+incremental: false
+params: 
+    version: "base"
+description: "This slide deck was prepared for a master course in machine learning and data science"
+---
+
+
+## `whoami` 
+
+::: {.incremental}
+
+- I am a research engineer at Inria as part of the SODA team and the P16 project, 
+and I am the lead developer of skrub ![](images/inria.png){width=250}
+
+- I'm Italian, but I don't drink coffee, wine, and I like pizza with fries ![](images/raora.png){width=50}
+
+- I did my PhD in Côte d'Azur, and I moved away because it was too sunny and 
+I don't like the sea ![](images/nice.jpg){width=250}
+
+:::
+
+# Building a predictive pipeline with skrub {auto-animate="true"}
+
+## Premise and warning
+::: {.callout-important}
+This lecture should give you an idea of possible problems you might run into, and 
+how skrub can help you deal with (some of) them. The idea is giving you material
+you can refer back to if you encounter the same issue later on. 
+:::
+
+
+{{< include /includes/talk-sections/_skrub_compatibility.md >}}
+{{< include /includes/talk-sections/_example_pipeline.md >}}
+
+## Gathering the data: reading files, parsing dtypes
+
+## What happens if pandas parses this? {.smaller auto-animate="true"}
+```{python}
+import os
+
+project_root = os.environ.get("QUARTO_PROJECT_DIR", ".")
+file_path = os.path.join(project_root, "resources", "csv-with-comma.csv")
+
+with open(file_path) as fp:
+    for line in fp.readlines():
+        print(line, end="")
+
+```
+
+
+## What happens if pandas parses this? {.smaller auto-animate="true"}
+```{python}
+#| echo: true
+
+import pandas as pd
+pd.read_csv(file_path)
+```
+
+
+## How about now? {.smaller auto-animate="true"}
+
+```{python}
+import os
+
+project_root = os.environ.get("QUARTO_PROJECT_DIR", ".")
+file_path = os.path.join(project_root, "resources", "csv-without-comma.csv")
+
+with open(file_path) as fp:
+    for line in fp.readlines():
+        print(line, end="")
+```
+
+## How about now? {.smaller auto-animate="true"}
+```{python}
+#| echo: true
+
+import pandas as pd
+pd.read_csv(file_path)
+```
+
+## Parsing CSV files is difficult!  
+- CSV files are plain text files and do not store any info besides what you can see.
+- Any information about dtypes is lost.
+- It is very hard to automate discovering the separator (ambiguity is unavoidable).
+- Files cannot be seeked: to get to a line, all the previous lines must be read first.
+- Plain text is uncompressed and can take up a very large amount of space.
+- Adding metadata is difficult and may make parsing harder.
+
+## CSV vs Parquet {.smaller}
+::: {.incremental}
+- [Apache Parquet](https://en.wikipedia.org/wiki/Apache_Parquet) is a binary data 
+storage format that addresses various issues with storing data.
+- Dtypes are well defined and fixed.
+- No separators to deal with: each column is defined in a schema when the parquet
+file is created.
+- Additional metadata can be stored to provide context to the data.
+- Parquet files are seekable: no need to read through the entire thing to get to
+a specific line.
+- Parquet files are compressed, reducing the size by multiple times (depending on
+data)
+- Parquet files **are not human-readable**. CSV files are, but are you really 
+going to manually go through a few million lines of text? 
+:::
+
+## Pandas vs Polars with Parquet
+- Pandas requires additional dependencies to read Parquet files (`pyarrow` or `fastparquet`).
+- Polars supports Parquet files natively and includes additional features that 
+make use of the format. 
+
+
+# Exploring the data
+
+## Exploratory analysis {.smaller}
+Before starting any kind of training, it's important to explore the data:
+
+- How big is the dataset (on disk, in rows/columns etc.)?
+- What kind of datatypes are we dealing with? Anything that needs more attention? 
+- What is the distribution of values in a column?
+- Are there null values? In what columns? 
+- Are there columns that may leak information to my model? 
+- Are there columns that look problematic? (this takes experience)
+
+This is not an exhaustive list! 
+
+## Exploring the data with Pandas: parsing {.smaller auto-animate="true"}
+
+```{python}
+# | echo: true
+import pandas as pd
+import skrub
+from skrub.datasets import fetch_employee_salaries
+
+df = fetch_employee_salaries().X
+df.head(5)
+```
+
+## Exploring the data: describe {.smaller auto-animate="true"}
+```{python}
+#| echo: true
+df.describe(include="all")
+```
+
+## Exploring the data: column info {.smaller auto-animate="true"}
+```{python}
+#| echo: true
+df.info()
+```
+
+## Exploring the data: distributions {.smaller auto-animate="true"}
+```{.python}
+import matplotlib.pyplot as plt
+from pprint import pprint
+
+# Plot the distribution of the numerical values using a histogram
+fig, axs = plt.subplots(2,1, figsize=(10, 6))
+ax1, ax2 = axs
+
+ax1.hist(df['year_first_hired'], bins=30, edgecolor='black', alpha=0.7)
+ax1.set_xlabel('Year first hired')
+ax1.set_ylabel('Frequency')
+ax1.grid(True, linestyle='--', alpha=0.5)
+
+# Count the frequency of each category
+category_counts = df['department'].value_counts()
+
+# Create a bar plot
+category_counts.plot(kind='bar', edgecolor='black', ax=ax2)
+
+# Add labels and title
+ax2.set_xlabel('Department')
+ax2.set_ylabel('Frequency')
+ax2.grid(True, linestyle='--', axis='y', alpha=0.5)  # Add grid lines for y-axis
+
+fig.suptitle("Distribution of values")
+
+# Show the plot
+plt.show()
+```
+
+## Exploring the data: distributions {.smaller auto-animate="true"}
+```{python}
+import matplotlib.pyplot as plt
+from pprint import pprint
+
+# Plot the distribution of the numerical values using a histogram
+fig, axs = plt.subplots(2,1, figsize=(10, 6))
+ax1, ax2 = axs
+
+ax1.hist(df['year_first_hired'], bins=30, edgecolor='black', alpha=0.7)
+ax1.set_xlabel('Year first hired')
+ax1.set_ylabel('Frequency')
+ax1.grid(True, linestyle='--', alpha=0.5)
+
+# Count the frequency of each category
+category_counts = df['department'].value_counts()
+
+# Create a bar plot
+category_counts.plot(kind='bar', edgecolor='black', ax=ax2)
+
+# Add labels and title
+ax2.set_xlabel('Department')
+ax2.set_ylabel('Frequency')
+ax2.grid(True, linestyle='--', axis='y', alpha=0.5)  # Add grid lines for y-axis
+
+fig.suptitle("Distribution of values")
+
+# Show the plot
+plt.show()
+```
+
+{{< include /includes/preparation/_table_report.md >}}
+
+
+## Exploring the data with `skrub` {.smaller auto-animate="true"}
+
+Things to notice: 
+
+- Shape of the dataframe (rows, columns)
+- Dtype of the columns (string, numerical, datetime)
+    - Were dtypes converted properly? 
+- Missing values
+    - Are there columns with many missing values? 
+- Distribution of values
+    - Are there columns with high cardinality? 
+    - Are there outliers? 
+    - Are there columns with imbalanced distributions? 
+- Column associations
+    - Are there correlated columns? 
+
+# Pre-processing
+{{< include /includes/preparation/_data_cleaning_base.md >}}
+{{< include /includes/preparation/_data_cleaning_skrub.md >}}
+
+## Cleaning `employee_salaries` {auto-animate="true"}
+```{python}
+# | echo: true
+df = fetch_employee_salaries().X
+df.info()
+```
+
+## Cleaning `employee_salaries` {auto-animate="true"}
+```{python}
+# | echo: true
+cleaned = Cleaner().fit_transform(df)
+cleaned.info()
+```
+
+## The `Cleaner`...
+- Automatically parses numerical values, even if they have string as dtype
+- Tries to parse datetimes, or takes a format from the user 
+- Allows to drop uninformative columns:
+    - All nulls
+    - A single value
+    - All unique values (careful!)
+
+
+# Feature engineering
+{{< include /includes/encoders/_datetimes_base.md >}}
+{{< include /includes/encoders/_periodic_features_base.md >}}
+{{< include /includes/encoders/_datetimes_skrub.md >}}
+{{< include /includes/encoders/_periodic_features_skrub.md >}}
+
+## Scaling numerical features: outliers! 
+```{python}
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+
+np.random.seed(0)  # for reproducibility
+
+values = np.random.rand(100, 1)
+n_outliers = 15
+outlier_indices = np.random.choice(values.shape[0], size=n_outliers, replace=False)
+values[outlier_indices] = np.random.rand(n_outliers, 1) * 100 - 50
+
+x = np.arange(values.shape[0])
+fig, axs = plt.subplots(1, layout="constrained", figsize=(6, 4))
+
+axs.plot(x,values)
+_ = axs.set(
+    title="Feature with outliers",
+    ylabel="value",
+    xlabel="Sample ID"
+    )
+axs.axhspan(-2, 2, color="gray", alpha=0.15)
+
+x_data, y_data = [30, 2]
+desc = "Data is mostly\nin [-2, 2]"
+axs.annotate(
+    desc,
+    xy=(x_data, y_data),
+    xytext=(0.15, 0.8),
+    textcoords="axes fraction",
+    arrowprops=dict(arrowstyle="->", color="red"),
+
+)
+
+x_outlier, y_outlier = np.argmax(values), np.max(values)
+desc = "There are large\noutliers throughout."
+_ = axs.annotate(
+    desc,
+    xy=(x_outlier, y_outlier),
+    xytext=(0.6, 0.85),
+    textcoords="axes fraction",
+    arrowprops=dict(arrowstyle="->", color="red"),
+
+)
+```
+
+
+## Comparing different scalers in presence of outliers
+```{python}
+#| fig-align: center
+from sklearn.preprocessing import QuantileTransformer, RobustScaler, StandardScaler
+from skrub import SquashingScaler
+
+squash_scaler = SquashingScaler()
+squash_scaled = squash_scaler.fit_transform(values)
+
+robust_scaler = RobustScaler()
+robust_scaled = robust_scaler.fit_transform(values)
+
+standard_scaler = StandardScaler()
+standard_scaled = standard_scaler.fit_transform(values)
+
+quantile_transformer = QuantileTransformer(n_quantiles=100)
+quantile_scaled = quantile_transformer.fit_transform(values)
+# %%
+import matplotlib.pyplot as plt
+
+x = np.arange(values.shape[0])
+fig, axs = plt.subplots(1, 2, layout="constrained", figsize=(8, 5))
+
+ax = axs[0]
+ax.plot(x, sorted(values), label="Original Values", linewidth=2.5)
+ax.plot(x, sorted(squash_scaled), label="SquashingScaler")
+ax.plot(x, sorted(robust_scaled), label="RobustScaler", linestyle="--")
+ax.plot(x, sorted(standard_scaled), label="StandardScaler")
+ax.plot(x, sorted(quantile_scaled), label="QuantileTransformer")
+
+# Add a horizontal band in [-4, +4]
+ax.axhspan(-4, 4, color="gray", alpha=0.15)
+ax.set(title="Original data", xlim=[0, values.shape[0]], xlabel="Percentile")
+ax.legend()
+
+ax = axs[1]
+ax.plot(x, sorted(values), label="Original Values", linewidth=2.5)
+ax.plot(x, sorted(squash_scaled), label="SquashingScaler")
+ax.plot(x, sorted(robust_scaled), label="RobustScaler", linestyle="--")
+ax.plot(x, sorted(standard_scaled), label="StandardScaler")
+ax.plot(x, sorted(quantile_scaled), label="QuantileTransformer")
+
+ax.set(ylim=[-4, 4])
+ax.set(title="In range [-4, 4]", xlim=[0, values.shape[0]], xlabel="Percentile")
+
+# Highlight the bounds of the SquashingScaler
+ax.axhline(y=3, alpha=0.2)
+ax.axhline(y=-3, alpha=0.2)
+
+fig.suptitle(
+    "Comparison of different scalers on sorted data with outliers", fontsize=20
+)
+fig.supylabel("Value")
+
+desc = "The RobustScaler is\naffected by outliers"
+axs[0].annotate(
+    desc,
+    xy=(0, -70),
+    xytext=(0.4, 0.2),
+    textcoords="axes fraction",
+    arrowprops=dict(arrowstyle="->", color="red"),
+)
+
+desc = "The SquashingScaler is\nclipped to a finite value"
+_ = axs[1].annotate(
+    desc,
+    xy=(0, -3),
+    xytext=(0.4, 0.2),
+    textcoords="axes fraction",
+    arrowprops=dict(arrowstyle="->", color="red"),
+)
+
+```
+
+## Dealing with categorical features
+- "Categorical features" include all features that belong to "discrete categories". 
+- For example, actual categories (grades, clothing sizes, countries...).
+- Text is also categorical! Any unique string is a category.
+- There may be *many* unique categories. 
+
+How do you deal with that? 
+
+## Basic strategies: `OneHotEncoder` {.smaller auto-animate="true"}
+- The `OneHotEncoder` creates an indicator column for each unique value in a column.
+- Fine if you have few categories, problematic if you have many. 
+
+```{python}
+#| echo: true
+from sklearn.preprocessing import OneHotEncoder
+
+df = fetch_employee_salaries().X
+enc = OneHotEncoder(sparse_output=False).fit_transform(X=df[["gender"]])
+
+print("The number of unique values in column `gender` is: ", df[["gender"]].nunique().item())
+print("The shape of the OneHotEncoding of column `gender` is: ", enc.shape)
+```
+
+::: {.fragment}
+Looks fine! 
+:::
+
+## Basic strategies: `OneHotEncoder` {.smaller auto-animate="true"}
+What about a different column?
+
+```{python}
+#| echo: true
+enc = OneHotEncoder(sparse_output=False).fit_transform(X=df[["division"]])
+
+print("The number of unique values in column `division` is: ", df[["division"]].nunique().item())
+print("The shape of the OneHotEncoding of column `division` is: ", enc.shape)
+```
+
+::: {.fragment}
+
+::: {.callout-warning}
+That's ~700 features that are mostly 0's.
+:::
+
+Remember that more features mean:
+
+- Overfitting
+- Worse performance
+- Increased training time and resources needed
+- Worse interpretability
+:::
+
+
+## Basic strategies: `OrdinalEncoder` {.smaller auto-animate="true"}
+``` {python}
+# | echo: true 
+from sklearn.preprocessing import OrdinalEncoder
+
+enc = OrdinalEncoder().fit_transform(X=df[["division"]])
+
+print("The number of unique values in column `division` is: ", df[["division"]].nunique().item())
+print("The shape of the OneHotEncoding of column `division` is: ", enc.shape)
+```
+
+Now we're keeping the number of dimensions down, but we are introducing an ordering
+that may not make any sense in reality. 
+
+## Encoding categorical (string/text) features {.smaller}
+Categorical features have a "cardinality": the number of unique values
+
+- Low cardinality features: `OneHotEncoder`.
+    - The `OneHotEncoder` produces **sparse** matrices. Dataframes are **dense**.
+- High cardinality features (>40 unique values): 
+    - Using `OneHotEncoder` generates too many (dense) features.
+    - Use encoders with a fixed number of output features.
+- [Latent Semantic Analysis](https://en.wikipedia.org/wiki/Latent_semantic_analysis) with: `skrub.StringEncoder`
+    - Apply tf-idf to the ngrams in the column, followed by SVD. 
+    - Robust, quick, fixed number of output features regardless of # of unique values. 
+
+
+## Encoding categorical (string/text) features {.smaller}
+
+- Textual features: `skrub.TextEncoder` and pretrained models from [HuggingFace Hub](https://huggingface.co/models).
+    - The `TextEncoder` needs PyTorch: _very heavy dependency_. 
+    - Models are large and take time to download. 
+    - Encoding is much slower.
+    - However, performance can be much better depending on the dataset. 
+
+Deeper dive in this [post](https://skrub-data.org/skrub-materials/pages/notebooks/categorical-encoders/categorical-encoders.html).
+
+# Building pipelines
+{{< include /includes/encoders/_table_vectorizer.md >}}
+
+
+## Fine-grained column transformations {.smaller}
+- Various skrub transformers can accept a `cols` parameter that lets you select 
+what columns should be modified. 
+- `SelectCols`, `DropCols`, `ApplyToCols`, `ApplyToFrame`, and `.skb.apply()` 
+can take `cols` as a parameter. 
+- Complex selection rules can be implemented with `skrub.selectors`. 
+
+## Why is column selection important?
+- There is an index I don't want to touch
+- Column names give me information about the content
+- I want to transform only datetimes (or numbers, or strings...)
+- I need to combine conditions (column has nulls AND column is numeric)
+
+## Selecting columns with the skrub selectors {.smaller auto-animate="true"}
+```{python}
+#| echo: true
+import pandas as pd
+from skrub import SelectCols
+import skrub.selectors as s
+df = pd.DataFrame(
+    {
+        "height_mm": [297.0, 420.0],
+        "width_mm": [210.0, 297.0],
+        "kind": ["A4", "A3"],
+        "ID": [4, 3],
+    }
+)
+SelectCols(cols=s.all()).fit_transform(df)
+```
+
+## Selecting columns with the skrub selectors {.smaller auto-animate="true"}
+Select all columns based on the name: 
+``` {python}
+#| echo: true
+SelectCols(s.glob('*_mm')).fit_transform(df)
+```
+
+Select columns based on dtypes, and invert selections:
+```{python}
+#| echo: true
+SelectCols(~s.numeric()).fit_transform(df)
+```
+
+More info in the [selectors user guide](https://skrub-data.org/stable/modules/multi_column_operations/selectors.html).
+
+{{< include /includes/encoders/_apply_to.md >}}
+
+{{< include /includes/encoders/_tabular_pipeline_full.md >}}
+
+## We now have a pipeline! {.smaller}
+
+1. Gather some data
+2. Explore the data
+    - `TableReport`
+3. Pre-process the data 
+    - `Cleaner` ... 
+4. Perform feature engineering
+    - `TableVectorizer`, `SquashingScaler`, `TextEncoder`, `StringEncoder `...
+5. Build a scikit-learn pipeline
+    - `tabular_pipeline`, `sklearn.pipeline.make_pipeline` ... 
+6. ???
+7. Profit 📈 
+
+# Skrub Data Ops
+
+## Disclaimer
+
+::: {.callout-warning}
+This section covers more advanced topics that are more representative of what 
+happens in real scenarios, and how skrub can help addressing some of them. 
+:::
+
+
+## What if... {.smaller}
+
+::: {.incremental}
+
+- Your data is spread over multiple tables? 
+- You want to avoid data leakage? 
+- You want to tune more than just the hyperparameters of your model? 
+- You want to guarantee that your pipeline is replayed exactly on new data? 
+
+:::
+
+::: {.fragment}
+When a normal pipeline is not enough...
+::: 
+
+::: {.fragment }
+... the `skrub` DataOps come to the rescue 🚒
+:::
+
+## DataOps...
+
+::: {.incremental}
+- Extend the `scikit-learn` machinery to complex multi-table operations.
+- Take care of data leakage.
+- Track all operations with a computational graph (a *Data Ops plan*).
+- Allow tuning any operation in the Data Ops plan.
+- Can be persisted and shared easily.
+:::
+
+## How do DataOps work, though?  {.smaller}
+DataOps **wrap** around *user operations*, where user operations are:
+
+- any dataframe operation (e.g., merge, group by, aggregate etc.).
+- scikit-learn estimators (a Random Forest, RidgeCV etc.).
+- custom user code (load data from a path, fetch from an URL etc.).
+
+::: {.fragment}
+
+::: {.callout-important}
+DataOps _record_ user operations, so that they can later be _replayed_ in the same
+order and with the same arguments on unseen data. 
+:::
+::: 
+
+## Looking at the computational graph
+```{.python}
+predictions.skb.full_report()
+```
+<br/>
+
+<a href="dataop_report/index.html" target="_blank">Execution report</a>
+
+Each node:
+
+- Shows a preview of the data resulting from the operation
+- Reports the location in the code where the code is defined
+- Shows the run time of the node
+- Offline and in HTML, no need for a running kernel
+
+
+## Tuning in `scikit-learn` can be complex {.smaller auto-animate="true"}
+
+```{.python}
+pipe = Pipeline([("dim_reduction", PCA()), ("regressor", Ridge())])
+grid = [
+    {
+        "dim_reduction": [PCA()],
+        "dim_reduction__n_components": [10, 20, 30],
+        "regressor": [Ridge()],
+        "regressor__alpha": loguniform(0.1, 10.0),
+    },
+    {
+        "dim_reduction": [SelectKBest()],
+        "dim_reduction__k": [10, 20, 30],
+        "regressor": [Ridge()],
+        "regressor__alpha": loguniform(0.1, 10.0),
+    },
+    {
+        "dim_reduction": [PCA()],
+        "dim_reduction__n_components": [10, 20, 30],
+        "regressor": [RandomForestRegressor()],
+        "regressor__n_estimators": loguniform(20, 200),
+    },
+    {
+        "dim_reduction": [SelectKBest()],
+        "dim_reduction__k": [10, 20, 30],
+        "regressor": [RandomForestRegressor()],
+        "regressor__n_estimators": loguniform(20, 200),
+    },
+]
+model = RandomizedSearchCV(pipe, grid)
+```
+
+
+## Tuning with `DataOps` is simple! {.smaller} 
+
+```python
+dim_reduction = X.skb.apply(
+    skrub.choose_from(
+        {
+            "PCA": PCA(n_components=skrub.choose_int(10, 30)),
+            "SelectKBest": SelectKBest(k=skrub.choose_int(10, 30))
+        }, name="dim_reduction"
+    )
+)
+regressor = dim_reduction.skb.apply(
+    skrub.choose_from(
+        {
+            "Ridge": Ridge(alpha=skrub.choose_float(0.1, 10.0, log=True)),
+            "RandomForest": RandomForestRegressor(
+                n_estimators=skrub.choose_int(20, 200, log=True)
+            )
+        }, name="regressor"
+    )
+)
+search = regressor.skb.make_randomized_search(scoring="roc_auc", fitted=True)
+```
+
+## Run hyperparameter search
+```{.python}
+# fit the search 
+search = regressor.skb.make_randomized_search(scoring="roc_auc", fitted=True, cv=5)
+
+# save the best learner
+best_learner = search.best_learner_
+```
+
+## Hyperparameter tuning with `choose_*`
+`skrub` implements four `choose_*` functions:
+
+- `choose_from`: select from the given list of options
+- `choose_int`: select an integer within a range
+- `choose_float`: select a float within a range
+- `choose_bool`: select a bool 
+- `optional`: chooses whether to execute the given operation
+
+## Tuning with `DataOps` is not limited to estimators
+::: {.panel-tabset}
+### Pandas
+```{python}
+import pandas as pd
+import skrub
+```
+```{python}
+#| echo: true
+df = pd.DataFrame(
+    {"subject": ["math", "math", "art", "history"], "grade": [10, 8, 4, 6]}
+)
+
+df_do = skrub.var("grades", df)
+
+agg_grades = df_do.groupby("subject").agg(skrub.choose_from(["count", "mean", "max"]))
+agg_grades.skb.describe_param_grid()
+```
+
+### Polars
+```{python}
+import polars as pl
+import skrub
+```
+
+```{python}
+#| echo: true
+df = pl.DataFrame(
+    {"subject": ["math", "math", "art", "history"], "grade": [10, 8, 4, 6]}
+)
+
+df_do = skrub.var("grades", df)
+
+agg_grades = df_do.group_by("subject").agg(
+    skrub.choose_from([pl.mean("grade"), pl.count("grade")])
+)
+agg_grades.skb.describe_param_grid()
+```
+
+:::
+
+## How does tuning affect the results?  {auto-animate="true" .smaller} 
+Data Ops provide a built-in parallel coordinate plot. 
+
+```{.python}
+search = pred.skb.get_randomized_search(fitted=True)
+search.plot_parallel_coord()
+```
+```{python}
+from plotly.io import read_json
+
+fig = read_json("parallel_coordinates_hgbr.json")
+fig.update_layout(margin=dict(l=200))
+```
+
+## Exporting the plan in a `learner` {.smaller}
+The **Learner** is a stand-alone object that works like
+a scikit-learn estimator that takes a dictionary as input rather
+than just `X` and `y`. 
+
+::: {.fragment}
+
+```{.python}
+learner = predictions.skb.make_learner(fitted=True)
+```
+
+:::
+
+
+::: {.fragment}
+Then, the `learner` can be pickled ...
+
+```{.python}
+import pickle
+
+with open("learner.bin", "wb") as fp:
+    pickle.dump(learner, fp)
+```
+
+:::
+
+::: {.fragment}
+... loaded and applied to new data:
+
+```{.python}
+with open("learner.bin", "rb") as fp:
+    loaded_learner = pickle.load(fp)
+data = skrub.datasets.fetch_credit_fraud(split="test")
+new_baskets = data.baskets
+new_products = data.products
+loaded_learner.predict({"baskets": new_baskets, "products": new_products})
+```
+:::
+
+
+
+
+## More information about Data Ops
+- Skrub [example gallery](https://skrub-data.org/stable/auto_examples/data_ops/index.html)
+- [Tutorial](https://github.com/skrub-data/EuroSciPy2025) on timeseries 
+forecasting at Euroscipy 2025
+- Skrub [User guide](https://skrub-data.org/stable/documentation.html)
+- A [Kaggle notebook](https://www.kaggle.com/code/ryye107/titanic-challenge-with-the-skrub-data-ops) 
+on addressing the Titanic survival challenge with Data Ops
+
+# Wrapping up
+
+## {auto-animate="true" } 
+![](images/powerpuff_girls_1.png)
+
+## {auto-animate="true" } 
+![](images/powerpuff_girls_2.png)
+
+##  Getting involved {.smaller}
+::: {.nonincremental}
+Do you want to learn more? 
+
+- [Skrub website](https://skrub-data.org/stable/) 
+- [Skrub materials website](https://skrub-data.org/skrub-materials/index.html)
+- [Discord server](https://discord.gg/ABaPnm7fDC)
+
+Follow skrub on:
+
+- [Bluesky](https://bsky.app/profile/skrub-data.bsky.social)
+- [LinkedIn](https://www.linkedin.com/company/skrub-data/)
+
+Star skrub on GitHub, or contribute directly: 
+
+- [Git repository](https://github.com/skrub-data/skrub/)
+:::
+
+## tl;dw
+`skrub` provides
+
+::: {.nonincremental}
+- interactive data exploration
+- automated pre-processing of pandas and polars dataframes
+- powerful feature engineering
+- DataOps, plans, hyperparameter tuning, (almost) no leakage 
+:::
