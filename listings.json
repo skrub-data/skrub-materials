@@ -2,6 +2,7 @@
   {
     "listing": "/pages/slides/index_slides.html",
     "items": [
+      "/pages/slides/skrub-class-master/slides.html",
       "/pages/slides/talk-framatome/slides.html",
       "/pages/slides/sprint-wimlds-2025/slides.html",
       "/pages/slides/p16-day-2025/slides.html",
@@ -19,6 +20,7 @@
     "listing": "/pages/listings.html",
     "items": [
       "/pages/notebooks/categorical-encoders/categorical-encoders.html",
+      "/pages/slides/skrub-class-master/slides.html",
       "/pages/slides/talk-framatome/slides.html",
       "/pages/slides/sprint-wimlds-2025/slides.html",
       "/pages/slides/p16-day-2025/slides.html",
