@@ -3,7 +3,7 @@ title: "Skrub @ PyLadies Tampere"
 title-block-banner: true
 date: 2026-05-28
 subtitle: ""
-author: "Riccardo Cappuzzo, Jérôme Dockès"
+author: ""
 institute: ""
 format: 
     revealjs:
