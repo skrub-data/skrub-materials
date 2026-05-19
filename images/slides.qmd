@@ -1,0 +1,514 @@
+---
+title: "Skrub @ PyLadies Tampere"
+title-block-banner: true
+date: 2026-05-28
+subtitle: ""
+author: "Riccardo Cappuzzo, Jérôme Dockès"
+institute: ""
+format: 
+    revealjs:
+        slide-number: c/t
+        show-slide-number: all
+        preview-links: auto
+        embed-resources: false
+        transition: slide
+        theme: simple
+        logo: images/skrub.svg
+        css: style.css
+        footer: "https://skrub-data.org/skrub-materials/"
+incremental: false
+params: 
+    version: "base"
+---
+
+
+## Roadmap for the presentation
+
+- What is skrub
+- Contributing to skrub: setting up the environment
+- Contributing to skrub: subjects
+
+
+# What is skrub? 
+
+Skrub is a Python library that sits between data stored in dataframes and machine
+learning with scikit-learn. 
+
+Skrub eases preprocessing and machine learning with dataframes. 
+
+## {auto-animate="true" } 
+![](/images/powerpuff_girls_1.png)
+
+## {auto-animate="true" } 
+![](/images/powerpuff_girls_2.png)
+
+## Skrub compatibility
+- Skrub is mostly written in Python, but it includes some Javascript
+- Skrub is fully compatible with pandas and polars
+    - Any feature needs to be supported by both libraries
+- Skrub transformers are fully compatible with scikit-learn
+    - Transformers need to satisfy some requirements
+
+## `skrub.TableReport` {.smaller auto-animate="true"}
+
+```{.python}
+from skrub import TableReport
+TableReport(employee_salaries)
+```
+[TableReport Preview](https://skrub-data.org/skrub-reports/examples/employee_salaries.html){preview-link="true"}
+
+
+Main features:
+
+- Obtain high-level statistics about the data
+- Explore the distribution of values and find outliers
+- Discover highly correlated columns 
+- Export and share the report as an `HTML` file
+
+## Data cleaning with pandas/polars: setup {.smaller auto-animate="true"}
+
+```{python}
+# | echo: true
+import pandas as pd
+import numpy as np
+
+data = {
+    "Int": [2, 3, 2],  # Multiple unique values
+    "Const str": ["x", "x", "x"],  # Single unique value
+    "Str": ["foo", "bar", "baz"],  # Multiple unique values
+    "All nan": [np.nan, np.nan, np.nan],  # All missing values
+    "All empty": ["", "", ""],  # All empty strings
+    "Date": ["01 Jan 2023", "02 Jan 2023", "03 Jan 2023"],
+}
+
+df_pd = pd.DataFrame(data)
+display(df_pd)
+```
+
+
+## Nulls, datetimes, constant columns with pandas/polars {.smaller auto-animate="true"}
+
+```{python}
+#| echo: true
+# Parse the datetime strings with a specific format
+df_pd['Date'] = pd.to_datetime(df_pd['Date'], format='%d %b %Y')
+
+# Drop columns with only a single unique value
+df_pd_cleaned = df_pd.loc[:, df_pd.nunique(dropna=True) > 1]
+
+# Function to drop columns with only missing values or empty strings
+def drop_empty_columns(df):
+    # Drop columns with only missing values
+    df_cleaned = df.dropna(axis=1, how='all')
+    # Drop columns with only empty strings
+    empty_string_cols = df_cleaned.columns[df_cleaned.eq('').all()]
+    df_cleaned = df_cleaned.drop(columns=empty_string_cols)
+    return df_cleaned
+
+# Apply the function to the DataFrame
+df_pd_cleaned = drop_empty_columns(df_pd_cleaned)
+```
+
+## `skrub.Cleaner` {.smaller auto-animate="true"}
+
+```{python}
+#| echo: true
+from skrub import Cleaner
+cleaner = Cleaner(drop_if_constant=True, datetime_format='%d %b %Y')
+df_cleaned = cleaner.fit_transform(df_pd)
+display(df_cleaned)
+```
+
+## Encoding _all the features_: `TableVectorizer` { auto-animate="true"}
+
+```{python}
+#| echo: true
+from skrub import TableVectorizer
+
+table_vec = TableVectorizer()
+df_encoded = table_vec.fit_transform(df_pd)
+```
+
+The `TableVectorizer`:
+
+- Applies the `Cleaner` to all columns
+- Splits columns by dtype and # of unique values
+- Encodes each column according to its characteristics
+
+
+## Encoding _all the features_: `TableVectorizer` {.smaller auto-animate="true"}
+
+![](/images/skrub-table-vectorizer.png)
+
+
+## Build a predictive pipeline with `tabular_pipeline` {auto-animate="true" .smaller}
+```{.python}
+import skrub
+from sklearn.linear_model import Ridge
+model = skrub.tabular_pipeline(Ridge())
+```
+
+![](/images/skrub-tabular-pipeline-linear-model.png){fig-align="center"}
+
+## Encoding _all the features_: under the hood
+- `DatetimeEncoder`: convert datetimes to numerical columns (year, month, day ...)
+- `SquashingScaler`: safely scale numerical features in presence of outliers
+- `StringEncoder`: quick, robust encoding of categorical and discrete features
+- `TextEncoder`: encode text and strings using pre-trained language models
+
+# Resources and contacts {.smaller}
+
+
+::: {.nonincremental}
+Do you want to learn more? 
+
+- [Skrub website](https://skrub-data.org/stable/) 
+- [Skrub materials website](https://skrub-data.org/skrub-materials/index.html) (for talks)
+- [Discord server](https://discord.gg/ABaPnm7fDC)
+
+Follow skrub on:
+
+- [Bluesky](https://bsky.app/profile/skrub-data.bsky.social)
+- [LinkedIn](https://www.linkedin.com/company/skrub-data/)
+
+Star skrub on GitHub, or contribute directly: 
+
+- [GitHub repository](https://github.com/skrub-data/skrub/)
+:::
+
+# Contributing to skrub: preparation
+Instructions are also available in the [Installation page](https://skrub-data.org/stable/install.html)
+
+## Setting up the repository {.smaller}
+First off, you need to fork the skrub [repository](https://github.com/skrub-data/skrub/fork)
+
+Then, clone the repo on your local machine
+```sh
+git clone https://github.com/<YOUR_USERNAME>/skrub
+cd skrub
+
+```
+Add the `upstream` remote to pull the latest version of skrub:
+```sh
+git remote add upstream https://github.com/skrub-data/skrub.git
+```
+You can check that the remote has been added with `git remote -v`.
+
+
+## Setting up the environment {.smaller}
+Depends on the tools you use! 
+
+From inside the skrub directory you just cloned: 
+
+::: {.panel-tabset}
+### venv
+- Create the venv (in the current dir): 
+```sh
+python -m venv dev-skrub
+```
+- Activate the venv: 
+```sh
+source dev-skrub/bin/activate
+```
+- Install skrub and dependencies: 
+```sh
+pip install -e ".[dev]"
+```
+
+### uv 
+- Create the venv (in the current dir): 
+```sh
+uv venv dev-skrub 
+```
+- Activate the venv:
+```sh
+source activate 
+```
+- Install skrub and dev dependencies:
+```sh
+uv pip install -e ".[dev]"
+```
+
+### conda
+- Create the conda environment:
+```sh
+conda create -n dev-skrub
+
+```
+- Activate the enviornment
+```sh
+conda activate dev-skrub
+```
+- Install skrub and dependencies: 
+```sh
+pip install -e ".[dev]"
+```
+
+
+### pixi
+- Install pixi from the [pixi homepage](https://pixi.sh/latest/installation/)
+- Go to the skrub folder
+- Install an environment:
+```sh
+pixi install dev
+# activate dev from IDE
+```
+- Run a command in a specific environment:
+```sh
+pixi run -e ci-py309-min-deps COMMAND
+```
+- Spawn a shell with the given env:
+```sh
+pixi shell -e ci-latest-optional-deps
+```
+:::
+
+My recommendation: use pixi! 
+
+
+## Note on the `pixi.lock` file
+
+::: {.callout-important}
+If you use pixi, it may happen that the `pixi.lock` file will be updated as you
+run commands. 
+
+**Revert** changes to this file before adding files and pushing upstream. 
+:::
+
+
+## Running tests {.smaller}
+::: {.panel-tabset}
+### Using environments
+From inside the root skrub folder, and after activating the environment
+```sh
+pytest --pyargs skrub
+```
+
+### With pixi
+Run all tests (you will be prompted to choose an env, you can pick dev):
+```sh
+pixi run test
+```
+Run tests in a specific env
+```sh
+pixi run -e dev test
+```
+
+:::
+
+## Running tests
+Tests are stored in `skrub/tests`, or in a `tests` subfolder. 
+
+It is possible to run specific tests by providing a path. To test `TableVectorizer`: 
+
+```sh
+pytest -vsl skrub/tests/test_table_vectorizer.py 
+```
+
+`-vsl` prints out more information compared to the default. 
+
+## Working on the documentation {.smaller}
+Docs are written in RST and use the
+[Sphinx library](https://www.sphinx-doc.org/en/master/index.html) for rendering, 
+cross-references and everything else. 
+
+::: {.panel-tabset}
+### From environment
+
+Build the doc from the `doc` folder using:
+```sh
+# Build the full documentation, including examples
+make html
+# on Windows
+make.bat html
+
+# Build documentation without running examples (faster)
+make html-noplot
+# on Windows
+make.bat html-noplot
+
+# Clean previously built documentation
+make clean
+# on Windows
+make.bat clean
+```
+
+### With pixi
+From the skrub root folder (where `pyproject.toml` is):
+```sh
+# Build the full documentation, including examples
+pixi run build-doc
+
+# Build documentation without running examples (faster)
+pixi run build-doc-quick
+
+# Clean previously built documentation
+pixi run clean-doc
+```
+:::
+
+After rendering the docs, open the `doc/_build/html/index.html` file with a 
+browser.
+
+## Writing an example
+- Examples are python scripts placed in the `examples/` folder. 
+- The narrative of the examples should be written in comments and can include RST
+syntax. 
+- Before commmitting, the documentation should be built (at least in `quick` mode)
+to check that the example is being rendered correctly. 
+
+[Full guide](https://skrub-data.org/stable/tutorial_example.html)
+
+
+## Opening a PR and contributing upstream {.smaller}
+More detail is available in the [contributing guide](https://skrub-data.org/stable/CONTRIBUTING.html)
+
+Start by creating a branch:
+```sh
+# fetch latest updates and start from the current head
+git fetch upstream
+# create a new branch and switch to it 
+git checkout -b my-branch-name-eg-fix-issue-123
+```
+
+Make some changes, then:
+```sh
+git add ./the/file-i-changed
+git commit -m "my message"
+git push --set-upstream origin my-branch-name-eg-fix-issue-123
+```
+At this point, visit the [GitHub PR page](https://github.com/skrub-data/skrub/pulls)
+and open a PR from there.
+
+## About `upstream` and on avoiding conflicts {.smaller}
+`upstream/main` is the "ground truth" for the repository. It is very important 
+to keep up to date with `upstream/main` to avoid conflicts. This can be done by
+routinely **merging** your branch with `upstream/main`.
+
+```sh
+# verify you're on your branch with 
+git status
+# On branch my-branch-name
+# Your branch is up to date with 'origin/my-branch-name'.
+
+# fetch from upstream
+git fetch upstream
+
+# merge with upstream
+git merge upstream/main
+```
+ 
+
+::: {.callout-important}
+
+Remember: you're bringing information from `upstream/main` into `my-branch-name`, 
+so you need to be inside `my-branch-name` and merge with `upstream/main`. 
+
+:::
+
+
+
+## Code formatting and `pre-commit` {.smaller}
+Skrub enforces some strict formatting rules to ensure code quality. This is done
+through `pre-commit` hooks. `pre-commit` must be installed, then it will run before
+every commit. 
+
+::: {.panel-tabset}
+### From environment
+- Make sure `pre-commit` is installed in the current environment 
+```sh
+pre-commit install
+# install with pip if needed
+pip install pre-commit
+```
+
+Then, add modified files and run pre-commit on them. 
+
+```sh
+git add YOUR_FILE
+pre-commit
+# if the file has been formatted, add again
+git add YOUR_FILE
+# commit the changes
+git commit -m "MY COMMIT MESSAGE"
+# pre-commit will run again automatically
+# push the  commit
+git push
+```
+
+
+
+
+### Pixi
+If you're working entirely with pixi:
+
+```sh
+git add YOUR_FILE
+pixi run lint
+# if the file has been formatted, add again
+git add YOUR_FILE
+# commit the changes
+git commit -m "MY COMMIT MESSAGE"
+# pre-commit will run again automatically
+# push the  commit
+git push
+```
+:::
+
+## Code formatting and `pre-commit` {.smaller}
+::: {.callout-note}
+
+In some cases, pre-commit will prevent you from committing, but won't be able to 
+fix the problem on its own. In those cases, you will have to address the issue 
+manually. 
+
+:::
+
+
+# Contributing to skrub: open issues
+**[GitHub project](https://github.com/orgs/skrub-data/projects/9/)**
+
+## Before you start working on an issue
+
+::: {.callout-important}
+Write a comment on the issue so we know you're working on it.
+:::
+
+
+We want to avoid having multiple people working on the same issue in separate PRs. 
+
+## Legend:
+
+- 😴 : easy issue
+- 🍁 : some complexity
+- 👺 : hard problem
+- 🏃‍♀️ : quick to solve
+- 🛌 : likely will take a while
+- 🐈 : docs, involves Sphinx
+
+## `TableReport` {.smaller}
+- [#2043](https://github.com/skrub-data/skrub/issues/2043) - Add a `write_json` function that works like `write_html` to the `TableReport` 😴 ️ 🏃 
+- [#1244](https://github.com/skrub-data/skrub/issues/1244) - Add a `ColumnReport` 👺🛌  
+- [#2063](https://github.com/skrub-data/skrub/issues/2063) - Add the estimated size in memory of a dataframe 👺 🛌 
+
+## New features {.smaller}
+- [#2066](https://github.com/skrub-data/skrub/issues/2066) - Add numpy support to `.skb.concatenate`🍁 
+- [#2068](https://github.com/skrub-data/skrub/issues/2068) - Improve error message when inputting an array in choose_from 🍁  🏃
+
+## Bugfixes and maintenance {.smaller}
+- [#1747](https://github.com/skrub-data/skrub/issues/1747) - Improve the error message shown by the association tab in the TableReport when only one column is present😴   🏃
+- [#1464](https://github.com/skrub-data/skrub/issues/1747) - Deprecate the `order_by` parameter of the TableReport🍁  🏃
+
+## Documentation {.smaller}
+- [#991](https://github.com/skrub-data/skrub/issues/991) - Move the dev docs of
+the `TableReport` to the main documentation page. 🍁 🐈
+- [#690](https://github.com/skrub-data/skrub/issues/690) - Divide examples in sections 😴 🐈 🏃 
+- [#690](https://github.com/skrub-data/skrub/issues/690) - Sort long API reference sections 😴 🐈 🏃 
+
+
+## Examples  {.smaller}
+- [#1629](https://github.com/skrub-data/skrub/issues/1629) - Add an example for the 
+`DatetimeEncoder`. 👺 🛌 🐈
+- [#1476](https://github.com/skrub-data/skrub/issues/1476) - DOC: add an example 
+dedicated to showing the features of the `TableReport`. 🍁 🛌 🐈
+- Any example you can come up with! 
