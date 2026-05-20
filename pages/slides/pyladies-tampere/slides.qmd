@@ -13,7 +13,7 @@ format:
         embed-resources: false
         transition: slide
         theme: simple
-        logo: images/skrub.svg
+        logo: /images/skrub.svg
         css: style.css
         footer: "https://skrub-data.org/skrub-materials/"
 incremental: false
@@ -196,7 +196,13 @@ You can check that the remote has been added with `git remote -v`.
 
 
 ## Setting up the environment {.smaller}
-Depends on the tools you use! 
+
+::: {.callout-tip}
+
+Use any env tool you're comfortable with! If you have never used
+virtual environments before, use `venv`.   
+
+:::
 
 From inside the skrub directory you just cloned: 
 
@@ -247,23 +253,21 @@ pip install -e ".[dev]"
 
 ### pixi
 - Install pixi from the [pixi homepage](https://pixi.sh/latest/installation/)
-- Go to the skrub folder
-- Install an environment:
+
 ```sh
+#  Install an environment:
 pixi install dev
 # activate dev from IDE
-```
-- Run a command in a specific environment:
-```sh
+# Run a command in a specific environment:
 pixi run -e ci-py309-min-deps COMMAND
-```
-- Spawn a shell with the given env:
-```sh
+# Spawn a shell with the given env:
 pixi shell -e ci-latest-optional-deps
 ```
 :::
 
-My recommendation: use pixi! 
+
+
+
 
 
 ## Note on the `pixi.lock` file
