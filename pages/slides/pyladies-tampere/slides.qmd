@@ -507,7 +507,7 @@ We want to avoid having multiple people working on the same issue in separate PR
 - [#991](https://github.com/skrub-data/skrub/issues/991) - Move the dev docs of
 the `TableReport` to the main documentation page. 🍁 🐈
 - [#690](https://github.com/skrub-data/skrub/issues/690) - Divide examples in sections 😴 🐈 🏃 
-- [#690](https://github.com/skrub-data/skrub/issues/690) - Sort long API reference sections 😴 🐈 🏃 
+- [#2064](https://github.com/skrub-data/skrub/issues/2064) - Sort long API reference sections 😴 🐈 🏃 
 
 
 ## Examples  {.smaller}
