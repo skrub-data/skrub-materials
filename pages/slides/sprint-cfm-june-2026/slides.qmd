@@ -134,11 +134,13 @@ model = skrub.tabular_pipeline(Ridge())
 
 ## Columnwise transformations with `ApplyToCols` and selectors
 ```{python}
+#! echo: true
 from sklearn.preprocessing import StandardScaler
 from skrub import ApplyToCols
-df_id = pd.DataFrame(dict(id=[1000, 2000], A=[-10.0, 10.0], B=[-10.0, 0.0], C=[19, 20]))
+import skrub.selectors as s
+df_id = pd.DataFrame(dict(id=[1000, 2000], A=[-10.0, 10.0], B=[-10.0, 0.0], C=[19, 20], D=["foo", "bar"]))
 df_id
-exc_scaler = ApplyToCols(StandardScaler(), exclude_cols="id")
+exc_scaler = ApplyToCols(StandardScaler(), exclude_cols=s.string() | "id")
 exc_scaler.fit_transform(df_id)
 ```
 
