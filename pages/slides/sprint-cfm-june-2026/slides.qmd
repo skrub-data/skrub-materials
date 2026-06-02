@@ -85,30 +85,6 @@ df_pd = pd.DataFrame(data)
 display(df_pd)
 ```
 
-
-## Nulls, datetimes, constant columns with pandas/polars {.smaller auto-animate="true"}
-
-```{python}
-#| echo: true
-# Parse the datetime strings with a specific format
-df_pd['Date'] = pd.to_datetime(df_pd['Date'], format='%d %b %Y')
-
-# Drop columns with only a single unique value
-df_pd_cleaned = df_pd.loc[:, df_pd.nunique(dropna=True) > 1]
-
-# Function to drop columns with only missing values or empty strings
-def drop_empty_columns(df):
-    # Drop columns with only missing values
-    df_cleaned = df.dropna(axis=1, how='all')
-    # Drop columns with only empty strings
-    empty_string_cols = df_cleaned.columns[df_cleaned.eq('').all()]
-    df_cleaned = df_cleaned.drop(columns=empty_string_cols)
-    return df_cleaned
-
-# Apply the function to the DataFrame
-df_pd_cleaned = drop_empty_columns(df_pd_cleaned)
-```
-
 ## `skrub.Cleaner` {.smaller auto-animate="true"}
 
 ```{python}
@@ -155,6 +131,17 @@ model = skrub.tabular_pipeline(Ridge())
 - `SquashingScaler`: safely scale numerical features in presence of outliers
 - `StringEncoder`: quick, robust encoding of categorical and discrete features
 - `TextEncoder`: encode text and strings using pre-trained language models
+
+## Columnwise transformations with `ApplyToCols` and selectors
+```{python}
+from sklearn.preprocessing import StandardScaler
+from skrub import ApplyToCols
+df_id = pd.DataFrame(dict(id=[1000, 2000], A=[-10.0, 10.0], B=[-10.0, 0.0], C=[19, 20]))
+df_id
+exc_scaler = ApplyToCols(StandardScaler(), exclude_cols="id")
+exc_scaler.fit_transform(df_id)
+```
+
 
 # Resources and contacts {.smaller}
 
