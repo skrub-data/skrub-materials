@@ -1138,7 +1138,7 @@
     "href": "pages/slides/sprint-cfm-june-2026/slides.html#columnwise-transformations-with-applytocols-and-selectors",
     "title": "Skrub @ CFM",
     "section": "Columnwise transformations with ApplyToCols and selectors",
-    "text": "Columnwise transformations with ApplyToCols and selectors\n\n\n\n\n\n\n\n\n\nid\nA\nB\nC\n\n\n\n\n0\n1000\n-1.0\n-1.0\n-1.0\n\n\n1\n2000\n1.0\n1.0\n1.0"
+    "text": "Columnwise transformations with ApplyToCols and selectors\n\n\n\n\n\n\n\n\n\nid\nD\nA\nB\nC\n\n\n\n\n0\n1000\nfoo\n-1.0\n-1.0\n-1.0\n\n\n1\n2000\nbar\n1.0\n1.0\n1.0"
   },
   {
     "objectID": "pages/slides/sprint-cfm-june-2026/slides.html#setting-up-the-repository",
