@@ -3,6 +3,7 @@
     "listing": "/pages/listings.html",
     "items": [
       "/pages/notebooks/categorical-encoders/categorical-encoders.html",
+      "/pages/slides/sprint-cfm-june-2026/slides.html",
       "/pages/slides/pyladies-tampere/slides.html",
       "/pages/slides/skrub-class-master/slides.html",
       "/pages/slides/talk-framatome/slides.html",
@@ -21,6 +22,7 @@
   {
     "listing": "/pages/slides/index_slides.html",
     "items": [
+      "/pages/slides/sprint-cfm-june-2026/slides.html",
       "/pages/slides/pyladies-tampere/slides.html",
       "/pages/slides/skrub-class-master/slides.html",
       "/pages/slides/talk-framatome/slides.html",
