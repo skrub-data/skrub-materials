@@ -1138,7 +1138,7 @@
     "href": "pages/slides/sprint-cfm-june-2026/slides.html#columnwise-transformations-with-applytocols-and-selectors",
     "title": "Skrub @ CFM",
     "section": "Columnwise transformations with ApplyToCols and selectors",
-    "text": "Columnwise transformations with ApplyToCols and selectors\n\n\n\n\n\n\n\n\n\nid\nD\nA\nB\nC\n\n\n\n\n0\n1000\nfoo\n-1.0\n-1.0\n-1.0\n\n\n1\n2000\nbar\n1.0\n1.0\n1.0"
+    "text": "Columnwise transformations with ApplyToCols and selectors\n\nfrom sklearn.preprocessing import StandardScaler\nfrom skrub import ApplyToCols\nimport skrub.selectors as s\ndf_id = pd.DataFrame(dict(id=[1000, 2000], A=[-10.0, 10.0], B=[-10.0, 0.0], C=[19, 20], D=[\"foo\", \"bar\"]))\ndf_id\nexc_scaler = ApplyToCols(StandardScaler(), exclude_cols=s.string() | \"id\")\nexc_scaler.fit_transform(df_id)\n\n\n\n\n\n\n\n\nid\nD\nA\nB\nC\n\n\n\n\n0\n1000\nfoo\n-1.0\n-1.0\n-1.0\n\n\n1\n2000\nbar\n1.0\n1.0\n1.0"
   },
   {
     "objectID": "pages/slides/sprint-cfm-june-2026/slides.html#setting-up-the-repository",
