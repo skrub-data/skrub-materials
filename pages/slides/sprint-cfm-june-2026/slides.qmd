@@ -134,7 +134,7 @@ model = skrub.tabular_pipeline(Ridge())
 
 ## Columnwise transformations with `ApplyToCols` and selectors
 ```{python}
-#! echo: true
+#| echo: true
 from sklearn.preprocessing import StandardScaler
 from skrub import ApplyToCols
 import skrub.selectors as s
