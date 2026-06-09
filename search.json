@@ -1141,11 +1141,32 @@
     "text": "Columnwise transformations with ApplyToCols and selectors\n\nfrom sklearn.preprocessing import StandardScaler\nfrom skrub import ApplyToCols\nimport skrub.selectors as s\ndf_id = pd.DataFrame(dict(id=[1000, 2000], A=[-10.0, 10.0], B=[-10.0, 0.0], C=[19, 20], D=[\"foo\", \"bar\"]))\ndf_id\nexc_scaler = ApplyToCols(StandardScaler(), exclude_cols=s.string() | \"id\")\nexc_scaler.fit_transform(df_id)\n\n\n\n\n\n\n\n\nid\nD\nA\nB\nC\n\n\n\n\n0\n1000\nfoo\n-1.0\n-1.0\n-1.0\n\n\n1\n2000\nbar\n1.0\n1.0\n1.0"
   },
   {
+    "objectID": "pages/slides/sprint-cfm-june-2026/slides.html#a-quick-intro-to-dataops",
+    "href": "pages/slides/sprint-cfm-june-2026/slides.html#a-quick-intro-to-dataops",
+    "title": "Skrub @ CFM",
+    "section": "A quick intro to DataOps…",
+    "text": "A quick intro to DataOps…\nData Ops:\n\nExtend the scikit-learn machinery to multi-table operations (join, aggregate…)\nCan hold onto states, so they can be used to train transformers and models\nTake care of data leakage\nLet you tune any operation in a pipeline, including choosing which operations to execute\nGuarantee that transformations are repeated exactly at prediction time\nCan be persisted easily\n\nInterested? We can talk about Data Ops during the sprint."
+  },
+  {
     "objectID": "pages/slides/sprint-cfm-june-2026/slides.html#setting-up-the-repository",
     "href": "pages/slides/sprint-cfm-june-2026/slides.html#setting-up-the-repository",
     "title": "Skrub @ CFM",
     "section": "Setting up the repository",
-    "text": "Setting up the repository\nFirst off, you need to fork the skrub repository\nThen, clone the repo on your local machine\ngit clone https://github.com/&lt;YOUR_USERNAME&gt;/skrub\ncd skrub\nAdd the upstream remote to pull the latest version of skrub:\ngit remote add upstream https://github.com/skrub-data/skrub.git\nYou can check that the remote has been added with git remote -v."
+    "text": "Setting up the repository\nFirst off, you need to fork the skrub repository\nThen, clone the repo on your local machine\ngit clone https://github.com/&lt;YOUR_USERNAME&gt;/skrub\ncd skrub\nAdd the upstream remote to pull the latest version of skrub:\ngit remote add upstream https://github.com/skrub-data/skrub.git\nYou can check that the remote has been added with git remote -v.\nFetch from upstream to update your fork:\ngit fetch upstream"
+  },
+  {
+    "objectID": "pages/slides/sprint-cfm-june-2026/slides.html#opening-a-pr-and-contributing-upstream",
+    "href": "pages/slides/sprint-cfm-june-2026/slides.html#opening-a-pr-and-contributing-upstream",
+    "title": "Skrub @ CFM",
+    "section": "Opening a PR and contributing upstream",
+    "text": "Opening a PR and contributing upstream\nMore detail is available in the contributing guide\nStart by creating a branch:\n# fetch latest updates and start from the current head\ngit fetch upstream\n# create a new branch and switch to it \ngit checkout -b my-branch-name\nSet the upstream branch to be your remote origin:\ngit push --set-upstream origin my-branch-name\nMake some changes, then:\ngit add ./the/file-i-changed\ngit commit -m \"my message\"\ngit push\nAt this point, visit the GitHub PR page and open a PR from there."
+  },
+  {
+    "objectID": "pages/slides/sprint-cfm-june-2026/slides.html#about-upstream-and-on-avoiding-conflicts",
+    "href": "pages/slides/sprint-cfm-june-2026/slides.html#about-upstream-and-on-avoiding-conflicts",
+    "title": "Skrub @ CFM",
+    "section": "About upstream and on avoiding conflicts",
+    "text": "About upstream and on avoiding conflicts\nupstream/main is the “ground truth” for the repository. It is very important to keep up to date with upstream/main to avoid conflicts. This can be done by routinely merging your branch with upstream/main. If there are conflicts, they must be resolved before merging.\n# verify you're on your branch with \ngit status\n# On branch my-branch-name\n# Your branch is up to date with 'origin/my-branch-name'.\n\n# fetch from upstream\ngit fetch upstream\n\n# merge with upstream\ngit merge upstream/main\n\n\n\n\n\n\nImportant\n\n\nRemember: you’re bringing information from upstream/main into my-branch-name, so you need to be inside my-branch-name and merge with upstream/main."
   },
   {
     "objectID": "pages/slides/sprint-cfm-june-2026/slides.html#setting-up-the-environment",
@@ -1173,14 +1194,21 @@
     "href": "pages/slides/sprint-cfm-june-2026/slides.html#running-tests-1",
     "title": "Skrub @ CFM",
     "section": "Running tests",
-    "text": "Running tests\nTests are stored in skrub/tests, or in a tests subfolder.\nIt is possible to run specific tests by providing a path. To test TableVectorizer:\npytest -vsl skrub/tests/test_table_vectorizer.py \n-vsl prints out more information compared to the default."
+    "text": "Running tests\nTests are stored in skrub/tests, or in a tests subfolder.\nIt is possible to run specific tests by providing a path:\n# To test `TableVectorizer`\npytest -vsl skrub/tests/test_table_vectorizer.py \n-vsl prints out more information compared to the default."
   },
   {
     "objectID": "pages/slides/sprint-cfm-june-2026/slides.html#working-on-the-documentation",
     "href": "pages/slides/sprint-cfm-june-2026/slides.html#working-on-the-documentation",
     "title": "Skrub @ CFM",
     "section": "Working on the documentation",
-    "text": "Working on the documentation\nDocs are written in RST and use the Sphinx library for rendering, cross-references and everything else.\n\nFrom environmentWith pixi\n\n\nBuild the doc from the doc folder using:\n# Build the full documentation, including examples\nmake html\n# on Windows\nmake.bat html\n\n# Build documentation without running examples (faster)\nmake html-noplot\n# on Windows\nmake.bat html-noplot\n\n# Clean previously built documentation\nmake clean\n# on Windows\nmake.bat clean\n\n\nFrom the skrub root folder (where pyproject.toml is):\n# Build the full documentation, including examples\npixi run build-doc\n\n# Build documentation without running examples (faster)\npixi run build-doc-quick\n\n# Clean previously built documentation\npixi run clean-doc\n\n\n\nAfter rendering the docs, open the doc/_build/html/index.html file with a browser."
+    "text": "Working on the documentation\nDocs are written in RST and use the Sphinx library for rendering, cross-references and everything else.\n\nFrom environmentWith pixi\n\n\n# From the doc/ folder\n# Build the full documentation, including examples\nmake html\n\n# Build documentation without running examples (faster)\nmake html-noplot\n\n# Clean previously built documentation\nmake clean\n\n\nFrom the skrub root folder (where pyproject.toml is):\n# Build the full documentation, including examples\npixi run build-doc\n\n# Build documentation without running examples (faster)\npixi run build-doc-quick\n\n# Clean previously built documentation\npixi run clean-doc\n\n\n\nAfter rendering the docs, open the doc/_build/html/index.html file with a browser (or open doc/_build/html/index.html)."
+  },
+  {
+    "objectID": "pages/slides/sprint-cfm-june-2026/slides.html#working-on-the-documentation-on-windows",
+    "href": "pages/slides/sprint-cfm-june-2026/slides.html#working-on-the-documentation-on-windows",
+    "title": "Skrub @ CFM",
+    "section": "Working on the documentation on Windows",
+    "text": "Working on the documentation on Windows\n\n\n\n\n\n\nWarning\n\n\nOn Windows, building the documentation may fail because it requires specific permissions. In that case, let the CI build the documentation and check it from the PR page.\n\n\n\n# From the doc/ folder\n# Build the full documentation, including examples\nmake.bat html\n\n# Build documentation without running examples (faster)\nmake.bat html-noplot\n\n# Clean previously built documentation\nmake.bat clean"
   },
   {
     "objectID": "pages/slides/sprint-cfm-june-2026/slides.html#writing-an-example",
@@ -1190,25 +1218,11 @@
     "text": "Writing an example\n\nExamples are python scripts placed in the examples/ folder.\nThe narrative of the examples should be written in comments and can include RST syntax.\nBefore commmitting, the documentation should be built (at least in quick mode) to check that the example is being rendered correctly.\n\nFull guide"
   },
   {
-    "objectID": "pages/slides/sprint-cfm-june-2026/slides.html#opening-a-pr-and-contributing-upstream",
-    "href": "pages/slides/sprint-cfm-june-2026/slides.html#opening-a-pr-and-contributing-upstream",
-    "title": "Skrub @ CFM",
-    "section": "Opening a PR and contributing upstream",
-    "text": "Opening a PR and contributing upstream\nMore detail is available in the contributing guide\nStart by creating a branch:\n# fetch latest updates and start from the current head\ngit fetch upstream\n# create a new branch and switch to it \ngit checkout -b my-branch-name-eg-fix-issue-123\nMake some changes, then:\ngit add ./the/file-i-changed\ngit commit -m \"my message\"\ngit push --set-upstream origin my-branch-name-eg-fix-issue-123\nAt this point, visit the GitHub PR page and open a PR from there."
-  },
-  {
-    "objectID": "pages/slides/sprint-cfm-june-2026/slides.html#about-upstream-and-on-avoiding-conflicts",
-    "href": "pages/slides/sprint-cfm-june-2026/slides.html#about-upstream-and-on-avoiding-conflicts",
-    "title": "Skrub @ CFM",
-    "section": "About upstream and on avoiding conflicts",
-    "text": "About upstream and on avoiding conflicts\nupstream/main is the “ground truth” for the repository. It is very important to keep up to date with upstream/main to avoid conflicts. This can be done by routinely merging your branch with upstream/main.\n# verify you're on your branch with \ngit status\n# On branch my-branch-name\n# Your branch is up to date with 'origin/my-branch-name'.\n\n# fetch from upstream\ngit fetch upstream\n\n# merge with upstream\ngit merge upstream/main\n\n\n\n\n\n\nImportant\n\n\nRemember: you’re bringing information from upstream/main into my-branch-name, so you need to be inside my-branch-name and merge with upstream/main."
-  },
-  {
     "objectID": "pages/slides/sprint-cfm-june-2026/slides.html#code-formatting-and-pre-commit",
     "href": "pages/slides/sprint-cfm-june-2026/slides.html#code-formatting-and-pre-commit",
     "title": "Skrub @ CFM",
     "section": "Code formatting and pre-commit",
-    "text": "Code formatting and pre-commit\nSkrub enforces some strict formatting rules to ensure code quality. This is done through pre-commit hooks. pre-commit must be installed, then it will run before every commit.\n\nFrom environmentPixi\n\n\n\nMake sure pre-commit is installed in the current environment\n\npre-commit install\n# install with pip if needed\npip install pre-commit\nThen, add modified files and run pre-commit on them.\ngit add YOUR_FILE\npre-commit\n# if the file has been formatted, add again\ngit add YOUR_FILE\n# commit the changes\ngit commit -m \"MY COMMIT MESSAGE\"\n# pre-commit will run again automatically\n# push the  commit\ngit push\n\n\nIf you’re working entirely with pixi:\ngit add YOUR_FILE\npixi run lint\n# if the file has been formatted, add again\ngit add YOUR_FILE\n# commit the changes\ngit commit -m \"MY COMMIT MESSAGE\"\n# pre-commit will run again automatically\n# push the  commit\ngit push"
+    "text": "Code formatting and pre-commit\nSkrub enforces some strict formatting rules to ensure code quality. This is done through pre-commit hooks. pre-commit must be installed, then it will run before every commit.\n\nFrom environmentPixi\n\n\n\nMake sure pre-commit is installed in the current environment\n\n# install with pip in the env\npip install pre-commit\n# install pre-commit using the repository's configuration\npre-commit install\nThen, add modified files and run pre-commit on them.\ngit add YOUR_FILE\npre-commit\n# if the file has been formatted, add again\ngit add YOUR_FILE\n# commit the changes\ngit commit -m \"MY COMMIT MESSAGE\"\n# pre-commit will run again automatically\n# push the  commit\ngit push\n\n\nIf you’re working entirely with pixi:\ngit add YOUR_FILE\npixi run lint\n# if the file has been formatted, add again\ngit add YOUR_FILE\n# commit the changes\ngit commit -m \"MY COMMIT MESSAGE\"\n# pre-commit will run again automatically\n# push the  commit\ngit push"
   },
   {
     "objectID": "pages/slides/sprint-cfm-june-2026/slides.html#code-formatting-and-pre-commit-1",

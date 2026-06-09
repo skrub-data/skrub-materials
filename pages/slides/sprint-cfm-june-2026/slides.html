@@ -260,7 +260,7 @@
 </section>
 <section id="data-cleaning-with-pandaspolars-setup" class="slide level2 smaller" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Data cleaning with pandas/polars: setup</h2>
-<div id="8e502a91" class="cell" data-execution_count="1">
+<div id="97b93cbb" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb2-1" class="hljs-ln-code"><a></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb2-2" class="hljs-ln-code"><a></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb2-3" class="hljs-ln-code"><a></a></span>
@@ -340,7 +340,7 @@
 </section>
 <section id="skrub.cleaner" class="slide level2 smaller" data-auto-animate="true">
 <h2 data-id="quarto-animate-title"><code>skrub.Cleaner</code></h2>
-<div id="f35b4ead" class="cell" data-execution_count="2">
+<div id="262b78af" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb3-1" class="hljs-ln-code"><a></a><span class="im">from</span> skrub <span class="im">import</span> Cleaner</span>
 <span id="cb3-2" class="hljs-ln-code"><a></a>cleaner <span class="op">=</span> Cleaner(drop_if_constant<span class="op">=</span><span class="va">True</span>, datetime_format<span class="op">=</span><span class="st">'</span><span class="sc">%d</span><span class="st"> %b %Y'</span>)</span>
 <span id="cb3-3" class="hljs-ln-code"><a></a>df_cleaned <span class="op">=</span> cleaner.fit_transform(df_pd)</span>
@@ -398,7 +398,7 @@
 </section>
 <section id="encoding-all-the-features-tablevectorizer" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Encoding <em>all the features</em>: <code>TableVectorizer</code></h2>
-<div id="d398bc99" class="cell" data-execution_count="3">
+<div id="fcebe858" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb4-1" class="hljs-ln-code"><a></a><span class="im">from</span> skrub <span class="im">import</span> TableVectorizer</span>
 <span id="cb4-2" class="hljs-ln-code"><a></a></span>
 <span id="cb4-3" class="hljs-ln-code"><a></a>table_vec <span class="op">=</span> TableVectorizer()</span>
@@ -433,7 +433,7 @@
 </section>
 <section id="columnwise-transformations-with-applytocols-and-selectors" class="slide level2">
 <h2>Columnwise transformations with <code>ApplyToCols</code> and selectors</h2>
-<div id="0150d594" class="cell" data-execution_count="4">
+<div id="49be538f" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
 <span id="cb6-2"><a></a><span class="im">from</span> skrub <span class="im">import</span> ApplyToCols</span>
 <span id="cb6-3"><a></a><span class="im">import</span> skrub.selectors <span class="im">as</span> s</span>
@@ -491,6 +491,19 @@
 </div>
 </div>
 </div>
+</section>
+<section id="a-quick-intro-to-dataops" class="slide level2 smaller">
+<h2>A quick intro to DataOps…</h2>
+<p>Data Ops:</p>
+<ul>
+<li>Extend the <code>scikit-learn</code> machinery to multi-table operations (join, aggregate…)</li>
+<li>Can hold onto states, so they can be used to train transformers and models</li>
+<li>Take care of data leakage</li>
+<li>Let you tune any operation in a pipeline, including choosing which operations to execute</li>
+<li>Guarantee that transformations are repeated exactly at prediction time</li>
+<li>Can be persisted easily</li>
+</ul>
+<p>Interested? We can talk about Data Ops during the sprint.</p>
 </section></section>
 <section id="resources-and-contacts" class="title-slide slide level1 smaller center">
 <h1>Resources and contacts</h1>
@@ -525,6 +538,51 @@
 <p>Add the <code>upstream</code> remote to pull the latest version of skrub:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a></a><span class="fu">git</span> remote add upstream https://github.com/skrub-data/skrub.git</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>You can check that the remote has been added with <code>git remote -v</code>.</p>
+<p>Fetch from upstream to update your fork:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a></a><span class="fu">git</span> fetch upstream</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="opening-a-pr-and-contributing-upstream" class="slide level2 smaller">
+<h2>Opening a PR and contributing upstream</h2>
+<p>More detail is available in the <a href="https://skrub-data.org/stable/CONTRIBUTING.html">contributing guide</a></p>
+<p>Start by creating a branch:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a></a><span class="co"># fetch latest updates and start from the current head</span></span>
+<span id="cb10-2"><a></a><span class="fu">git</span> fetch upstream</span>
+<span id="cb10-3"><a></a><span class="co"># create a new branch and switch to it </span></span>
+<span id="cb10-4"><a></a><span class="fu">git</span> checkout <span class="at">-b</span> my-branch-name</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Set the upstream branch to be your remote origin:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a></a><span class="fu">git</span> push <span class="at">--set-upstream</span> origin my-branch-name</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Make some changes, then:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a></a><span class="fu">git</span> add ./the/file-i-changed</span>
+<span id="cb12-2"><a></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"my message"</span></span>
+<span id="cb12-3"><a></a><span class="fu">git</span> push</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>At this point, visit the <a href="https://github.com/skrub-data/skrub/pulls">GitHub PR page</a> and open a PR from there.</p>
+</section>
+<section id="about-upstream-and-on-avoiding-conflicts" class="slide level2 smaller">
+<h2>About <code>upstream</code> and on avoiding conflicts</h2>
+<p><code>upstream/main</code> is the “ground truth” for the repository. It is very important to keep up to date with <code>upstream/main</code> to avoid <em>conflicts</em>. This can be done by routinely <strong>merging</strong> your branch with <code>upstream/main</code>. If there are conflicts, they must be resolved before merging.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a></a><span class="co"># verify you're on your branch with </span></span>
+<span id="cb13-2"><a></a><span class="fu">git</span> status</span>
+<span id="cb13-3"><a></a><span class="co"># On branch my-branch-name</span></span>
+<span id="cb13-4"><a></a><span class="co"># Your branch is up to date with 'origin/my-branch-name'.</span></span>
+<span id="cb13-5"><a></a></span>
+<span id="cb13-6"><a></a><span class="co"># fetch from upstream</span></span>
+<span id="cb13-7"><a></a><span class="fu">git</span> fetch upstream</span>
+<span id="cb13-8"><a></a></span>
+<span id="cb13-9"><a></a><span class="co"># merge with upstream</span></span>
+<span id="cb13-10"><a></a><span class="fu">git</span> merge upstream/main</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Important</strong></p>
+</div>
+<div class="callout-content">
+<p>Remember: you’re bringing information from <code>upstream/main</code> into <code>my-branch-name</code>, so you need to be inside <code>my-branch-name</code> and merge with <code>upstream/main</code>.</p>
+</div>
+</div>
+</div>
 </section>
 <section id="setting-up-the-environment" class="slide level2 smaller">
 <h2>Setting up the environment</h2>
@@ -549,55 +607,55 @@
 <ul>
 <li>Create the venv (in the current dir):</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a></a><span class="ex">python</span> <span class="at">-m</span> venv dev-skrub</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a></a><span class="ex">python</span> <span class="at">-m</span> venv dev-skrub</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
 <li>Activate the venv:</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a></a><span class="bu">source</span> dev-skrub/bin/activate</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a></a><span class="bu">source</span> dev-skrub/bin/activate</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
 <li>Install skrub and dependencies:</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a></a><span class="ex">pip</span> install <span class="at">-e</span> <span class="st">".[dev]"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a></a><span class="ex">pip</span> install <span class="at">-e</span> <span class="st">".[dev]"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="tabset-1-2">
 <ul>
 <li>Create the venv (in the current dir):</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a></a><span class="ex">uv</span> venv dev-skrub </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a></a><span class="ex">uv</span> venv dev-skrub </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
 <li>Activate the venv:</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a></a><span class="bu">source</span> activate </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a></a><span class="bu">source</span> activate </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
 <li>Install skrub and dev dependencies:</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a></a><span class="ex">uv</span> pip install <span class="at">-e</span> <span class="st">".[dev]"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a></a><span class="ex">uv</span> pip install <span class="at">-e</span> <span class="st">".[dev]"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="tabset-1-3">
 <ul>
 <li>Create the conda environment:</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a></a><span class="ex">conda</span> create <span class="at">-n</span> dev-skrub</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a></a><span class="ex">conda</span> create <span class="at">-n</span> dev-skrub</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
 <li>Activate the enviornment</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a></a><span class="ex">conda</span> activate dev-skrub</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a></a><span class="ex">conda</span> activate dev-skrub</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
 <li>Install skrub and dependencies:</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a></a><span class="ex">pip</span> install <span class="at">-e</span> <span class="st">".[dev]"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a></a><span class="ex">pip</span> install <span class="at">-e</span> <span class="st">".[dev]"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="tabset-1-4">
 <ul>
 <li>Install pixi from the <a href="https://pixi.sh/latest/installation/">pixi homepage</a></li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a></a><span class="co">#  Install an environment:</span></span>
-<span id="cb18-2"><a></a><span class="ex">pixi</span> install dev</span>
-<span id="cb18-3"><a></a><span class="co"># activate dev from IDE</span></span>
-<span id="cb18-4"><a></a><span class="co"># Run a command in a specific environment:</span></span>
-<span id="cb18-5"><a></a><span class="ex">pixi</span> run <span class="at">-e</span> ci-py309-min-deps COMMAND</span>
-<span id="cb18-6"><a></a><span class="co"># Spawn a shell with the given env:</span></span>
-<span id="cb18-7"><a></a><span class="ex">pixi</span> shell <span class="at">-e</span> ci-latest-optional-deps</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a></a><span class="co">#  Install an environment:</span></span>
+<span id="cb23-2"><a></a><span class="ex">pixi</span> install dev</span>
+<span id="cb23-3"><a></a><span class="co"># activate dev from IDE</span></span>
+<span id="cb23-4"><a></a><span class="co"># Run a command in a specific environment:</span></span>
+<span id="cb23-5"><a></a><span class="ex">pixi</span> run <span class="at">-e</span> ci-py309-min-deps COMMAND</span>
+<span id="cb23-6"><a></a><span class="co"># Spawn a shell with the given env:</span></span>
+<span id="cb23-7"><a></a><span class="ex">pixi</span> shell <span class="at">-e</span> ci-latest-optional-deps</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </div>
@@ -626,13 +684,13 @@
 <div class="tab-content">
 <div id="tabset-2-1">
 <p>From inside the root skrub folder, and after activating the environment</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a></a><span class="ex">pytest</span> <span class="at">--pyargs</span> skrub</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a></a><span class="ex">pytest</span> <span class="at">--pyargs</span> skrub</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="tabset-2-2">
 <p>Run all tests (you will be prompted to choose an env, you can pick dev):</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a></a><span class="ex">pixi</span> run test</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a></a><span class="ex">pixi</span> run test</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Run tests in a specific env</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a></a><span class="ex">pixi</span> run <span class="at">-e</span> dev test</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a></a><span class="ex">pixi</span> run <span class="at">-e</span> dev test</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </div>
@@ -640,8 +698,9 @@
 <section id="running-tests-1" class="slide level2">
 <h2>Running tests</h2>
 <p>Tests are stored in <code>skrub/tests</code>, or in a <code>tests</code> subfolder.</p>
-<p>It is possible to run specific tests by providing a path. To test <code>TableVectorizer</code>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a></a><span class="ex">pytest</span> <span class="at">-vsl</span> skrub/tests/test_table_vectorizer.py </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>It is possible to run specific tests by providing a path:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a></a><span class="co"># To test `TableVectorizer`</span></span>
+<span id="cb27-2"><a></a><span class="ex">pytest</span> <span class="at">-vsl</span> skrub/tests/test_table_vectorizer.py </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><code>-vsl</code> prints out more information compared to the default.</p>
 </section>
 <section id="working-on-the-documentation" class="slide level2 smaller">
@@ -651,36 +710,55 @@
 <ul id="tabset-3" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-3-1">From environment</a></li><li><a href="#tabset-3-2">With pixi</a></li></ul>
 <div class="tab-content">
 <div id="tabset-3-1">
-<p>Build the doc from the <code>doc</code> folder using:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a></a><span class="co"># Build the full documentation, including examples</span></span>
-<span id="cb23-2"><a></a><span class="fu">make</span> html</span>
-<span id="cb23-3"><a></a><span class="co"># on Windows</span></span>
-<span id="cb23-4"><a></a><span class="ex">make.bat</span> html</span>
-<span id="cb23-5"><a></a></span>
-<span id="cb23-6"><a></a><span class="co"># Build documentation without running examples (faster)</span></span>
-<span id="cb23-7"><a></a><span class="fu">make</span> html-noplot</span>
-<span id="cb23-8"><a></a><span class="co"># on Windows</span></span>
-<span id="cb23-9"><a></a><span class="ex">make.bat</span> html-noplot</span>
-<span id="cb23-10"><a></a></span>
-<span id="cb23-11"><a></a><span class="co"># Clean previously built documentation</span></span>
-<span id="cb23-12"><a></a><span class="fu">make</span> clean</span>
-<span id="cb23-13"><a></a><span class="co"># on Windows</span></span>
-<span id="cb23-14"><a></a><span class="ex">make.bat</span> clean</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a></a><span class="co"># From the doc/ folder</span></span>
+<span id="cb28-2"><a></a><span class="co"># Build the full documentation, including examples</span></span>
+<span id="cb28-3"><a></a><span class="fu">make</span> html</span>
+<span id="cb28-4"><a></a></span>
+<span id="cb28-5"><a></a><span class="co"># Build documentation without running examples (faster)</span></span>
+<span id="cb28-6"><a></a><span class="fu">make</span> html-noplot</span>
+<span id="cb28-7"><a></a></span>
+<span id="cb28-8"><a></a><span class="co"># Clean previously built documentation</span></span>
+<span id="cb28-9"><a></a><span class="fu">make</span> clean</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="tabset-3-2">
 <p>From the skrub root folder (where <code>pyproject.toml</code> is):</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a></a><span class="co"># Build the full documentation, including examples</span></span>
-<span id="cb24-2"><a></a><span class="ex">pixi</span> run build-doc</span>
-<span id="cb24-3"><a></a></span>
-<span id="cb24-4"><a></a><span class="co"># Build documentation without running examples (faster)</span></span>
-<span id="cb24-5"><a></a><span class="ex">pixi</span> run build-doc-quick</span>
-<span id="cb24-6"><a></a></span>
-<span id="cb24-7"><a></a><span class="co"># Clean previously built documentation</span></span>
-<span id="cb24-8"><a></a><span class="ex">pixi</span> run clean-doc</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a></a><span class="co"># Build the full documentation, including examples</span></span>
+<span id="cb29-2"><a></a><span class="ex">pixi</span> run build-doc</span>
+<span id="cb29-3"><a></a></span>
+<span id="cb29-4"><a></a><span class="co"># Build documentation without running examples (faster)</span></span>
+<span id="cb29-5"><a></a><span class="ex">pixi</span> run build-doc-quick</span>
+<span id="cb29-6"><a></a></span>
+<span id="cb29-7"><a></a><span class="co"># Clean previously built documentation</span></span>
+<span id="cb29-8"><a></a><span class="ex">pixi</span> run clean-doc</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </div>
-<p>After rendering the docs, open the <code>doc/_build/html/index.html</code> file with a browser.</p>
+<p>After rendering the docs, open the <code>doc/_build/html/index.html</code> file with a browser (or <code>open doc/_build/html/index.html</code>).</p>
+</section>
+<section id="working-on-the-documentation-on-windows" class="slide level2">
+<h2>Working on the documentation on Windows</h2>
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Warning</strong></p>
+</div>
+<div class="callout-content">
+<p>On Windows, building the documentation may fail because it requires specific permissions. In that case, let the CI build the documentation and check it from the PR page.</p>
+</div>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a></a><span class="co"># From the doc/ folder</span></span>
+<span id="cb30-2"><a></a><span class="co"># Build the full documentation, including examples</span></span>
+<span id="cb30-3"><a></a><span class="ex">make.bat</span> html</span>
+<span id="cb30-4"><a></a></span>
+<span id="cb30-5"><a></a><span class="co"># Build documentation without running examples (faster)</span></span>
+<span id="cb30-6"><a></a><span class="ex">make.bat</span> html-noplot</span>
+<span id="cb30-7"><a></a></span>
+<span id="cb30-8"><a></a><span class="co"># Clean previously built documentation</span></span>
+<span id="cb30-9"><a></a><span class="ex">make.bat</span> clean</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="writing-an-example" class="slide level2">
 <h2>Writing an example</h2>
@@ -690,47 +768,6 @@
 <li>Before commmitting, the documentation should be built (at least in <code>quick</code> mode) to check that the example is being rendered correctly.</li>
 </ul>
 <p><a href="https://skrub-data.org/stable/tutorial_example.html">Full guide</a></p>
-</section>
-<section id="opening-a-pr-and-contributing-upstream" class="slide level2 smaller">
-<h2>Opening a PR and contributing upstream</h2>
-<p>More detail is available in the <a href="https://skrub-data.org/stable/CONTRIBUTING.html">contributing guide</a></p>
-<p>Start by creating a branch:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a></a><span class="co"># fetch latest updates and start from the current head</span></span>
-<span id="cb25-2"><a></a><span class="fu">git</span> fetch upstream</span>
-<span id="cb25-3"><a></a><span class="co"># create a new branch and switch to it </span></span>
-<span id="cb25-4"><a></a><span class="fu">git</span> checkout <span class="at">-b</span> my-branch-name-eg-fix-issue-123</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Make some changes, then:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a></a><span class="fu">git</span> add ./the/file-i-changed</span>
-<span id="cb26-2"><a></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"my message"</span></span>
-<span id="cb26-3"><a></a><span class="fu">git</span> push <span class="at">--set-upstream</span> origin my-branch-name-eg-fix-issue-123</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>At this point, visit the <a href="https://github.com/skrub-data/skrub/pulls">GitHub PR page</a> and open a PR from there.</p>
-</section>
-<section id="about-upstream-and-on-avoiding-conflicts" class="slide level2 smaller">
-<h2>About <code>upstream</code> and on avoiding conflicts</h2>
-<p><code>upstream/main</code> is the “ground truth” for the repository. It is very important to keep up to date with <code>upstream/main</code> to avoid conflicts. This can be done by routinely <strong>merging</strong> your branch with <code>upstream/main</code>.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a></a><span class="co"># verify you're on your branch with </span></span>
-<span id="cb27-2"><a></a><span class="fu">git</span> status</span>
-<span id="cb27-3"><a></a><span class="co"># On branch my-branch-name</span></span>
-<span id="cb27-4"><a></a><span class="co"># Your branch is up to date with 'origin/my-branch-name'.</span></span>
-<span id="cb27-5"><a></a></span>
-<span id="cb27-6"><a></a><span class="co"># fetch from upstream</span></span>
-<span id="cb27-7"><a></a><span class="fu">git</span> fetch upstream</span>
-<span id="cb27-8"><a></a></span>
-<span id="cb27-9"><a></a><span class="co"># merge with upstream</span></span>
-<span id="cb27-10"><a></a><span class="fu">git</span> merge upstream/main</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="callout callout-important callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Important</strong></p>
-</div>
-<div class="callout-content">
-<p>Remember: you’re bringing information from <code>upstream/main</code> into <code>my-branch-name</code>, so you need to be inside <code>my-branch-name</code> and merge with <code>upstream/main</code>.</p>
-</div>
-</div>
-</div>
 </section>
 <section id="code-formatting-and-pre-commit" class="slide level2 smaller">
 <h2>Code formatting and <code>pre-commit</code></h2>
@@ -742,31 +779,32 @@
 <ul>
 <li>Make sure <code>pre-commit</code> is installed in the current environment</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a></a><span class="ex">pre-commit</span> install</span>
-<span id="cb28-2"><a></a><span class="co"># install with pip if needed</span></span>
-<span id="cb28-3"><a></a><span class="ex">pip</span> install pre-commit</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><a></a><span class="co"># install with pip in the env</span></span>
+<span id="cb31-2"><a></a><span class="ex">pip</span> install pre-commit</span>
+<span id="cb31-3"><a></a><span class="co"># install pre-commit using the repository's configuration</span></span>
+<span id="cb31-4"><a></a><span class="ex">pre-commit</span> install</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Then, add modified files and run pre-commit on them.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a></a><span class="fu">git</span> add YOUR_FILE</span>
-<span id="cb29-2"><a></a><span class="ex">pre-commit</span></span>
-<span id="cb29-3"><a></a><span class="co"># if the file has been formatted, add again</span></span>
-<span id="cb29-4"><a></a><span class="fu">git</span> add YOUR_FILE</span>
-<span id="cb29-5"><a></a><span class="co"># commit the changes</span></span>
-<span id="cb29-6"><a></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"MY COMMIT MESSAGE"</span></span>
-<span id="cb29-7"><a></a><span class="co"># pre-commit will run again automatically</span></span>
-<span id="cb29-8"><a></a><span class="co"># push the  commit</span></span>
-<span id="cb29-9"><a></a><span class="fu">git</span> push</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a></a><span class="fu">git</span> add YOUR_FILE</span>
+<span id="cb32-2"><a></a><span class="ex">pre-commit</span></span>
+<span id="cb32-3"><a></a><span class="co"># if the file has been formatted, add again</span></span>
+<span id="cb32-4"><a></a><span class="fu">git</span> add YOUR_FILE</span>
+<span id="cb32-5"><a></a><span class="co"># commit the changes</span></span>
+<span id="cb32-6"><a></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"MY COMMIT MESSAGE"</span></span>
+<span id="cb32-7"><a></a><span class="co"># pre-commit will run again automatically</span></span>
+<span id="cb32-8"><a></a><span class="co"># push the  commit</span></span>
+<span id="cb32-9"><a></a><span class="fu">git</span> push</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="tabset-4-2">
 <p>If you’re working entirely with pixi:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a></a><span class="fu">git</span> add YOUR_FILE</span>
-<span id="cb30-2"><a></a><span class="ex">pixi</span> run lint</span>
-<span id="cb30-3"><a></a><span class="co"># if the file has been formatted, add again</span></span>
-<span id="cb30-4"><a></a><span class="fu">git</span> add YOUR_FILE</span>
-<span id="cb30-5"><a></a><span class="co"># commit the changes</span></span>
-<span id="cb30-6"><a></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"MY COMMIT MESSAGE"</span></span>
-<span id="cb30-7"><a></a><span class="co"># pre-commit will run again automatically</span></span>
-<span id="cb30-8"><a></a><span class="co"># push the  commit</span></span>
-<span id="cb30-9"><a></a><span class="fu">git</span> push</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb33-1"><a></a><span class="fu">git</span> add YOUR_FILE</span>
+<span id="cb33-2"><a></a><span class="ex">pixi</span> run lint</span>
+<span id="cb33-3"><a></a><span class="co"># if the file has been formatted, add again</span></span>
+<span id="cb33-4"><a></a><span class="fu">git</span> add YOUR_FILE</span>
+<span id="cb33-5"><a></a><span class="co"># commit the changes</span></span>
+<span id="cb33-6"><a></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"MY COMMIT MESSAGE"</span></span>
+<span id="cb33-7"><a></a><span class="co"># pre-commit will run again automatically</span></span>
+<span id="cb33-8"><a></a><span class="co"># push the  commit</span></span>
+<span id="cb33-9"><a></a><span class="fu">git</span> push</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </div>
