@@ -85,30 +85,6 @@ df_pd = pd.DataFrame(data)
 display(df_pd)
 ```
 
-
-## Nulls, datetimes, constant columns with pandas/polars {.smaller auto-animate="true"}
-
-```{python}
-#| echo: true
-# Parse the datetime strings with a specific format
-df_pd['Date'] = pd.to_datetime(df_pd['Date'], format='%d %b %Y')
-
-# Drop columns with only a single unique value
-df_pd_cleaned = df_pd.loc[:, df_pd.nunique(dropna=True) > 1]
-
-# Function to drop columns with only missing values or empty strings
-def drop_empty_columns(df):
-    # Drop columns with only missing values
-    df_cleaned = df.dropna(axis=1, how='all')
-    # Drop columns with only empty strings
-    empty_string_cols = df_cleaned.columns[df_cleaned.eq('').all()]
-    df_cleaned = df_cleaned.drop(columns=empty_string_cols)
-    return df_cleaned
-
-# Apply the function to the DataFrame
-df_pd_cleaned = drop_empty_columns(df_pd_cleaned)
-```
-
 ## `skrub.Cleaner` {.smaller auto-animate="true"}
 
 ```{python}
@@ -156,8 +132,31 @@ model = skrub.tabular_pipeline(Ridge())
 - `StringEncoder`: quick, robust encoding of categorical and discrete features
 - `TextEncoder`: encode text and strings using pre-trained language models
 
-# Resources and contacts {.smaller}
+## Columnwise transformations with `ApplyToCols` and selectors
+```{python}
+#| echo: true
+from sklearn.preprocessing import StandardScaler
+from skrub import ApplyToCols
+import skrub.selectors as s
+df_id = pd.DataFrame(dict(id=[1000, 2000], A=[-10.0, 10.0], B=[-10.0, 0.0], C=[19, 20], D=["foo", "bar"]))
+df_id
+exc_scaler = ApplyToCols(StandardScaler(), exclude_cols=s.string() | "id")
+exc_scaler.fit_transform(df_id)
+```
 
+## A quick intro to DataOps... {.smaller}
+Data Ops:
+
+- Extend the `scikit-learn` machinery to multi-table operations (join, aggregate...)
+- Can hold onto states, so they can be used to train transformers and models
+- Take care of data leakage
+- Let you tune any operation in a pipeline, including choosing which operations to execute
+- Guarantee that transformations are repeated exactly at prediction time
+- Can be persisted easily
+
+Interested? We can talk about Data Ops during the sprint.
+
+# Resources and contacts {.smaller}
 
 ::: {.nonincremental}
 Do you want to learn more? 
@@ -194,13 +193,71 @@ git remote add upstream https://github.com/skrub-data/skrub.git
 ```
 You can check that the remote has been added with `git remote -v`.
 
+Fetch from upstream to update your fork:
+
+```sh
+git fetch upstream
+```
+
+## Opening a PR and contributing upstream {.smaller}
+More detail is available in the [contributing guide](https://skrub-data.org/stable/CONTRIBUTING.html)
+
+Start by creating a branch:
+```sh
+# fetch latest updates and start from the current head
+git fetch upstream
+# create a new branch and switch to it 
+git checkout -b my-branch-name
+```
+
+Set the upstream branch to be your remote origin:
+
+```sh
+git push --set-upstream origin my-branch-name
+```
+
+Make some changes, then:
+```sh
+git add ./the/file-i-changed
+git commit -m "my message"
+git push
+```
+At this point, visit the [GitHub PR page](https://github.com/skrub-data/skrub/pulls)
+and open a PR from there.
+
+## About `upstream` and on avoiding conflicts {.smaller}
+`upstream/main` is the "ground truth" for the repository. It is very important 
+to keep up to date with `upstream/main` to avoid _conflicts_. This can be done by
+routinely **merging** your branch with `upstream/main`. If there are conflicts,
+they must be resolved before merging.
+
+```sh
+# verify you're on your branch with 
+git status
+# On branch my-branch-name
+# Your branch is up to date with 'origin/my-branch-name'.
+
+# fetch from upstream
+git fetch upstream
+
+# merge with upstream
+git merge upstream/main
+```
+
+::: {.callout-important}
+
+Remember: you're bringing information from `upstream/main` into `my-branch-name`, 
+so you need to be inside `my-branch-name` and merge with `upstream/main`. 
+
+:::
+
 
 ## Setting up the environment {.smaller}
 
 ::: {.callout-tip}
 
 Use any env tool you're comfortable with! If you have never used
-virtual environments before, use `venv`.   
+virtual environments before, use `venv`.
 
 :::
 
@@ -267,9 +324,6 @@ pixi shell -e ci-latest-optional-deps
 
 
 
-
-
-
 ## Note on the `pixi.lock` file
 
 ::: {.callout-important}
@@ -303,9 +357,10 @@ pixi run -e dev test
 ## Running tests
 Tests are stored in `skrub/tests`, or in a `tests` subfolder. 
 
-It is possible to run specific tests by providing a path. To test `TableVectorizer`: 
+It is possible to run specific tests by providing a path: 
 
 ```sh
+# To test `TableVectorizer`
 pytest -vsl skrub/tests/test_table_vectorizer.py 
 ```
 
@@ -318,24 +373,18 @@ cross-references and everything else.
 
 ::: {.panel-tabset}
 ### From environment
-
-Build the doc from the `doc` folder using:
 ```sh
+# From the doc/ folder
 # Build the full documentation, including examples
 make html
-# on Windows
-make.bat html
 
 # Build documentation without running examples (faster)
 make html-noplot
-# on Windows
-make.bat html-noplot
 
 # Clean previously built documentation
 make clean
-# on Windows
-make.bat clean
 ```
+
 
 ### With pixi
 From the skrub root folder (where `pyproject.toml` is):
@@ -352,7 +401,29 @@ pixi run clean-doc
 :::
 
 After rendering the docs, open the `doc/_build/html/index.html` file with a 
-browser.
+browser (or `open doc/_build/html/index.html`).
+
+## Working on the documentation on Windows
+
+::: {.callout-warning}
+
+On Windows, building the documentation may fail because it requires specific permissions.
+In that case, let the CI build the documentation and check it from the PR page. 
+
+:::
+
+```sh
+# From the doc/ folder
+# Build the full documentation, including examples
+make.bat html
+
+# Build documentation without running examples (faster)
+make.bat html-noplot
+
+# Clean previously built documentation
+make.bat clean
+```
+
 
 ## Writing an example
 - Examples are python scripts placed in the `examples/` folder. 
@@ -362,53 +433,6 @@ syntax.
 to check that the example is being rendered correctly. 
 
 [Full guide](https://skrub-data.org/stable/tutorial_example.html)
-
-
-## Opening a PR and contributing upstream {.smaller}
-More detail is available in the [contributing guide](https://skrub-data.org/stable/CONTRIBUTING.html)
-
-Start by creating a branch:
-```sh
-# fetch latest updates and start from the current head
-git fetch upstream
-# create a new branch and switch to it 
-git checkout -b my-branch-name-eg-fix-issue-123
-```
-
-Make some changes, then:
-```sh
-git add ./the/file-i-changed
-git commit -m "my message"
-git push --set-upstream origin my-branch-name-eg-fix-issue-123
-```
-At this point, visit the [GitHub PR page](https://github.com/skrub-data/skrub/pulls)
-and open a PR from there.
-
-## About `upstream` and on avoiding conflicts {.smaller}
-`upstream/main` is the "ground truth" for the repository. It is very important 
-to keep up to date with `upstream/main` to avoid conflicts. This can be done by
-routinely **merging** your branch with `upstream/main`.
-
-```sh
-# verify you're on your branch with 
-git status
-# On branch my-branch-name
-# Your branch is up to date with 'origin/my-branch-name'.
-
-# fetch from upstream
-git fetch upstream
-
-# merge with upstream
-git merge upstream/main
-```
- 
-
-::: {.callout-important}
-
-Remember: you're bringing information from `upstream/main` into `my-branch-name`, 
-so you need to be inside `my-branch-name` and merge with `upstream/main`. 
-
-:::
 
 
 
@@ -421,9 +445,10 @@ every commit.
 ### From environment
 - Make sure `pre-commit` is installed in the current environment 
 ```sh
-pre-commit install
-# install with pip if needed
+# install with pip in the env
 pip install pre-commit
+# install pre-commit using the repository's configuration
+pre-commit install
 ```
 
 Then, add modified files and run pre-commit on them. 
@@ -439,9 +464,6 @@ git commit -m "MY COMMIT MESSAGE"
 # push the  commit
 git push
 ```
-
-
-
 
 ### Pixi
 If you're working entirely with pixi:
