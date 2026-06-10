@@ -2,7 +2,7 @@
 authors = ["Riccardo Cappuzzo <riccardo.cappuzzo@gmail.com>"]
 channels = ["conda-forge"]
 name = "skrub-materials"
-platforms = ["osx-arm64"]
+platforms = ["osx-arm64", "linux-64"]
 version = "0.1.0"
 
 [tasks]
@@ -17,3 +17,4 @@ pyarrow = ">=22.0.0,<23"
 plotly = ">=6.5.0,<7"
 numpy = "*"
 pandas = "*"
+quarto = ">=1.9.38,<2"
