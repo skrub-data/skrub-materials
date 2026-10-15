@@ -1,8 +1,8 @@
 [
   {
-    "listing": "/pages/listings.html",
+    "listing": "/pages/slides/index_slides.html",
     "items": [
-      "/pages/notebooks/categorical-encoders/categorical-encoders.html",
+      "/pages/slides/dataops-20-min/data_ops.html",
       "/pages/slides/sprint-cfm-june-2026/slides.html",
       "/pages/slides/pyladies-tampere/slides.html",
       "/pages/slides/skrub-class-master/slides.html",
@@ -20,8 +20,10 @@
     ]
   },
   {
-    "listing": "/pages/slides/index_slides.html",
+    "listing": "/pages/listings.html",
     "items": [
+      "/pages/notebooks/categorical-encoders/categorical-encoders.html",
+      "/pages/slides/dataops-20-min/data_ops.html",
       "/pages/slides/sprint-cfm-june-2026/slides.html",
       "/pages/slides/pyladies-tampere/slides.html",
       "/pages/slides/skrub-class-master/slides.html",
