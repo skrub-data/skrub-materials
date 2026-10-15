@@ -1,0 +1,327 @@
+---
+title: "Skrub DataOps"
+subtitle: "[skrub-data.org](https://skrub-data.org/)"
+date: 2026-10-16
+author: "Riccardo Cappuzzo"
+institute: "SODA Team - Inria Saclay"
+format:
+  revealjs:
+    code-line-numbers: false
+slide-number: true
+---
+
+
+## Skrub {.smaller}
+
+Machine learning on tabular data
+
+![](images/table_vectorizer.png){width="70%" style="margin-bottom: -1rem;"}
+
+![](images/tabular_pipeline.png){width="60%" style="margin-bottom: -1rem;"}
+
+::: {.incremental}
+- [skrub-data.org](https://skrub-data.org)
+- This talk: the [skrub DataOps](https://skrub-data.org/stable/data_ops.html) framework.
+:::
+
+
+## {.smaller}
+
+:::: {.columns}
+
+::: {.column width="44%"}
+
+**Textbook ML**
+
+<br>
+
+$X \in \mathbb{R}^{n \times p},\ y \in \mathbb{R}^n$
+
+$\hat{y} = f_{\hat{\theta}}(X)$
+
+<br>
+
+```{=html}
+<pre><code class="language-python">estimator = <span style="outline: 3px transparent; outline-offset: 1px;">TabICLRegressor()</span>
+
+cross_validate(estimator, X, y)
+
+estimator.fit(X_train, y_train)
+estimator.predict(X_new)</code></pre>
+```
+:::
+
+::: {.column width="55%"}
+**Data-Science Practice**
+
+![](images/electricity-load-graph.svg)
+:::
+
+::::
+
+## {.smaller}
+
+:::: {.columns}
+
+::: {.column width="44%"}
+
+**Textbook ML**
+
+<br>
+
+$X \in \mathbb{R}^{n \times p},\ y \in \mathbb{R}^n$
+
+$\hat{y} = f_{\hat{\theta}}(X)$
+
+<br>
+
+```{=html}
+<pre><code class="language-python">estimator = TabICLRegressor()
+
+cross_validate(estimator, <span style="outline: 3px solid #2a52a8; outline-offset: 1px;">X</span>, <span style="outline: 3px solid #c04a10; outline-offset: 1px;">y</span>)
+
+estimator.fit(X_train, y_train)
+estimator.predict(X_new)</code></pre>
+```
+:::
+
+::: {.column width="55%"}
+**Data-Science Practice**
+
+![](images/electricity-load-highlighted-Xy-graph.svg)
+:::
+
+::::
+
+## {.smaller}
+
+:::: {.columns}
+
+::: {.column width="44%"}
+
+**Textbook ML**
+
+<br>
+
+$X \in \mathbb{R}^{n \times p},\ y \in \mathbb{R}^n$
+
+$\hat{y} = f_{\hat{\theta}}(X)$
+
+<br>
+
+```{=html}
+<pre><code class="language-python">estimator = <span style="outline: 3px solid blue; outline-offset: 1px;">TabICLRegressor()</span>
+
+cross_validate(estimator, X, y)
+
+estimator.fit(X_train, y_train)
+estimator.predict(X_new)</code></pre>
+```
+:::
+
+::: {.column width="55%"}
+**Data-Science Practice**
+
+![](images/electricity-load-highlighted-apply-graph.svg)
+:::
+
+::::
+
+## 
+To build a ML pipeline, we need to:
+
+- preprocess the data, perform feature engineering, train a model ... 
+- so we need to [**learn a state**]{style="color: #1a5a8a; font-weight: bold;"}... 
+- while avoiding [**data leakage**]{style="color: #1a5a8a; font-weight: bold;"}... 
+- with multi-source input ... 
+
+How do we deal with that? 
+
+## With Data Ops... {.smaller}
+
+**Data wrangling** is part of the pipeline: filtering, resampling, aggregations, joins (i.e. *multi-table input*), ...
+
+Then, after preparing the data: 
+
+- Cross-validate without [**data leaks**]{style="color: #1a5a8a; font-weight: bold;"}.
+- [**Tune choices**]{style="color: #1a5a8a; font-weight: bold;"} with validation scores.
+- Replay on [**new inputs**]{style="color: #1a5a8a; font-weight: bold;"}.
+
+
+::: {.fragment}
+
+::: {.callout-note icon=false style="font-size: 1em;"}
+### DataOps
+
+- All the goodies of the scikit-learn framework: `fit()` & `predict()`, cross-validation, hyperparameter tuning, serialization.
+- Without the usual restrictions & while supporting **arbitrary data processing**.
+  [Multiple inputs, feature & target construction, filtering samples, dynamic arguments for CV splitters & scorers, etc.]{style="font-size: 0.8em; color: gray;"}
+- And more: Optuna integration, dynamic previews, pipeline inspection, ...
+:::
+
+:::
+
+
+## Basic example {.smaller auto-animate="true"}
+
+
+::: {.columns}
+
+::: {.column width=60%}
+
+
+Declare the pipeline
+
+```python
+data_path = skrub.var("data_path")
+data = data_path.skb.apply_func(pd.read_csv)
+X = data.drop(columns="target", errors="ignore").skb.mark_as_X()
+y = data["target"].skb.mark_as_y()
+pred = X.skb.apply(StandardScaler()).skb.apply(LogisticRegression(), y=y)
+```
+
+Cross-validate
+
+```python
+pred.skb.cross_validate({"data_path": "historical_data.csv"})
+```
+
+Make a "learner" (object with `fit()` & `predict()`)
+
+```python
+learner = pred.skb.make_learner().fit({"data_path": "historical_data.csv"})
+learner.predict({"data_path": "new_data.csv"})
+```
+
+
+:::
+
+::: {.column width=40%}
+
+![](images/base_ex.svg)
+
+:::
+
+:::
+
+## Basic example {auto-animate="true"}
+
+![](images/learner-schema/make_learner.svg)
+
+
+## Hyperparameter tuning 1/2 {.smaller auto-animate="true"}
+
+Tuning hyperparameters in scikit-learn can be complex...
+
+```{.python}
+pipe = Pipeline([("dim_reduction", PCA()), ("regressor", Ridge())])
+grid = [
+    {
+        "dim_reduction": [PCA()],
+        "dim_reduction__n_components": [10, 20, 30],
+        "regressor": [Ridge()],
+        "regressor__alpha": loguniform(0.1, 10.0),
+    },
+    {
+        "dim_reduction": [SelectKBest()],
+        "dim_reduction__k": [10, 20, 30],
+        "regressor": [Ridge()],
+        "regressor__alpha": loguniform(0.1, 10.0),
+    },
+    ...
+]
+```
+## Hyperparameter tuning 2/2 {.smaller} 
+
+With Data Ops, you can **define the search space with the estimator**:
+
+```python 
+dim_reduction = X.skb.apply(
+    skrub.choose_from(
+        {
+            "PCA": PCA(n_components=skrub.choose_int(10, 30)),
+            "SelectKBest": SelectKBest(k=skrub.choose_int(10, 30))
+        }, name="dim_reduction"
+    )
+)
+regressor = dim_reduction.skb.apply(
+    skrub.choose_from(
+        {
+            "Ridge": Ridge(alpha=skrub.choose_float(0.1, 10.0, log=True)),
+            "RandomForest": RandomForestRegressor(
+                n_estimators=skrub.choose_int(20, 200, log=True)
+            )
+        }, name="regressor"
+    )
+)
+```
+
+## Run hyperparameter search
+```{.python}
+# fit the search 
+search = regressor.skb.make_randomized_search(
+    scoring="roc_auc", fitted=True, cv=5
+)
+
+# save the best learner
+best_learner = search.best_learner_
+best_learner.predict({"data": new_data})
+```
+
+Use Optuna as backend:
+
+```{.python}
+# fit the search 
+search = regressor.skb.make_randomized_search(
+    scoring="roc_auc", fitted=True, cv=5, backend="optuna"
+)
+```
+
+## Debug the entire plan with the report {.smaller}
+
+
+::: {.columns}
+
+::: {.column width="40%"} 
+
+
+```{.python}
+df = pd.DataFrame({"value": [1, 2, 3], "target": [1, 0, 1]})
+
+data = skrub.var("data", df)
+X = data.drop(columns="target", errors="ignore").skb.mark_as_X()
+y = data["target"].skb.mark_as_y()
+pred = X.skb.apply(
+        StandardScaler()
+    ).skb.apply(
+        LogisticRegression(), y=y
+    )
+pred.skb.report()
+```
+
+:::
+
+::: {.column width="60%"}
+
+<iframe src="images/report/index.html" width="100%" height="480px" style="border: 1px solid #ccc; border-radius: 4px;"> </iframe>
+
+:::
+
+:::
+
+
+## Data Ops go beyond tabular data! 
+
+Data Ops make **no assumption** about the underlying data, or code. 
+
+- [Image classification with pytorch](https://skrub-data.org/stable/auto_examples/02_data_ops/1160_pytorch.html)
+
+
+## In conclusion {.smaller}
+- Data science is harder than what you learn in classes
+- A full ML pipeline involves preprocessing, feature engineering and model training
+- We want to learn a "state" (it's called machine **learning** after all), and do so while avoiding **data leakage**
+- **Data Ops** are a framework that allows to build **stateful pipelines** for
+**arbitraty code**
+- Data Ops extend the scikit-learn `fit` `predict` paradigm to **multi-table inputs**, **feature and target construction**, **sample filtering**... 
+- A Data Ops graph can be exported as a **Learner**, a single object that includes all learned states to work on new data
