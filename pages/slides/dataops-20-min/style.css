@@ -1,0 +1,16 @@
+.emph {
+  color: #1a5a8a;
+  font-weight: bold;
+}
+
+/* Highlighted line(s) shown by code-line-numbers steps */
+.reveal pre.numberSource code > span.highlight-line {
+  background-color: rgba(26, 90, 138, 0.15);
+  box-shadow: inset 3px 0 0 #1a5a8a;
+}
+
+/* Make the dimmed lines even more muted */
+.reveal div.sourceCode pre code.has-line-highlights > span:not(.highlight-line) {
+  opacity: 0.35;
+}
+

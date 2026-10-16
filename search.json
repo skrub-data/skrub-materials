@@ -2433,7 +2433,7 @@
     "href": "pages/slides/dataops-20-min/data_ops.html#section",
     "title": "Skrub DataOps",
     "section": "",
-    "text": "Textbook ML\n\n\\(X \\in \\mathbb{R}^{n \\times p},\\ y \\in \\mathbb{R}^n\\)\n\\(\\hat{y} = f_{\\hat{\\theta}}(X)\\)\n\nestimator = TabICLRegressor()\n\ncross_validate(estimator, X, y)\n\nestimator.fit(X_train, y_train)\nestimator.predict(X_new)\n\nData-Science Practice"
+    "text": "Textbook ML\n\n\\(X \\in \\mathbb{R}^{n \\times p},\\ y \\in \\mathbb{R}^n\\)\n\\(\\hat{y} = f_{\\hat{\\theta}}(X)\\)\n\n\nestimator = TabICLRegressor()\n\ncross_validate(estimator, X, y)\n\nestimator.fit(X_train, y_train)\nestimator.predict(X_new)\n\n\n\nData-Science Practice"
   },
   {
     "objectID": "pages/slides/dataops-20-min/data_ops.html#section-1",
@@ -2454,42 +2454,35 @@
     "href": "pages/slides/dataops-20-min/data_ops.html#section-3",
     "title": "Skrub DataOps",
     "section": "",
-    "text": "To build a ML pipeline, we need to:\n\npreprocess the data, perform feature engineering, train a model …\nso we need to learn a state…\nwhile avoiding data leakage…\nwith multi-source input …\n\nHow do we deal with that?"
+    "text": "To build a ML pipeline, we need to:\n\npreprocess the data, perform feature engineering, train a model …\nso we need to learn a state…\nwhile we evaluate the predictive performance…\nas we avoid data leakage…\nwith multi-source input …\n\nHow do we deal with that?"
   },
   {
     "objectID": "pages/slides/dataops-20-min/data_ops.html#with-data-ops",
     "href": "pages/slides/dataops-20-min/data_ops.html#with-data-ops",
     "title": "Skrub DataOps",
     "section": "With Data Ops…",
-    "text": "With Data Ops…\nData wrangling is part of the pipeline: filtering, resampling, aggregations, joins (i.e. multi-table input), …\nThen, after preparing the data:\n\nCross-validate without data leaks.\nTune choices with validation scores.\nReplay on new inputs.\n\n\n\n\n\n\nDataOps\n\n\n\nAll the goodies of the scikit-learn framework: fit() & predict(), cross-validation, hyperparameter tuning, serialization.\nWithout the usual restrictions & while supporting arbitrary data processing. Multiple inputs, feature & target construction, filtering samples, dynamic arguments for CV splitters & scorers, etc.\nAnd more: Optuna integration, dynamic previews, pipeline inspection, …"
+    "text": "With Data Ops…\nData wrangling is part of the pipeline: filtering, resampling, aggregations, joins (i.e. multi-table input), …\nThen, after preparing the data:\n\nCross-validate without data leaks.\nTune choices with validation scores.\nReplay on new inputs.\n\n\n\n\n\n\nDataOps\n\n\n\nAll the goodies of the scikit-learn framework: fit() & predict(), cross-validation, hyperparameter tuning, serialization.\nWithout the usual restrictions & while supporting arbitrary data processing. Multiple inputs, feature & target construction, filtering samples, dynamic arguments for CV splitters & scorers, etc.\nAnd more: dynamic previews, pipeline inspection, …"
   },
   {
     "objectID": "pages/slides/dataops-20-min/data_ops.html#basic-example",
     "href": "pages/slides/dataops-20-min/data_ops.html#basic-example",
     "title": "Skrub DataOps",
     "section": "Basic example",
-    "text": "Basic example\n\n\nDeclare the pipeline\ndata_path = skrub.var(\"data_path\")\ndata = data_path.skb.apply_func(pd.read_csv)\nX = data.drop(columns=\"target\", errors=\"ignore\").skb.mark_as_X()\ny = data[\"target\"].skb.mark_as_y()\npred = X.skb.apply(StandardScaler()).skb.apply(LogisticRegression(), y=y)\nCross-validate\npred.skb.cross_validate({\"data_path\": \"historical_data.csv\"})\nMake a “learner” (object with fit() & predict())\nlearner = pred.skb.make_learner().fit({\"data_path\": \"historical_data.csv\"})\nlearner.predict({\"data_path\": \"new_data.csv\"})"
-  },
-  {
-    "objectID": "pages/slides/dataops-20-min/data_ops.html#basic-example-1",
-    "href": "pages/slides/dataops-20-min/data_ops.html#basic-example-1",
-    "title": "Skrub DataOps",
-    "section": "Basic example",
-    "text": "Basic example"
+    "text": "Basic example\n\n\n\nDeclare the pipeline\ndata_path = skrub.var(\"data_path\")\ndata = data_path.skb.apply_func(pd.read_csv)\nX = data.drop(columns=\"target\", errors=\"ignore\").skb.mark_as_X()\ny = data[\"target\"].skb.mark_as_y()\npred = X.skb.apply(\n    StandardScaler()\n).skb.apply(LogisticRegression(), y=y)\n\n\nCross-validate\npred.skb.cross_validate(\n    environment={\"data_path\": \"historical_data.csv\"}\n)\n\n\nMake a “learner” (object with fit() & predict())\nlearner = pred.skb.make_learner(\n).fit(\n    environment={\"data_path\": \"historical_data.csv\"}\n)\nlearner.predict(\n    environment={\"data_path\": \"new_data.csv\"}\n)"
   },
   {
     "objectID": "pages/slides/dataops-20-min/data_ops.html#hyperparameter-tuning-12",
     "href": "pages/slides/dataops-20-min/data_ops.html#hyperparameter-tuning-12",
     "title": "Skrub DataOps",
     "section": "Hyperparameter tuning 1/2",
-    "text": "Hyperparameter tuning 1/2\nTuning hyperparameters in scikit-learn can be complex…\npipe = Pipeline([(\"dim_reduction\", PCA()), (\"regressor\", Ridge())])\ngrid = [\n    {\n        \"dim_reduction\": [PCA()],\n        \"dim_reduction__n_components\": [10, 20, 30],\n        \"regressor\": [Ridge()],\n        \"regressor__alpha\": loguniform(0.1, 10.0),\n    },\n    {\n        \"dim_reduction\": [SelectKBest()],\n        \"dim_reduction__k\": [10, 20, 30],\n        \"regressor\": [Ridge()],\n        \"regressor__alpha\": loguniform(0.1, 10.0),\n    },\n    ...\n]"
+    "text": "Hyperparameter tuning 1/2\nTuning hyperparameters in scikit-learn can be complex…\npipe = Pipeline([(\"dim_reduction\", PCA()), (\"regressor\", Ridge())])\ngrid = [\n    {\n        \"dim_reduction\": [PCA()],\n        \"dim_reduction__n_components\": [10, 20, 30],\n        \"regressor\": [Ridge()],\n        \"regressor__alpha\": loguniform(0.1, 10.0),\n    },\n    {\n        \"dim_reduction\": [SelectKBest()],\n        \"dim_reduction__k\": [10, 20, 30],\n        \"regressor\": [Ridge()],\n        \"regressor__alpha\": loguniform(0.1, 10.0),\n    },\n    {\n        \"dim_reduction\": [PCA()],\n        \"dim_reduction__n_components\": [10, 20, 30],\n        \"regressor\": [RandomForestRegressor()],\n        \"regressor__n_estimators\": loguniform(20, 200),\n    },\n    {\n        \"dim_reduction\": [SelectKBest()],\n        \"dim_reduction__k\": [10, 20, 30],\n        \"regressor\": [RandomForestRegressor()],\n        \"regressor__n_estimators\": loguniform(20, 200),\n    },\n]"
   },
   {
     "objectID": "pages/slides/dataops-20-min/data_ops.html#hyperparameter-tuning-22",
     "href": "pages/slides/dataops-20-min/data_ops.html#hyperparameter-tuning-22",
     "title": "Skrub DataOps",
     "section": "Hyperparameter tuning 2/2",
-    "text": "Hyperparameter tuning 2/2\nWith Data Ops, you can define the search space with the estimator:\ndim_reduction = X.skb.apply(\n    skrub.choose_from(\n        {\n            \"PCA\": PCA(n_components=skrub.choose_int(10, 30)),\n            \"SelectKBest\": SelectKBest(k=skrub.choose_int(10, 30))\n        }, name=\"dim_reduction\"\n    )\n)\nregressor = dim_reduction.skb.apply(\n    skrub.choose_from(\n        {\n            \"Ridge\": Ridge(alpha=skrub.choose_float(0.1, 10.0, log=True)),\n            \"RandomForest\": RandomForestRegressor(\n                n_estimators=skrub.choose_int(20, 200, log=True)\n            )\n        }, name=\"regressor\"\n    )\n)"
+    "text": "Hyperparameter tuning 2/2\nWith Data Ops, you can define the search space with the estimator:\ndim_reduction = X.skb.apply(\n    skrub.choose_from(\n        {\n            \"PCA\": PCA(n_components=skrub.choose_int(10, 30)),\n            \"SelectKBest\": SelectKBest(k=skrub.choose_int(10, 30))\n        }, name=\"dim_reduction\"\n    )\n)\n\nChoices can be made about any part of the pipeline:\ndf = pd.DataFrame({\n    \"region\":  [\"North\", \"North\", \"South\", \"South\", \"East\", \"East\", \"North\", \"South\"],\n    \"revenue\": [100.0, 225.0, 70.0, 180.0, 90.0, 300.0, 50.0, 80.0],\n})\ndo = skrub.var(\"data\", df)\ndo.groupby(\"region\")[\"revenue\"].agg(skrub.choose_from([\"mean\", \"sum\", \"max\"]))"
   },
   {
     "objectID": "pages/slides/dataops-20-min/data_ops.html#run-hyperparameter-search",
@@ -2503,7 +2496,7 @@
     "href": "pages/slides/dataops-20-min/data_ops.html#debug-the-entire-plan-with-the-report",
     "title": "Skrub DataOps",
     "section": "Debug the entire plan with the report",
-    "text": "Debug the entire plan with the report\n\n\ndf = pd.DataFrame({\"value\": [1, 2, 3], \"target\": [1, 0, 1]})\n\ndata = skrub.var(\"data\", df)\nX = data.drop(columns=\"target\", errors=\"ignore\").skb.mark_as_X()\ny = data[\"target\"].skb.mark_as_y()\npred = X.skb.apply(\n        StandardScaler()\n    ).skb.apply(\n        LogisticRegression(), y=y\n    )\npred.skb.report()"
+    "text": "Debug the entire plan with the report"
   },
   {
     "objectID": "pages/slides/dataops-20-min/data_ops.html#data-ops-go-beyond-tabular-data",
@@ -2517,7 +2510,7 @@
     "href": "pages/slides/dataops-20-min/data_ops.html#in-conclusion",
     "title": "Skrub DataOps",
     "section": "In conclusion",
-    "text": "In conclusion\n\nData science is harder than what you learn in classes\nA full ML pipeline involves preprocessing, feature engineering and model training\nWe want to learn a “state” (it’s called machine learning after all), and do so while avoiding data leakage\nData Ops are a framework that allows to build stateful pipelines for arbitraty code\nData Ops extend the scikit-learn fit predict paradigm to multi-table inputs, feature and target construction, sample filtering…\nA Data Ops graph can be exported as a Learner, a single object that includes all learned states to work on new data"
+    "text": "In conclusion\n\nData science is harder than what you learn in classes\nA full ML pipeline involves preprocessing, feature engineering and model training\nWe want to learn a “state” (it’s called machine learning after all), evaluate performance and do so while avoiding data leakage\nData Ops are a framework that allows to build stateful pipelines for arbitrary code and inputs\nData Ops extend the scikit-learn fit predict paradigm to multi-table inputs, feature and target construction, sample filtering …\nA Data Ops graph can be exported as a Learner, a single object that includes all learned states to work on new data"
   },
   {
     "objectID": "pages/slides/skrub-intro/skrub-intro.html#plan-for-the-presentation",

@@ -104,6 +104,7 @@
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="../../../site_libs/revealjs/dist/theme/quarto-2740581606dc327e82f18f789b69d8a0.css">
+  <link rel="stylesheet" href="style.css">
   <link href="../../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -236,15 +237,19 @@ Riccardo Cappuzzo
 <p><span class="math inline">\(X \in \mathbb{R}^{n \times p},\ y \in \mathbb{R}^n\)</span></p>
 <p><span class="math inline">\(\hat{y} = f_{\hat{\theta}}(X)\)</span></p>
 <p><br></p>
+<div class="fragment">
 <pre><code class="language-python">estimator = <span style="outline: 3px transparent; outline-offset: 1px;">TabICLRegressor()</span>
 
 cross_validate(estimator, X, y)
 
 estimator.fit(X_train, y_train)
 estimator.predict(X_new)</code></pre>
+</div>
 </div><div class="column" style="width:55%;">
+<div class="fragment">
 <p><strong>Data-Science Practice</strong></p>
 <p><img data-src="images/electricity-load-graph.svg"></p>
+</div>
 </div></div>
 </section>
 <section id="section-1" class="slide level2 smaller">
@@ -293,7 +298,8 @@ estimator.predict(X_new)</code></pre>
 <ul>
 <li>preprocess the data, perform feature engineering, train a model …</li>
 <li>so we need to <span style="color: #1a5a8a; font-weight: bold;"><strong>learn a state</strong></span>…</li>
-<li>while avoiding <span style="color: #1a5a8a; font-weight: bold;"><strong>data leakage</strong></span>…</li>
+<li>while we <span style="color: #1a5a8a; font-weight: bold;"><strong>evaluate the predictive performance</strong></span>…</li>
+<li>as we avoid <span style="color: #1a5a8a; font-weight: bold;"><strong>data leakage</strong></span>…</li>
 <li>with multi-source input …</li>
 </ul>
 <p>How do we deal with that?</p>
@@ -318,7 +324,7 @@ estimator.predict(X_new)</code></pre>
 <ul>
 <li>All the goodies of the scikit-learn framework: <code>fit()</code> &amp; <code>predict()</code>, cross-validation, hyperparameter tuning, serialization.</li>
 <li>Without the usual restrictions &amp; while supporting <strong>arbitrary data processing</strong>. <span style="font-size: 0.8em; color: gray;">Multiple inputs, feature &amp; target construction, filtering samples, dynamic arguments for CV splitters &amp; scorers, etc.</span></li>
-<li>And more: Optuna integration, dynamic previews, pipeline inspection, …</li>
+<li>And more: dynamic previews, pipeline inspection, …</li>
 </ul>
 </div>
 </div>
@@ -330,25 +336,38 @@ estimator.predict(X_new)</code></pre>
 <h2 data-id="quarto-animate-title">Basic example</h2>
 <div class="columns">
 <div class="column" style="width:60%;">
+<div class="fragment" data-fragment-index="1">
 <p>Declare the pipeline</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a>data_path <span class="op">=</span> skrub.var(<span class="st">"data_path"</span>)</span>
-<span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> data_path.skb.apply_func(pd.read_csv)</span>
-<span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> data.drop(columns<span class="op">=</span><span class="st">"target"</span>, errors<span class="op">=</span><span class="st">"ignore"</span>).skb.mark_as_X()</span>
-<span id="cb1-4"><a aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> data[<span class="st">"target"</span>].skb.mark_as_y()</span>
-<span id="cb1-5"><a aria-hidden="true" tabindex="-1"></a>pred <span class="op">=</span> X.skb.<span class="bu">apply</span>(StandardScaler()).skb.<span class="bu">apply</span>(LogisticRegression(), y<span class="op">=</span>y)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-code-line-numbers="|1|2|3,4|5-7|"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-label="1"></a>data_path <span class="op">=</span> skrub.var(<span class="st">"data_path"</span>)</span>
+<span id="cb1-2"><a aria-label="2"></a>data <span class="op">=</span> data_path.skb.apply_func(pd.read_csv)</span>
+<span id="cb1-3"><a aria-label="3"></a>X <span class="op">=</span> data.drop(columns<span class="op">=</span><span class="st">"target"</span>, errors<span class="op">=</span><span class="st">"ignore"</span>).skb.mark_as_X()</span>
+<span id="cb1-4"><a aria-label="4"></a>y <span class="op">=</span> data[<span class="st">"target"</span>].skb.mark_as_y()</span>
+<span id="cb1-5"><a aria-label="5"></a>pred <span class="op">=</span> X.skb.<span class="bu">apply</span>(</span>
+<span id="cb1-6"><a aria-label="6"></a>    StandardScaler()</span>
+<span id="cb1-7"><a aria-label="7"></a>).skb.<span class="bu">apply</span>(LogisticRegression(), y<span class="op">=</span>y)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="fragment">
 <p>Cross-validate</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a>pred.skb.cross_validate({<span class="st">"data_path"</span>: <span class="st">"historical_data.csv"</span>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-code-line-numbers="|2|"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-label="1"></a>pred.skb.cross_validate(</span>
+<span id="cb2-2"><a aria-label="2"></a>    environment<span class="op">=</span>{<span class="st">"data_path"</span>: <span class="st">"historical_data.csv"</span>}</span>
+<span id="cb2-3"><a aria-label="3"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="fragment">
 <p>Make a “learner” (object with <code>fit()</code> &amp; <code>predict()</code>)</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a>learner <span class="op">=</span> pred.skb.make_learner().fit({<span class="st">"data_path"</span>: <span class="st">"historical_data.csv"</span>})</span>
-<span id="cb3-2"><a aria-hidden="true" tabindex="-1"></a>learner.predict({<span class="st">"data_path"</span>: <span class="st">"new_data.csv"</span>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" data-code-line-numbers="|2|3|5|6|"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a aria-label="1"></a>learner <span class="op">=</span> pred.skb.make_learner(</span>
+<span id="cb3-2"><a aria-label="2"></a>).fit(</span>
+<span id="cb3-3"><a aria-label="3"></a>    environment<span class="op">=</span>{<span class="st">"data_path"</span>: <span class="st">"historical_data.csv"</span>}</span>
+<span id="cb3-4"><a aria-label="4"></a>)</span>
+<span id="cb3-5"><a aria-label="5"></a>learner.predict(</span>
+<span id="cb3-6"><a aria-label="6"></a>    environment<span class="op">=</span>{<span class="st">"data_path"</span>: <span class="st">"new_data.csv"</span>}</span>
+<span id="cb3-7"><a aria-label="7"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </div><div class="column" style="width:40%;">
+<div class="fragment" data-fragment-index="2">
 <p><img data-src="images/base_ex.svg"></p>
+</div>
 </div></div>
 </section>
-<section id="basic-example-1" class="slide level2" data-auto-animate="true">
-<h2 data-id="quarto-animate-title">Basic example</h2>
-
-<img data-src="images/learner-schema/make_learner.svg" class="r-stretch"></section>
 <section id="hyperparameter-tuning-12" class="slide level2 smaller" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Hyperparameter tuning 1/2</h2>
 <p>Tuning hyperparameters in scikit-learn can be complex…</p>
@@ -366,66 +385,61 @@ estimator.predict(X_new)</code></pre>
 <span id="cb4-12" class="hljs-ln-code"><a aria-hidden="true" tabindex="-1"></a>        <span class="st">"regressor"</span>: [Ridge()],</span>
 <span id="cb4-13" class="hljs-ln-code"><a aria-hidden="true" tabindex="-1"></a>        <span class="st">"regressor__alpha"</span>: loguniform(<span class="fl">0.1</span>, <span class="fl">10.0</span>),</span>
 <span id="cb4-14" class="hljs-ln-code"><a aria-hidden="true" tabindex="-1"></a>    },</span>
-<span id="cb4-15" class="hljs-ln-code"><a aria-hidden="true" tabindex="-1"></a>    ...</span>
-<span id="cb4-16" class="hljs-ln-code"><a aria-hidden="true" tabindex="-1"></a>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb4-15" class="hljs-ln-code"><a aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb4-16" class="hljs-ln-code"><a aria-hidden="true" tabindex="-1"></a>        <span class="st">"dim_reduction"</span>: [PCA()],</span>
+<span id="cb4-17" class="hljs-ln-code"><a aria-hidden="true" tabindex="-1"></a>        <span class="st">"dim_reduction__n_components"</span>: [<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>],</span>
+<span id="cb4-18" class="hljs-ln-code"><a aria-hidden="true" tabindex="-1"></a>        <span class="st">"regressor"</span>: [RandomForestRegressor()],</span>
+<span id="cb4-19" class="hljs-ln-code"><a aria-hidden="true" tabindex="-1"></a>        <span class="st">"regressor__n_estimators"</span>: loguniform(<span class="dv">20</span>, <span class="dv">200</span>),</span>
+<span id="cb4-20" class="hljs-ln-code"><a aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb4-21" class="hljs-ln-code"><a aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb4-22" class="hljs-ln-code"><a aria-hidden="true" tabindex="-1"></a>        <span class="st">"dim_reduction"</span>: [SelectKBest()],</span>
+<span id="cb4-23" class="hljs-ln-code"><a aria-hidden="true" tabindex="-1"></a>        <span class="st">"dim_reduction__k"</span>: [<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>],</span>
+<span id="cb4-24" class="hljs-ln-code"><a aria-hidden="true" tabindex="-1"></a>        <span class="st">"regressor"</span>: [RandomForestRegressor()],</span>
+<span id="cb4-25" class="hljs-ln-code"><a aria-hidden="true" tabindex="-1"></a>        <span class="st">"regressor__n_estimators"</span>: loguniform(<span class="dv">20</span>, <span class="dv">200</span>),</span>
+<span id="cb4-26" class="hljs-ln-code"><a aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb4-27" class="hljs-ln-code"><a aria-hidden="true" tabindex="-1"></a>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="hyperparameter-tuning-22" class="slide level2 smaller">
 <h2>Hyperparameter tuning 2/2</h2>
-<p>With Data Ops, you can <strong>define the search space with the estimator</strong>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a>dim_reduction <span class="op">=</span> X.skb.<span class="bu">apply</span>(</span>
-<span id="cb5-2"><a aria-hidden="true" tabindex="-1"></a>    skrub.choose_from(</span>
-<span id="cb5-3"><a aria-hidden="true" tabindex="-1"></a>        {</span>
-<span id="cb5-4"><a aria-hidden="true" tabindex="-1"></a>            <span class="st">"PCA"</span>: PCA(n_components<span class="op">=</span>skrub.choose_int(<span class="dv">10</span>, <span class="dv">30</span>)),</span>
-<span id="cb5-5"><a aria-hidden="true" tabindex="-1"></a>            <span class="st">"SelectKBest"</span>: SelectKBest(k<span class="op">=</span>skrub.choose_int(<span class="dv">10</span>, <span class="dv">30</span>))</span>
-<span id="cb5-6"><a aria-hidden="true" tabindex="-1"></a>        }, name<span class="op">=</span><span class="st">"dim_reduction"</span></span>
-<span id="cb5-7"><a aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb5-8"><a aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-9"><a aria-hidden="true" tabindex="-1"></a>regressor <span class="op">=</span> dim_reduction.skb.<span class="bu">apply</span>(</span>
-<span id="cb5-10"><a aria-hidden="true" tabindex="-1"></a>    skrub.choose_from(</span>
-<span id="cb5-11"><a aria-hidden="true" tabindex="-1"></a>        {</span>
-<span id="cb5-12"><a aria-hidden="true" tabindex="-1"></a>            <span class="st">"Ridge"</span>: Ridge(alpha<span class="op">=</span>skrub.choose_float(<span class="fl">0.1</span>, <span class="fl">10.0</span>, log<span class="op">=</span><span class="va">True</span>)),</span>
-<span id="cb5-13"><a aria-hidden="true" tabindex="-1"></a>            <span class="st">"RandomForest"</span>: RandomForestRegressor(</span>
-<span id="cb5-14"><a aria-hidden="true" tabindex="-1"></a>                n_estimators<span class="op">=</span>skrub.choose_int(<span class="dv">20</span>, <span class="dv">200</span>, log<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb5-15"><a aria-hidden="true" tabindex="-1"></a>            )</span>
-<span id="cb5-16"><a aria-hidden="true" tabindex="-1"></a>        }, name<span class="op">=</span><span class="st">"regressor"</span></span>
-<span id="cb5-17"><a aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb5-18"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>With Data Ops, you can <span class="emph"><strong>define the search space with the estimator</strong></span>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" data-code-line-numbers="|2,6,7|4,5|"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-label="1"></a>dim_reduction <span class="op">=</span> X.skb.<span class="bu">apply</span>(</span>
+<span id="cb5-2"><a aria-label="2"></a>    skrub.choose_from(</span>
+<span id="cb5-3"><a aria-label="3"></a>        {</span>
+<span id="cb5-4"><a aria-label="4"></a>            <span class="st">"PCA"</span>: PCA(n_components<span class="op">=</span>skrub.choose_int(<span class="dv">10</span>, <span class="dv">30</span>)),</span>
+<span id="cb5-5"><a aria-label="5"></a>            <span class="st">"SelectKBest"</span>: SelectKBest(k<span class="op">=</span>skrub.choose_int(<span class="dv">10</span>, <span class="dv">30</span>))</span>
+<span id="cb5-6"><a aria-label="6"></a>        }, name<span class="op">=</span><span class="st">"dim_reduction"</span></span>
+<span id="cb5-7"><a aria-label="7"></a>    )</span>
+<span id="cb5-8"><a aria-label="8"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="fragment">
+<p>Choices can be made about <span class="emph"><strong>any part of the pipeline</strong></span>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" data-code-line-numbers="|6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a aria-label="1"></a>df <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb6-2"><a aria-label="2"></a>    <span class="st">"region"</span>:  [<span class="st">"North"</span>, <span class="st">"North"</span>, <span class="st">"South"</span>, <span class="st">"South"</span>, <span class="st">"East"</span>, <span class="st">"East"</span>, <span class="st">"North"</span>, <span class="st">"South"</span>],</span>
+<span id="cb6-3"><a aria-label="3"></a>    <span class="st">"revenue"</span>: [<span class="fl">100.0</span>, <span class="fl">225.0</span>, <span class="fl">70.0</span>, <span class="fl">180.0</span>, <span class="fl">90.0</span>, <span class="fl">300.0</span>, <span class="fl">50.0</span>, <span class="fl">80.0</span>],</span>
+<span id="cb6-4"><a aria-label="4"></a>})</span>
+<span id="cb6-5"><a aria-label="5"></a>do <span class="op">=</span> skrub.var(<span class="st">"data"</span>, df)</span>
+<span id="cb6-6"><a aria-label="6"></a>do.groupby(<span class="st">"region"</span>)[<span class="st">"revenue"</span>].agg(skrub.choose_from([<span class="st">"mean"</span>, <span class="st">"sum"</span>, <span class="st">"max"</span>]))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
 <section id="run-hyperparameter-search" class="slide level2">
 <h2>Run hyperparameter search</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># fit the search </span></span>
-<span id="cb6-2"><a aria-hidden="true" tabindex="-1"></a>search <span class="op">=</span> regressor.skb.make_randomized_search(</span>
-<span id="cb6-3"><a aria-hidden="true" tabindex="-1"></a>    scoring<span class="op">=</span><span class="st">"roc_auc"</span>, fitted<span class="op">=</span><span class="va">True</span>, cv<span class="op">=</span><span class="dv">5</span></span>
-<span id="cb6-4"><a aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb6-5"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-6"><a aria-hidden="true" tabindex="-1"></a><span class="co"># save the best learner</span></span>
-<span id="cb6-7"><a aria-hidden="true" tabindex="-1"></a>best_learner <span class="op">=</span> search.best_learner_</span>
-<span id="cb6-8"><a aria-hidden="true" tabindex="-1"></a>best_learner.predict({<span class="st">"data"</span>: new_data})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Use Optuna as backend:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># fit the search </span></span>
 <span id="cb7-2"><a aria-hidden="true" tabindex="-1"></a>search <span class="op">=</span> regressor.skb.make_randomized_search(</span>
-<span id="cb7-3"><a aria-hidden="true" tabindex="-1"></a>    scoring<span class="op">=</span><span class="st">"roc_auc"</span>, fitted<span class="op">=</span><span class="va">True</span>, cv<span class="op">=</span><span class="dv">5</span>, backend<span class="op">=</span><span class="st">"optuna"</span></span>
-<span id="cb7-4"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb7-3"><a aria-hidden="true" tabindex="-1"></a>    scoring<span class="op">=</span><span class="st">"roc_auc"</span>, fitted<span class="op">=</span><span class="va">True</span>, cv<span class="op">=</span><span class="dv">5</span></span>
+<span id="cb7-4"><a aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-5"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a aria-hidden="true" tabindex="-1"></a><span class="co"># save the best learner</span></span>
+<span id="cb7-7"><a aria-hidden="true" tabindex="-1"></a>best_learner <span class="op">=</span> search.best_learner_</span>
+<span id="cb7-8"><a aria-hidden="true" tabindex="-1"></a>best_learner.predict({<span class="st">"data"</span>: new_data})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Use Optuna as backend:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># fit the search </span></span>
+<span id="cb8-2"><a aria-hidden="true" tabindex="-1"></a>search <span class="op">=</span> regressor.skb.make_randomized_search(</span>
+<span id="cb8-3"><a aria-hidden="true" tabindex="-1"></a>    scoring<span class="op">=</span><span class="st">"roc_auc"</span>, fitted<span class="op">=</span><span class="va">True</span>, cv<span class="op">=</span><span class="dv">5</span>, backend<span class="op">=</span><span class="st">"optuna"</span></span>
+<span id="cb8-4"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="debug-the-entire-plan-with-the-report" class="slide level2 smaller">
 <h2>Debug the entire plan with the report</h2>
-<div class="columns">
-<div class="column" style="width:40%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame({<span class="st">"value"</span>: [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>], <span class="st">"target"</span>: [<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>]})</span>
-<span id="cb8-2"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-3"><a aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> skrub.var(<span class="st">"data"</span>, df)</span>
-<span id="cb8-4"><a aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> data.drop(columns<span class="op">=</span><span class="st">"target"</span>, errors<span class="op">=</span><span class="st">"ignore"</span>).skb.mark_as_X()</span>
-<span id="cb8-5"><a aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> data[<span class="st">"target"</span>].skb.mark_as_y()</span>
-<span id="cb8-6"><a aria-hidden="true" tabindex="-1"></a>pred <span class="op">=</span> X.skb.<span class="bu">apply</span>(</span>
-<span id="cb8-7"><a aria-hidden="true" tabindex="-1"></a>        StandardScaler()</span>
-<span id="cb8-8"><a aria-hidden="true" tabindex="-1"></a>    ).skb.<span class="bu">apply</span>(</span>
-<span id="cb8-9"><a aria-hidden="true" tabindex="-1"></a>        LogisticRegression(), y<span class="op">=</span>y</span>
-<span id="cb8-10"><a aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb8-11"><a aria-hidden="true" tabindex="-1"></a>pred.skb.report()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div><div class="column" style="width:60%;">
 <iframe src="images/report/index.html" width="100%" height="480px" style="border: 1px solid #ccc; border-radius: 4px;">
 </iframe>
-</div></div>
 </section>
 <section id="data-ops-go-beyond-tabular-data" class="slide level2">
 <h2>Data Ops go beyond tabular data!</h2>
@@ -439,10 +453,10 @@ estimator.predict(X_new)</code></pre>
 <ul>
 <li>Data science is harder than what you learn in classes</li>
 <li>A full ML pipeline involves preprocessing, feature engineering and model training</li>
-<li>We want to learn a “state” (it’s called machine <strong>learning</strong> after all), and do so while avoiding <strong>data leakage</strong></li>
-<li><strong>Data Ops</strong> are a framework that allows to build <strong>stateful pipelines</strong> for <strong>arbitraty code</strong></li>
-<li>Data Ops extend the scikit-learn <code>fit</code> <code>predict</code> paradigm to <strong>multi-table inputs</strong>, <strong>feature and target construction</strong>, <strong>sample filtering</strong>…</li>
-<li>A Data Ops graph can be exported as a <strong>Learner</strong>, a single object that includes all learned states to work on new data</li>
+<li>We want to learn a “state” (it’s called machine <strong>learning</strong> after all), <span class="emph"><strong>evaluate performance</strong></span> and do so while avoiding <span class="emph"><strong>data leakage</strong></span></li>
+<li><span class="emph"><strong>Data Ops</strong></span> are a framework that allows to build <span class="emph"><strong>stateful pipelines</strong></span> for <span class="emph"><strong>arbitrary code and inputs</strong></span></li>
+<li>Data Ops extend the scikit-learn <code>fit</code> <code>predict</code> paradigm to <span class="emph"><strong>multi-table inputs</strong></span>, <span class="emph"><strong>feature and target construction</strong></span>, <span class="emph"><strong>sample filtering</strong></span> …</li>
+<li>A Data Ops graph can be exported as a <span class="emph"><strong>Learner</strong></span>, a single object that includes all learned states to work on new data</li>
 </ul>
 
 
