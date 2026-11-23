@@ -14,3 +14,31 @@
   opacity: 0.35;
 }
 
+/* Graph that is revealed node by node as the pipeline code is highlighted */
+.reveal .graph-reveal {
+  position: relative;
+  width: 222pt;
+  height: 231pt;
+}
+
+.reveal .graph-reveal img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+.reveal .graph-reveal .g-step {
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.reveal section:has(.decl-pipeline.visible) .graph-reveal .g-step-1,
+.reveal section:has([data-code-line-numbers="2"].visible) .graph-reveal .g-step-2,
+.reveal section:has([data-code-line-numbers="3,4"].visible) .graph-reveal .g-step-3,
+.reveal section:has([data-code-line-numbers="5-7"].visible) .graph-reveal .g-step-4 {
+  opacity: 1;
+}
+
