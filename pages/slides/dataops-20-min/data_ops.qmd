@@ -189,11 +189,11 @@ Then, after preparing the data:
 
 
 
-::: {.fragment fragment-index=1}
+::: {.fragment .decl-pipeline}
 
 Declare the pipeline
 
-```{.python code-line-numbers="|1|2|3,4|5-7|"}
+```{.python code-line-numbers="1|2|3,4|5-7"}
 data_path = skrub.var("data_path")
 data = data_path.skb.apply_func(pd.read_csv)
 X = data.drop(columns="target", errors="ignore").skb.mark_as_X()
@@ -246,13 +246,14 @@ learner.predict(
 
 ::: {.column width=40%}
 
-
-::: {.fragment fragment-index=2}
-
-![](images/base_ex.svg)
-
-:::
-
+```{=html}
+<div class="graph-reveal">
+<img class="g-step g-step-1" src="images/base_ex_1.svg">
+<img class="g-step g-step-2" src="images/base_ex_2.svg">
+<img class="g-step g-step-3" src="images/base_ex_3.svg">
+<img class="g-step g-step-4" src="images/base_ex_4.svg">
+</div>
+```
 
 :::
 
